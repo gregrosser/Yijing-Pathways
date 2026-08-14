@@ -361,7 +361,7 @@
     <div class="mode-box" id="mode-flip16" data-mode="flip16">Complementary lines 1 &amp; 6</div>
   </div>
   <div class="legend-item">
-    <div class="axis-tag">line 1 /= line 6</div>
+    <div class="axis-tag">line 1 &ne; line 6</div>
     <div class="mode-box" id="mode-trigram" data-mode="trigram">Complementary trigrams</div>
   </div>
 </div>
@@ -520,4 +520,24 @@
   document.addEventListener('click', function (e) {
     if (!e.target.closest('.table-wrap') && !e.target.closest('.mode-box')) clearAllSelected();
   });
+
+  // Align each legend column (axis-tag + mode-box) so it sits centred under
+  // that axis's hexagram glyphs, by measuring the actual rendered position
+  // of a representative .members block on each side.
+  function alignLegendColumns() {
+    var leftMembers = document.querySelector('.cell:not(.right) .members');
+    var rightMembers = document.querySelector('.cell.right .members');
+    var items = document.querySelectorAll('.legend-item');
+    var leftItem = items[0], rightItem = items[1];
+    if (!leftMembers || !rightMembers || !leftItem || !rightItem) return;
+    leftItem.style.transform = '';
+    rightItem.style.transform = '';
+    function centerX(el) { var r = el.getBoundingClientRect(); return r.left + r.width / 2; }
+    var dxLeft = centerX(leftMembers) - centerX(leftItem);
+    var dxRight = centerX(rightMembers) - centerX(rightItem);
+    leftItem.style.transform = 'translateX(' + dxLeft + 'px)';
+    rightItem.style.transform = 'translateX(' + dxRight + 'px)';
+  }
+  window.addEventListener('load', alignLegendColumns);
+  window.addEventListener('resize', alignLegendColumns);
 </script>
