@@ -157,10 +157,17 @@
     color: var(--ink-soft);
   }
   .legend-item { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-  .legend-swatch { width: 24px; height: 6px; background: var(--ink); border-radius: 1px; }
-  .legend-swatch.split { display: flex; gap: 4px; width: 24px; }
-  .legend-swatch.split span { flex: 1; height: 6px; background: var(--ink); border-radius: 1px; }
-  .legend-label { font-size: 0.62rem; letter-spacing: 0.03em; }
+
+  .axis-tag {
+    padding: 4px 12px;
+    border: 1.5px solid var(--rule);
+    border-radius: 6px;
+    font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.03em;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
 
   .mode-box {
     margin-top: 6px;
@@ -350,13 +357,11 @@
 
 <div class="legend">
   <div class="legend-item">
-    <span class="legend-swatch"></span>
-    <span class="legend-label">Yang &mdash; solid</span>
+    <div class="axis-tag">line 1 = line 6</div>
     <div class="mode-box" id="mode-flip16" data-mode="flip16">Complementary lines 1 &amp; 6</div>
   </div>
   <div class="legend-item">
-    <span class="legend-swatch split"><span></span><span></span></span>
-    <span class="legend-label">Yin &mdash; broken</span>
+    <div class="axis-tag">line 1 /= line 6</div>
     <div class="mode-box" id="mode-trigram" data-mode="trigram">Complementary trigrams</div>
   </div>
 </div>
