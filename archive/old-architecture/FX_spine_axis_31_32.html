@@ -1,0 +1,303 @@
+<title>FX_spine_axis_31_32</title>
+<style>
+:root {
+  --paper: #f2ecdc;
+  --paper-panel: #eae2cc;
+  --ink: #201d16;
+  --ink-soft: #6b6355;
+  --ink-faint: #b8ae96;
+  --seal: #a23b2e;
+  --rule: #c9bfa2;
+  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+:root[data-theme="dark"] {
+  --paper: #181510; --paper-panel: #201c15; --ink: #e9e1cd;
+  --ink-soft: #a89d84; --ink-faint: #55503f; --seal: #e2725a; --rule: #3a3527;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #181510; --paper-panel: #201c15; --ink: #e9e1cd;
+    --ink-soft: #a89d84; --ink-faint: #55503f; --seal: #e2725a; --rule: #3a3527;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font-family: var(--font-body); padding: 48px 24px 80px;
+  display: flex; flex-direction: column; align-items: center; gap: 28px;
+}
+.masthead { max-width: 620px; text-align: center; display: flex; flex-direction: column; gap: 10px; }
+h1 { font-family: var(--font-display); font-weight: 400; font-size: 1.9rem; margin: 0; text-wrap: balance; }
+.subhead { font-family: var(--font-mono); font-size: 0.76rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--seal); }
+.caption { font-size: 0.95rem; line-height: 1.55; color: var(--ink-soft); text-wrap: pretty; }
+
+.spine-wrap { position: relative; z-index: 0; width: 100%; max-width: 420px; }
+.spine {
+  display: flex; flex-direction: column;
+  width: 100%;
+}
+.curve-overlay { position: absolute; top: 0; left: 0; pointer-events: none; overflow: visible; z-index: -1; }
+.ribbon { fill: var(--ink-faint); fill-opacity: 0.8; stroke: var(--ink-faint); stroke-width: 1; opacity: 1; }
+.spine-row {
+  display: grid; grid-template-columns: 1fr;
+  align-items: center;
+  padding: 3px 10px;
+}
+.row-idx { display: none; }
+.pair { display: flex; justify-content: center; gap: 18px; }
+.num-circle {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: 50%;
+  border: 1.5px solid var(--ink); font-family: var(--font-mono); font-weight: 700;
+  font-size: 0.92rem; color: var(--ink);
+  background: var(--paper);
+}
+.self-row .num-circle { border-color: var(--seal); color: var(--seal); background: var(--paper); }
+
+.legend { display: flex; gap: 28px; font-size: 0.86rem; color: var(--ink-soft); flex-wrap: wrap; justify-content: center; }
+.legend-item { display: flex; align-items: center; gap: 10px; }
+.swatch { width: 30px; height: 8px; background: var(--ink); border-radius: 2px; }
+.swatch-yin { display: flex; gap: 5px; width: 30px; }
+.swatch-yin span { flex: 1; height: 8px; background: var(--ink); border-radius: 2px; }
+</style>
+
+<div class="masthead">
+  <div class="subhead">FuXi Spine — Axis FX(31,32)</div>
+  <h1>The Inversion Spine</h1>
+  <p class="caption">A vertical column of 64 rows. Row <i>n</i> pairs {zōng(n), n} — n counts sequentially 1 to 64 on the right, and its inversion (line order reversed top-to-bottom) sits on the left, each shown as a circled hexagram number, the two set close together with no separating symbol. The 8 self-inverse hexagrams (zōng(n) = n) are highlighted; every other row's partner reappears later in the spine at its own row, with the pair reversed.</p>
+</div>
+
+<div class="spine-wrap">
+<svg class="curve-overlay" id="curve-overlay"></svg>
+<div class="spine">
+<div class="spine-row self-row" data-row="1"><span class="row-idx">01</span><div class="pair"><span class="num-circle" data-side="left">1</span><span class="num-circle" data-side="right">1</span></div></div>
+<div class="spine-row self-row" data-row="2"><span class="row-idx">02</span><div class="pair"><span class="num-circle" data-side="left">2</span><span class="num-circle" data-side="right">2</span></div></div>
+<div class="spine-row row" data-row="3"><span class="row-idx">03</span><div class="pair"><span class="num-circle" data-side="left">64</span><span class="num-circle" data-side="right">3</span></div></div>
+<div class="spine-row row" data-row="4"><span class="row-idx">04</span><div class="pair"><span class="num-circle" data-side="left">63</span><span class="num-circle" data-side="right">4</span></div></div>
+<div class="spine-row row" data-row="5"><span class="row-idx">05</span><div class="pair"><span class="num-circle" data-side="left">33</span><span class="num-circle" data-side="right">5</span></div></div>
+<div class="spine-row row" data-row="6"><span class="row-idx">06</span><div class="pair"><span class="num-circle" data-side="left">34</span><span class="num-circle" data-side="right">6</span></div></div>
+<div class="spine-row row" data-row="7"><span class="row-idx">07</span><div class="pair"><span class="num-circle" data-side="left">32</span><span class="num-circle" data-side="right">7</span></div></div>
+<div class="spine-row row" data-row="8"><span class="row-idx">08</span><div class="pair"><span class="num-circle" data-side="left">31</span><span class="num-circle" data-side="right">8</span></div></div>
+<div class="spine-row row" data-row="9"><span class="row-idx">09</span><div class="pair"><span class="num-circle" data-side="left">17</span><span class="num-circle" data-side="right">9</span></div></div>
+<div class="spine-row row" data-row="10"><span class="row-idx">10</span><div class="pair"><span class="num-circle" data-side="left">18</span><span class="num-circle" data-side="right">10</span></div></div>
+<div class="spine-row row" data-row="11"><span class="row-idx">11</span><div class="pair"><span class="num-circle" data-side="left">48</span><span class="num-circle" data-side="right">11</span></div></div>
+<div class="spine-row row" data-row="12"><span class="row-idx">12</span><div class="pair"><span class="num-circle" data-side="left">47</span><span class="num-circle" data-side="right">12</span></div></div>
+<div class="spine-row row" data-row="13"><span class="row-idx">13</span><div class="pair"><span class="num-circle" data-side="left">49</span><span class="num-circle" data-side="right">13</span></div></div>
+<div class="spine-row row" data-row="14"><span class="row-idx">14</span><div class="pair"><span class="num-circle" data-side="left">50</span><span class="num-circle" data-side="right">14</span></div></div>
+<div class="spine-row row" data-row="15"><span class="row-idx">15</span><div class="pair"><span class="num-circle" data-side="left">16</span><span class="num-circle" data-side="right">15</span></div></div>
+<div class="spine-row row" data-row="16"><span class="row-idx">16</span><div class="pair"><span class="num-circle" data-side="left">15</span><span class="num-circle" data-side="right">16</span></div></div>
+<div class="spine-row row" data-row="17"><span class="row-idx">17</span><div class="pair"><span class="num-circle" data-side="left">9</span><span class="num-circle" data-side="right">17</span></div></div>
+<div class="spine-row row" data-row="18"><span class="row-idx">18</span><div class="pair"><span class="num-circle" data-side="left">10</span><span class="num-circle" data-side="right">18</span></div></div>
+<div class="spine-row row" data-row="19"><span class="row-idx">19</span><div class="pair"><span class="num-circle" data-side="left">56</span><span class="num-circle" data-side="right">19</span></div></div>
+<div class="spine-row row" data-row="20"><span class="row-idx">20</span><div class="pair"><span class="num-circle" data-side="left">55</span><span class="num-circle" data-side="right">20</span></div></div>
+<div class="spine-row row" data-row="21"><span class="row-idx">21</span><div class="pair"><span class="num-circle" data-side="left">41</span><span class="num-circle" data-side="right">21</span></div></div>
+<div class="spine-row row" data-row="22"><span class="row-idx">22</span><div class="pair"><span class="num-circle" data-side="left">42</span><span class="num-circle" data-side="right">22</span></div></div>
+<div class="spine-row row" data-row="23"><span class="row-idx">23</span><div class="pair"><span class="num-circle" data-side="left">24</span><span class="num-circle" data-side="right">23</span></div></div>
+<div class="spine-row row" data-row="24"><span class="row-idx">24</span><div class="pair"><span class="num-circle" data-side="left">23</span><span class="num-circle" data-side="right">24</span></div></div>
+<div class="spine-row self-row" data-row="25"><span class="row-idx">25</span><div class="pair"><span class="num-circle" data-side="left">25</span><span class="num-circle" data-side="right">25</span></div></div>
+<div class="spine-row self-row" data-row="26"><span class="row-idx">26</span><div class="pair"><span class="num-circle" data-side="left">26</span><span class="num-circle" data-side="right">26</span></div></div>
+<div class="spine-row row" data-row="27"><span class="row-idx">27</span><div class="pair"><span class="num-circle" data-side="left">40</span><span class="num-circle" data-side="right">27</span></div></div>
+<div class="spine-row row" data-row="28"><span class="row-idx">28</span><div class="pair"><span class="num-circle" data-side="left">39</span><span class="num-circle" data-side="right">28</span></div></div>
+<div class="spine-row row" data-row="29"><span class="row-idx">29</span><div class="pair"><span class="num-circle" data-side="left">57</span><span class="num-circle" data-side="right">29</span></div></div>
+<div class="spine-row row" data-row="30"><span class="row-idx">30</span><div class="pair"><span class="num-circle" data-side="left">58</span><span class="num-circle" data-side="right">30</span></div></div>
+<div class="spine-row row" data-row="31"><span class="row-idx">31</span><div class="pair"><span class="num-circle" data-side="left">8</span><span class="num-circle" data-side="right">31</span></div></div>
+<div class="spine-row row" data-row="32"><span class="row-idx">32</span><div class="pair"><span class="num-circle" data-side="left">7</span><span class="num-circle" data-side="right">32</span></div></div>
+<div class="spine-row row" data-row="33"><span class="row-idx">33</span><div class="pair"><span class="num-circle" data-side="left">5</span><span class="num-circle" data-side="right">33</span></div></div>
+<div class="spine-row row" data-row="34"><span class="row-idx">34</span><div class="pair"><span class="num-circle" data-side="left">6</span><span class="num-circle" data-side="right">34</span></div></div>
+<div class="spine-row row" data-row="35"><span class="row-idx">35</span><div class="pair"><span class="num-circle" data-side="left">60</span><span class="num-circle" data-side="right">35</span></div></div>
+<div class="spine-row row" data-row="36"><span class="row-idx">36</span><div class="pair"><span class="num-circle" data-side="left">59</span><span class="num-circle" data-side="right">36</span></div></div>
+<div class="spine-row self-row" data-row="37"><span class="row-idx">37</span><div class="pair"><span class="num-circle" data-side="left">37</span><span class="num-circle" data-side="right">37</span></div></div>
+<div class="spine-row self-row" data-row="38"><span class="row-idx">38</span><div class="pair"><span class="num-circle" data-side="left">38</span><span class="num-circle" data-side="right">38</span></div></div>
+<div class="spine-row row" data-row="39"><span class="row-idx">39</span><div class="pair"><span class="num-circle" data-side="left">28</span><span class="num-circle" data-side="right">39</span></div></div>
+<div class="spine-row row" data-row="40"><span class="row-idx">40</span><div class="pair"><span class="num-circle" data-side="left">27</span><span class="num-circle" data-side="right">40</span></div></div>
+<div class="spine-row row" data-row="41"><span class="row-idx">41</span><div class="pair"><span class="num-circle" data-side="left">21</span><span class="num-circle" data-side="right">41</span></div></div>
+<div class="spine-row row" data-row="42"><span class="row-idx">42</span><div class="pair"><span class="num-circle" data-side="left">22</span><span class="num-circle" data-side="right">42</span></div></div>
+<div class="spine-row row" data-row="43"><span class="row-idx">43</span><div class="pair"><span class="num-circle" data-side="left">44</span><span class="num-circle" data-side="right">43</span></div></div>
+<div class="spine-row row" data-row="44"><span class="row-idx">44</span><div class="pair"><span class="num-circle" data-side="left">43</span><span class="num-circle" data-side="right">44</span></div></div>
+<div class="spine-row row" data-row="45"><span class="row-idx">45</span><div class="pair"><span class="num-circle" data-side="left">53</span><span class="num-circle" data-side="right">45</span></div></div>
+<div class="spine-row row" data-row="46"><span class="row-idx">46</span><div class="pair"><span class="num-circle" data-side="left">54</span><span class="num-circle" data-side="right">46</span></div></div>
+<div class="spine-row row" data-row="47"><span class="row-idx">47</span><div class="pair"><span class="num-circle" data-side="left">12</span><span class="num-circle" data-side="right">47</span></div></div>
+<div class="spine-row row" data-row="48"><span class="row-idx">48</span><div class="pair"><span class="num-circle" data-side="left">11</span><span class="num-circle" data-side="right">48</span></div></div>
+<div class="spine-row row" data-row="49"><span class="row-idx">49</span><div class="pair"><span class="num-circle" data-side="left">13</span><span class="num-circle" data-side="right">49</span></div></div>
+<div class="spine-row row" data-row="50"><span class="row-idx">50</span><div class="pair"><span class="num-circle" data-side="left">14</span><span class="num-circle" data-side="right">50</span></div></div>
+<div class="spine-row row" data-row="51"><span class="row-idx">51</span><div class="pair"><span class="num-circle" data-side="left">52</span><span class="num-circle" data-side="right">51</span></div></div>
+<div class="spine-row row" data-row="52"><span class="row-idx">52</span><div class="pair"><span class="num-circle" data-side="left">51</span><span class="num-circle" data-side="right">52</span></div></div>
+<div class="spine-row row" data-row="53"><span class="row-idx">53</span><div class="pair"><span class="num-circle" data-side="left">45</span><span class="num-circle" data-side="right">53</span></div></div>
+<div class="spine-row row" data-row="54"><span class="row-idx">54</span><div class="pair"><span class="num-circle" data-side="left">46</span><span class="num-circle" data-side="right">54</span></div></div>
+<div class="spine-row row" data-row="55"><span class="row-idx">55</span><div class="pair"><span class="num-circle" data-side="left">20</span><span class="num-circle" data-side="right">55</span></div></div>
+<div class="spine-row row" data-row="56"><span class="row-idx">56</span><div class="pair"><span class="num-circle" data-side="left">19</span><span class="num-circle" data-side="right">56</span></div></div>
+<div class="spine-row row" data-row="57"><span class="row-idx">57</span><div class="pair"><span class="num-circle" data-side="left">29</span><span class="num-circle" data-side="right">57</span></div></div>
+<div class="spine-row row" data-row="58"><span class="row-idx">58</span><div class="pair"><span class="num-circle" data-side="left">30</span><span class="num-circle" data-side="right">58</span></div></div>
+<div class="spine-row row" data-row="59"><span class="row-idx">59</span><div class="pair"><span class="num-circle" data-side="left">36</span><span class="num-circle" data-side="right">59</span></div></div>
+<div class="spine-row row" data-row="60"><span class="row-idx">60</span><div class="pair"><span class="num-circle" data-side="left">35</span><span class="num-circle" data-side="right">60</span></div></div>
+<div class="spine-row self-row" data-row="61"><span class="row-idx">61</span><div class="pair"><span class="num-circle" data-side="left">61</span><span class="num-circle" data-side="right">61</span></div></div>
+<div class="spine-row self-row" data-row="62"><span class="row-idx">62</span><div class="pair"><span class="num-circle" data-side="left">62</span><span class="num-circle" data-side="right">62</span></div></div>
+<div class="spine-row row" data-row="63"><span class="row-idx">63</span><div class="pair"><span class="num-circle" data-side="left">4</span><span class="num-circle" data-side="right">63</span></div></div>
+<div class="spine-row row" data-row="64"><span class="row-idx">64</span><div class="pair"><span class="num-circle" data-side="left">3</span><span class="num-circle" data-side="right">64</span></div></div>
+</div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><span class="swatch"></span> Yang — solid</div>
+  <div class="legend-item"><span class="swatch-yin"><span></span><span></span></span> Yin — broken</div>
+  <div class="legend-item"><span class="swatch" style="background:var(--seal)"></span> Self-inverse row</div>
+</div>
+
+<script>
+function circleCenter(row, side, containerRect) {
+  var rowEl = document.querySelector('.spine-row[data-row="' + row + '"]');
+  var circleEl = rowEl.querySelector('.num-circle[data-side="' + side + '"]');
+  var r = circleEl.getBoundingClientRect();
+  return [(r.left + r.right) / 2 - containerRect.left, (r.top + r.bottom) / 2 - containerRect.top];
+}
+
+var CIRCLE_DIAMETER = 34;
+var CIRCLE_RADIUS = CIRCLE_DIAMETER / 2;
+
+// pull an endpoint back from the circle's centre to its edge, in the
+// direction the curve leaves it, so the stroke never crosses into the circle
+function edgePoint(center, direction) {
+  return [center[0] - CIRCLE_RADIUS * direction, center[1]];
+}
+
+function fmt(p) { return p[0].toFixed(1) + ' ' + p[1].toFixed(1); }
+
+// control points for a symmetric cubic bezier between p1 and p2, bulging
+// by widthInDiameters at the midpoint (see the 0.75 factor note below)
+function bezierControls(p1, p2, widthInDiameters, direction) {
+  var targetMidWidth = widthInDiameters * CIRCLE_DIAMETER;
+  var bulge = (targetMidWidth / 0.75) * direction;
+  return [[p1[0] - bulge, p1[1]], [p2[0] - bulge, p2[1]]];
+}
+
+// sampled points of a half-ellipse from p1 to p2, bulging by
+// widthInDiameters at the midpoint. Works regardless of which of p1/p2 is
+// higher up, and direction (+1 left, -1 right) is independent of that order.
+function ellipsePoints(p1, p2, widthInDiameters, direction, steps) {
+  var cx = p1[0];
+  var cy = (p1[1] + p2[1]) / 2;
+  var rx = widthInDiameters * CIRCLE_DIAMETER;
+  var ry = (p2[1] - p1[1]) / 2;
+  var pts = [];
+  for (var i = 0; i <= steps; i++) {
+    var s = i / steps;
+    var theta = (-90 - 180 * s * direction) * Math.PI / 180;
+    pts.push([cx + rx * Math.cos(theta), cy + ry * Math.sin(theta)]);
+  }
+  return pts;
+}
+
+// builds the closed ribbon outline for one column. colSide is 'left' or
+// 'right'; outSign is +1 if the outer/inner curves bulge away to the left
+// (as for the left column) or -1 if they bulge away to the right (mirrored,
+// for the right column). The caps always bulge the opposite way, into the
+// gap between the two columns.
+// rowA/rowD are the outer (a,d) pair of the quartet, rowB/rowC the inner
+// (b,c) pair -- e.g. for FX[(a,b),(c,d)] = FX[(3,4),(63,64)], rowA=3,
+// rowB=4, rowC=63, rowD=64.
+function buildRibbonPath(containerRect, colSide, outSign, outerWidth, innerWidth, capWidth, rowA, rowB, rowC, rowD) {
+  var A = edgePoint(circleCenter(rowA, colSide, containerRect), outSign);
+  var B = edgePoint(circleCenter(rowD, colSide, containerRect), outSign);
+  var C = edgePoint(circleCenter(rowD, colSide, containerRect), -outSign);
+  var D = edgePoint(circleCenter(rowC, colSide, containerRect), -outSign);
+  var E = edgePoint(circleCenter(rowC, colSide, containerRect), outSign);
+  var F = edgePoint(circleCenter(rowB, colSide, containerRect), outSign);
+  var G = edgePoint(circleCenter(rowB, colSide, containerRect), -outSign);
+  var H = edgePoint(circleCenter(rowA, colSide, containerRect), -outSign);
+
+  var outerCtl = bezierControls(A, B, outerWidth, outSign);
+  var innerCtl = bezierControls(E, F, innerWidth, outSign);
+  var bottomCap = ellipsePoints(C, D, capWidth, -outSign, 24).slice(1);
+  var topCap = ellipsePoints(G, H, capWidth, -outSign, 24).slice(1);
+
+  return 'M ' + fmt(A) +
+    ' C ' + fmt(outerCtl[0]) + ', ' + fmt(outerCtl[1]) + ', ' + fmt(B) +
+    ' L ' + fmt(C) +
+    ' L ' + bottomCap.map(fmt).join(' L ') +
+    ' L ' + fmt(E) +
+    ' C ' + fmt(innerCtl[0]) + ', ' + fmt(innerCtl[1]) + ', ' + fmt(F) +
+    ' L ' + fmt(G) +
+    ' L ' + topCap.map(fmt).join(' L ') +
+    ' Z';
+}
+
+function renderCurves() {
+  var wrap = document.querySelector('.spine-wrap');
+  var rect = wrap.getBoundingClientRect();
+  var svg = document.getElementById('curve-overlay');
+  svg.setAttribute('width', rect.width);
+  svg.setAttribute('height', rect.height);
+  svg.innerHTML = '';
+  var containerRect = wrap.getBoundingClientRect();
+
+  function rowCenterY(row) {
+    return circleCenter(row, 'left', containerRect)[1];
+  }
+
+  // measure actual row height so the gap between the two nested bezier
+  // curves stays deliberately smaller than one row's vertical spacing
+  var r3y = rowCenterY(3), r4y = rowCenterY(4);
+  var rowHeight = r4y - r3y;
+  var capWidth = 0.2; // flattened caps, stays short of the column midpoint
+
+  // reference quartet FX[(13,14),(49,50)] (the largest span on this axis,
+  // distance 19) sets the height/width ratio every other quartet on this
+  // axis is scaled to match
+  var refInnerWidth = 26.25 * 0.85 * 0.7; // 30% narrower than the 33/34-spine baseline
+  var refOuterWidth = refInnerWidth + (rowHeight * 0.5) / CIRCLE_DIAMETER;
+  var refOuterHeight = Math.abs(rowCenterY(49) - rowCenterY(13));
+  var refInnerHeight = Math.abs(rowCenterY(50) - rowCenterY(14));
+  var ratioOuter = refOuterHeight / (refOuterWidth * CIRCLE_DIAMETER);
+  var ratioInner = refInnerHeight / (refInnerWidth * CIRCLE_DIAMETER);
+
+  // one entry per quartet FX[(a,b),(c,d)]: rowA, rowB, rowC, rowD -- ordered
+  // so that (rowA,rowD) and (rowB,rowC) are the two zong-linked pairs
+  // within that quartet (this axis's quartets pair up as (a,c)/(b,d) rather
+  // than the (a,d)/(b,c) pattern the 33/34-axis quartets happened to use,
+  // so the row order here is NOT simply each quartet's raw member list --
+  // verified directly against zong() for each of the six below).
+  // Width scaling v7: scale is driven by the FX Group Table's own `dist`
+  // label (pair-slot span), not raw row span, and shared with the 33/34
+  // axis file's own v7 -- both use the same dist=5 -> 0.8, dist=31 -> 0.72
+  // geometric (exponential) interpolation, since 5 and 31 are the true
+  // min/max dist across both axis files combined.
+  var quartets = [
+    [13, 14, 50, 49],  // FX[(13,14),(49,50)] -- the reference, distance 19
+    [21, 22, 42, 41],  // FX[(21,22),(41,42)] -- distance 11
+    [9, 10, 18, 17],   // FX[(9,10),(17,18)] -- distance 5
+    [45, 46, 54, 53],  // FX[(45,46),(53,54)] -- distance 5
+    [5, 6, 34, 33],    // FX[(5,6),(33,34)] -- distance 15
+    [29, 30, 58, 57]   // FX[(29,30),(57,58)] -- distance 15
+  ];
+
+  var DIST_AT_SCALE_1 = 5, DIST_AT_SCALE_2 = 31, SCALE_1 = 0.8, SCALE_2 = 0.72;
+  function pairIndex(lo) { return Math.floor((lo + 1) / 2); }
+  function quartetDist(q) {
+    var pAB = pairIndex(Math.min(q[0], q[1]));
+    var pCD = pairIndex(Math.min(q[2], q[3]));
+    return Math.abs(pCD - pAB) + 1;
+  }
+
+  quartets.forEach(function (q) {
+    var dist = quartetDist(q);
+    var t = (dist - DIST_AT_SCALE_1) / (DIST_AT_SCALE_2 - DIST_AT_SCALE_1);
+    var scale = SCALE_1 * Math.pow(SCALE_2 / SCALE_1, t);
+    var outerHeight = Math.abs(rowCenterY(q[3]) - rowCenterY(q[0]));
+    var innerHeight = Math.abs(rowCenterY(q[2]) - rowCenterY(q[1]));
+    var outerWidth = (outerHeight / ratioOuter) / CIRCLE_DIAMETER * scale;
+    var innerWidth = (innerHeight / ratioInner) / CIRCLE_DIAMETER * scale;
+    [['left', 1], ['right', -1]].forEach(function (spec) {
+      var d = buildRibbonPath(containerRect, spec[0], spec[1], outerWidth, innerWidth, capWidth, q[0], q[1], q[2], q[3]);
+      var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', d);
+      path.setAttribute('class', 'ribbon');
+      svg.appendChild(path);
+    });
+  });
+}
+
+renderCurves();
+window.addEventListener('resize', renderCurves);
+</script>

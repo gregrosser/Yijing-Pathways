@@ -1,0 +1,420 @@
+<title>Group Table — Yijing Pathways</title>
+<style>
+  :root {
+    --paper: #F2ECDC;
+    --card-border: #DCD3B8;
+    --ink: #201D16;
+    --ink-soft: #6B6355;
+    --rule: #C9BFA2;
+    --structure: #A23B2E;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #1B1712;
+      --card-border: #3A342A;
+      --ink: #EDE6D6;
+      --ink-soft: #A79C87;
+      --rule: #4A4436;
+      --structure: #E3806B;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #1B1712;
+    --card-border: #3A342A;
+    --ink: #EDE6D6;
+    --ink-soft: #A79C87;
+    --rule: #4A4436;
+    --structure: #E3806B;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'URW Palladio L', P052, Georgia, serif;
+    padding: 56px 24px 96px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .mono { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; }
+
+  header {
+    max-width: 720px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .eyebrow {
+    font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--structure);
+  }
+  h1 { font-weight: 400; font-size: 2.1rem; margin: 0; text-wrap: balance; }
+  .intro { color: var(--ink-soft); font-size: 0.98rem; line-height: 1.6; text-wrap: pretty; }
+
+  .table-wrap { width: 100%; max-width: 900px; overflow-x: auto; }
+
+  .col-headers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 0 4px 8px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .col-headers .mono {
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .col-headers div:last-child { text-align: right; }
+
+  .grid-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    align-items: center;
+    padding: 5px 4px;
+    border-bottom: 1px solid var(--card-border);
+  }
+  .grid-row:last-child { border-bottom: none; }
+
+  .cell {
+    display: flex;
+    align-items: center;
+  }
+  .cell.right { flex-direction: row-reverse; }
+
+  .dist-badge {
+    flex: none;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 1.5px solid var(--structure);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: var(--structure);
+    margin-right: 8px;
+  }
+  .cell.right .dist-badge { margin-right: 0; margin-left: 8px; }
+
+  .set-label {
+    flex: none;
+    width: 114px;
+    font-size: 0.76rem;
+    color: var(--ink-soft);
+    white-space: nowrap;
+    margin-right: 4px;
+  }
+  .cell.right .set-label { margin-right: 0; margin-left: 4px; text-align: left; }
+
+  .members {
+    display: grid;
+    grid-template-columns: repeat(4, 26px);
+    gap: 8px;
+    margin-right: 4px;
+  }
+  .cell.right .members { margin-right: 0; margin-left: 4px; }
+  .members.pair-set .hex:nth-child(1) { grid-column: 2; }
+  .members.pair-set .hex:nth-child(2) { grid-column: 3; }
+
+  .kw-label {
+    flex: none;
+    width: 114px;
+    font-size: 0.76rem;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+  .cell.right .kw-label { text-align: left; }
+
+  .set-label.pair-num, .kw-label.pair-num { text-align: left; padding-left: 24px; }
+  .cell.right .set-label.pair-num, .cell.right .kw-label.pair-num { text-align: left; padding-left: 24px; }
+
+  .hex { display: flex; cursor: pointer; }
+  .num { cursor: pointer; }
+  .num:hover, .hex:hover { color: var(--structure); }
+  .hex:hover .hex-glyph rect { fill: var(--structure); }
+
+  .hex.hl .hex-glyph rect { fill: var(--structure); }
+  .num.hl { color: var(--structure); font-weight: 700; }
+
+  .legend {
+    display: flex;
+    gap: 28px;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+  .legend-item { display: flex; align-items: center; gap: 10px; }
+  .legend-swatch { width: 24px; height: 6px; background: var(--ink); border-radius: 1px; }
+  .legend-swatch.split { display: flex; gap: 4px; width: 24px; }
+  .legend-swatch.split span { flex: 1; height: 6px; background: var(--ink); border-radius: 1px; }
+
+  footer {
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+  }
+  footer a { color: var(--structure); }
+</style>
+
+<header>
+  <div class="eyebrow">Structure &middot; FX Group Table</div>
+  <h1>Group Table</h1>
+  <p class="intro">
+    The 64 hexagrams split into ten groups across two axes —
+    FX(31,32), where line&nbsp;1 equals line&nbsp;6, and FX(33,34), where
+    they differ. Each group is labelled by its FX set and its King Wen
+    (KW) set, and drawn as its members&rsquo; actual line patterns, in
+    increasing FX order. The circled number is each group&rsquo;s FX-sum
+    (&ldquo;dist&rdquo;). Hover or click a hexagram, an FX number, or a KW
+    number to highlight the other two.
+  </p>
+</header>
+
+<div class="table-wrap">
+  <div class="col-headers">
+    <div class="mono">Axis — FX(31,32)</div>
+    <div class="mono">Axis — FX(33,34)</div>
+  </div>
+  <div class="grid-row">
+        <div class="cell">
+          <div class="dist-badge" title="dist">5</div>
+          <div class="set-label mono">FX{<span class="num" data-fx="9">9</span>,<span class="num" data-fx="10">10</span>,<span class="num" data-fx="17">17</span>,<span class="num" data-fx="18">18</span>}</div>
+          <div class="members"><div class="hex" data-hex="9"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="10"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="17"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="18"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg></div></div>
+          <div class="kw-label mono">KW{<span class="num" data-kw="9">9</span>,<span class="num" data-kw="10">10</span>,<span class="num" data-kw="15">15</span>,<span class="num" data-kw="16">16</span>}</div>
+        </div>
+        <div class="cell right">
+          <div class="dist-badge" title="dist">13</div>
+          <div class="set-label mono">FX{<span class="num" data-fx="7">7</span>,<span class="num" data-fx="8">8</span>,<span class="num" data-fx="31">31</span>,<span class="num" data-fx="32">32</span>}</div>
+          <div class="members"><div class="hex" data-hex="7"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="8"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="31"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="32"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg></div></div>
+          <div class="kw-label mono">KW{<span class="num" data-kw="19">19</span>,<span class="num" data-kw="20">20</span>,<span class="num" data-kw="33">33</span>,<span class="num" data-kw="34">34</span>}</div>
+        </div>
+      </div>
+      <div class="grid-row">
+        <div class="cell">
+          <div class="dist-badge" title="dist">15</div>
+          <div class="set-label mono">FX{<span class="num" data-fx="5">5</span>,<span class="num" data-fx="6">6</span>,<span class="num" data-fx="33">33</span>,<span class="num" data-fx="34">34</span>}</div>
+          <div class="members"><div class="hex" data-hex="5"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="6"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="33"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="34"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg></div></div>
+          <div class="kw-label mono">KW{<span class="num" data-kw="7">7</span>,<span class="num" data-kw="8">8</span>,<span class="num" data-kw="13">13</span>,<span class="num" data-kw="14">14</span>}</div>
+        </div>
+        <div class="cell right">
+          <div class="dist-badge" title="dist">19</div>
+          <div class="set-label mono">FX{<span class="num" data-fx="11">11</span>,<span class="num" data-fx="12">12</span>,<span class="num" data-fx="47">47</span>,<span class="num" data-fx="48">48</span>}</div>
+          <div class="members"><div class="hex" data-hex="11"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="12"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="47"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="48"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg></div></div>
+          <div class="kw-label mono">KW{<span class="num" data-kw="5">5</span>,<span class="num" data-kw="6">6</span>,<span class="num" data-kw="35">35</span>,<span class="num" data-kw="36">36</span>}</div>
+        </div>
+      </div>
+      <div class="grid-row">
+        <div class="cell">
+          <div class="dist-badge" title="dist">19</div>
+          <div class="set-label mono">FX{<span class="num" data-fx="13">13</span>,<span class="num" data-fx="14">14</span>,<span class="num" data-fx="49">49</span>,<span class="num" data-fx="50">50</span>}</div>
+          <div class="members"><div class="hex" data-hex="13"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="14"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="49"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="50"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg></div></div>
+          <div class="kw-label mono">KW{<span class="num" data-kw="25">25</span>,<span class="num" data-kw="26">26</span>,<span class="num" data-kw="45">45</span>,<span class="num" data-kw="46">46</span>}</div>
+        </div>
+        <div class="cell right">
+          <div class="dist-badge" title="dist">31</div>
+          <div class="set-label mono">FX{<span class="num" data-fx="3">3</span>,<span class="num" data-fx="4">4</span>,<span class="num" data-fx="63">63</span>,<span class="num" data-fx="64">64</span>}</div>
+          <div class="members"><div class="hex" data-hex="3"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="4"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="63"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="64"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg></div></div>
+          <div class="kw-label mono">KW{<span class="num" data-kw="23">23</span>,<span class="num" data-kw="24">24</span>,<span class="num" data-kw="43">43</span>,<span class="num" data-kw="44">44</span>}</div>
+        </div>
+      </div>
+      <div class="grid-row">
+        <div class="cell">
+          <div class="dist-badge" title="dist">1</div>
+          <div class="set-label mono pair-num">FX{<span class="num" data-fx="1">1</span>,<span class="num" data-fx="2">2</span>}</div>
+          <div class="members pair-set"><div class="hex" data-hex="1"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="2"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg></div></div>
+          <div class="kw-label mono pair-num">KW{<span class="num" data-kw="1">1</span>,<span class="num" data-kw="2">2</span>}</div>
+        </div>
+        <div class="cell right">
+          <div class="dist-badge" title="dist">1</div>
+          <div class="set-label mono pair-num">FX{<span class="num" data-fx="15">15</span>,<span class="num" data-fx="16">16</span>}</div>
+          <div class="members pair-set"><div class="hex" data-hex="15"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="16"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg></div></div>
+          <div class="kw-label mono pair-num">KW{<span class="num" data-kw="11">11</span>,<span class="num" data-kw="12">12</span>}</div>
+        </div>
+      </div>
+      <div class="grid-row">
+        <div class="cell">
+          <div class="dist-badge" title="dist">1</div>
+          <div class="set-label mono pair-num">FX{<span class="num" data-fx="25">25</span>,<span class="num" data-fx="26">26</span>}</div>
+          <div class="members pair-set"><div class="hex" data-hex="25"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="26"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg></div></div>
+          <div class="kw-label mono pair-num">KW{<span class="num" data-kw="61">61</span>,<span class="num" data-kw="62">62</span>}</div>
+        </div>
+        <div class="cell right">
+          <div class="dist-badge" title="dist">1</div>
+          <div class="set-label mono pair-num">FX{<span class="num" data-fx="23">23</span>,<span class="num" data-fx="24">24</span>}</div>
+          <div class="members pair-set"><div class="hex" data-hex="23"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="24"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg></div></div>
+          <div class="kw-label mono pair-num">KW{<span class="num" data-kw="53">53</span>,<span class="num" data-kw="54">54</span>}</div>
+        </div>
+      </div>
+      <div class="grid-row">
+        <div class="cell">
+          <div class="dist-badge" title="dist">1</div>
+          <div class="set-label mono pair-num">FX{<span class="num" data-fx="37">37</span>,<span class="num" data-fx="38">38</span>}</div>
+          <div class="members pair-set"><div class="hex" data-hex="37"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="38"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg></div></div>
+          <div class="kw-label mono pair-num">KW{<span class="num" data-kw="29">29</span>,<span class="num" data-kw="30">30</span>}</div>
+        </div>
+        <div class="cell right">
+          <div class="dist-badge" title="dist">1</div>
+          <div class="set-label mono pair-num">FX{<span class="num" data-fx="43">43</span>,<span class="num" data-fx="44">44</span>}</div>
+          <div class="members pair-set"><div class="hex" data-hex="43"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="44"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg></div></div>
+          <div class="kw-label mono pair-num">KW{<span class="num" data-kw="63">63</span>,<span class="num" data-kw="64">64</span>}</div>
+        </div>
+      </div>
+      <div class="grid-row">
+        <div class="cell">
+          <div class="dist-badge" title="dist">1</div>
+          <div class="set-label mono pair-num">FX{<span class="num" data-fx="61">61</span>,<span class="num" data-fx="62">62</span>}</div>
+          <div class="members pair-set"><div class="hex" data-hex="61"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="62"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg></div></div>
+          <div class="kw-label mono pair-num">KW{<span class="num" data-kw="27">27</span>,<span class="num" data-kw="28">28</span>}</div>
+        </div>
+        <div class="cell right">
+          <div class="dist-badge" title="dist">1</div>
+          <div class="set-label mono pair-num">FX{<span class="num" data-fx="51">51</span>,<span class="num" data-fx="52">52</span>}</div>
+          <div class="members pair-set"><div class="hex" data-hex="51"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="52"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg></div></div>
+          <div class="kw-label mono pair-num">KW{<span class="num" data-kw="17">17</span>,<span class="num" data-kw="18">18</span>}</div>
+        </div>
+      </div>
+      <div class="grid-row">
+        <div class="cell">
+          <div class="dist-badge" title="dist">11</div>
+          <div class="set-label mono">FX{<span class="num" data-fx="21">21</span>,<span class="num" data-fx="22">22</span>,<span class="num" data-fx="41">41</span>,<span class="num" data-fx="42">42</span>}</div>
+          <div class="members"><div class="hex" data-hex="21"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="22"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="41"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="42"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg></div></div>
+          <div class="kw-label mono">KW{<span class="num" data-kw="37">37</span>,<span class="num" data-kw="38">38</span>,<span class="num" data-kw="39">39</span>,<span class="num" data-kw="40">40</span>}</div>
+        </div>
+        <div class="cell right">
+          <div class="dist-badge" title="dist">7</div>
+          <div class="set-label mono">FX{<span class="num" data-fx="27">27</span>,<span class="num" data-fx="28">28</span>,<span class="num" data-fx="39">39</span>,<span class="num" data-fx="40">40</span>}</div>
+          <div class="members"><div class="hex" data-hex="27"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="28"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="39"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="40"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg></div></div>
+          <div class="kw-label mono">KW{<span class="num" data-kw="55">55</span>,<span class="num" data-kw="56">56</span>,<span class="num" data-kw="59">59</span>,<span class="num" data-kw="60">60</span>}</div>
+        </div>
+      </div>
+      <div class="grid-row">
+        <div class="cell">
+          <div class="dist-badge" title="dist">15</div>
+          <div class="set-label mono">FX{<span class="num" data-fx="29">29</span>,<span class="num" data-fx="30">30</span>,<span class="num" data-fx="57">57</span>,<span class="num" data-fx="58">58</span>}</div>
+          <div class="members"><div class="hex" data-hex="29"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="30"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="57"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="58"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg></div></div>
+          <div class="kw-label mono">KW{<span class="num" data-kw="31">31</span>,<span class="num" data-kw="32">32</span>,<span class="num" data-kw="41">41</span>,<span class="num" data-kw="42">42</span>}</div>
+        </div>
+        <div class="cell right">
+          <div class="dist-badge" title="dist">19</div>
+          <div class="set-label mono">FX{<span class="num" data-fx="19">19</span>,<span class="num" data-fx="20">20</span>,<span class="num" data-fx="55">55</span>,<span class="num" data-fx="56">56</span>}</div>
+          <div class="members"><div class="hex" data-hex="19"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="20"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="55"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="56"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg></div></div>
+          <div class="kw-label mono">KW{<span class="num" data-kw="51">51</span>,<span class="num" data-kw="52">52</span>,<span class="num" data-kw="57">57</span>,<span class="num" data-kw="58">58</span>}</div>
+        </div>
+      </div>
+      <div class="grid-row">
+        <div class="cell">
+          <div class="dist-badge" title="dist">5</div>
+          <div class="set-label mono">FX{<span class="num" data-fx="45">45</span>,<span class="num" data-fx="46">46</span>,<span class="num" data-fx="53">53</span>,<span class="num" data-fx="54">54</span>}</div>
+          <div class="members"><div class="hex" data-hex="45"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="46"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="53"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="54"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg></div></div>
+          <div class="kw-label mono">KW{<span class="num" data-kw="21">21</span>,<span class="num" data-kw="22">22</span>,<span class="num" data-kw="47">47</span>,<span class="num" data-kw="48">48</span>}</div>
+        </div>
+        <div class="cell right">
+          <div class="dist-badge" title="dist">13</div>
+          <div class="set-label mono">FX{<span class="num" data-fx="35">35</span>,<span class="num" data-fx="36">36</span>,<span class="num" data-fx="59">59</span>,<span class="num" data-fx="60">60</span>}</div>
+          <div class="members"><div class="hex" data-hex="35"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="36"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="59"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg></div><div class="hex" data-hex="60"><svg class="hex-glyph" viewBox="0 0 30 32" width="26" height="28"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg></div></div>
+          <div class="kw-label mono">KW{<span class="num" data-kw="3">3</span>,<span class="num" data-kw="4">4</span>,<span class="num" data-kw="49">49</span>,<span class="num" data-kw="50">50</span>}</div>
+        </div>
+      </div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><span class="legend-swatch"></span> Yang &mdash; solid</div>
+  <div class="legend-item"><span class="legend-swatch split"><span></span><span></span></span> Yin &mdash; broken</div>
+</div>
+
+<footer>
+  <a href="index.html">&larr; Yijing Pathways</a>
+</footer>
+
+<script>
+  var FX_TO_KW = {"1": 1, "2": 2, "3": 43, "4": 23, "5": 14, "6": 8, "7": 34, "8": 20, "9": 9, "10": 16, "11": 5, "12": 35, "13": 26, "14": 45, "15": 11, "16": 12, "17": 10, "18": 15, "19": 58, "20": 52, "21": 38, "22": 39, "23": 54, "24": 53, "25": 61, "26": 62, "27": 60, "28": 56, "29": 41, "30": 31, "31": 19, "32": 33, "33": 13, "34": 7, "35": 49, "36": 4, "37": 30, "38": 29, "39": 55, "40": 59, "41": 37, "42": 40, "43": 63, "44": 64, "45": 22, "46": 47, "47": 36, "48": 6, "49": 25, "50": 46, "51": 17, "52": 18, "53": 21, "54": 48, "55": 51, "56": 57, "57": 42, "58": 32, "59": 3, "60": 50, "61": 27, "62": 28, "63": 24, "64": 44};
+  var KW_TO_FX = {};
+  Object.keys(FX_TO_KW).forEach(function (fx) { KW_TO_FX[FX_TO_KW[fx]] = +fx; });
+
+  var selected = new Set();
+
+  function trioFor(fx) {
+    var kw = FX_TO_KW[fx];
+    return {
+      hex: document.querySelector('.hex[data-hex="' + fx + '"]'),
+      fx: document.querySelector('.num[data-fx="' + fx + '"]'),
+      kw: document.querySelector('.num[data-kw="' + kw + '"]')
+    };
+  }
+
+  function setHighlight(fx, on) {
+    var trio = trioFor(fx);
+    // Extension point for later: cross-diagram sync (FX circle, KW square)
+    // could hook in here, e.g. by dispatching a CustomEvent keyed on fx.
+    ['hex', 'fx', 'kw'].forEach(function (k) {
+      if (trio[k]) trio[k].classList.toggle('hl', on);
+    });
+  }
+
+  function clearAllSelected() {
+    selected.forEach(function (f) { setHighlight(f, false); });
+    selected.clear();
+  }
+
+  function toggleSelect(fx, additive) {
+    if (additive) {
+      if (selected.has(fx)) {
+        selected.delete(fx);
+        setHighlight(fx, false);
+      } else {
+        selected.add(fx);
+        setHighlight(fx, true);
+      }
+    } else {
+      if (selected.size === 1 && selected.has(fx)) {
+        selected.delete(fx);
+        setHighlight(fx, false);
+      } else {
+        selected.forEach(function (f) { setHighlight(f, false); });
+        selected.clear();
+        selected.add(fx);
+        setHighlight(fx, true);
+      }
+    }
+  }
+
+  function wire(el, fx) {
+    el.addEventListener('mouseenter', function () { setHighlight(fx, true); });
+    el.addEventListener('mouseleave', function () { if (!selected.has(fx)) setHighlight(fx, false); });
+    el.addEventListener('click', function (e) { toggleSelect(fx, e.ctrlKey); });
+  }
+
+  document.querySelectorAll('.hex[data-hex]').forEach(function (el) {
+    wire(el, +el.dataset.hex);
+  });
+  document.querySelectorAll('.num[data-fx]').forEach(function (el) {
+    wire(el, +el.dataset.fx);
+  });
+  document.querySelectorAll('.num[data-kw]').forEach(function (el) {
+    wire(el, KW_TO_FX[+el.dataset.kw]);
+  });
+
+  var fxParam = new URLSearchParams(window.location.search).get('fx');
+  if (fxParam) {
+    var fxList = fxParam.split(',').map(function (s) { return parseInt(s, 10); }).filter(function (n) { return !isNaN(n); });
+    fxList.forEach(function (fx) { toggleSelect(fx, true); });
+    var firstHex = document.querySelector('.hex[data-hex="' + fxList[0] + '"]');
+    if (firstHex) firstHex.scrollIntoView({ block: 'center' });
+  }
+
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.table-wrap')) clearAllSelected();
+  });
+</script>

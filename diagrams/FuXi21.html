@@ -1,0 +1,1561 @@
+<title>FuXi21</title>
+<style>
+:root {
+  --paper: #f2ecdc;
+  --paper-panel: #eae2cc;
+  --ink: #201d16;
+  --ink-soft: #6b6355;
+  --ink-faint: #b8ae96;
+  --seal: #a23b2e;
+  --verify: #2e7d32;
+  --rule: #c9bfa2;
+  --gridline: #ded4b8;
+  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+:root[data-theme="dark"] {
+  --paper: #181510; --paper-panel: #201c15; --ink: #e9e1cd;
+  --ink-soft: #a89d84; --ink-faint: #55503f; --seal: #e2725a;
+  --verify: #4caf50;
+  --rule: #3a3527; --gridline: #2c2820;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #181510; --paper-panel: #201c15; --ink: #e9e1cd;
+    --ink-soft: #a89d84; --ink-faint: #55503f; --seal: #e2725a;
+    --verify: #4caf50;
+    --rule: #3a3527; --gridline: #2c2820;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font-family: var(--font-body); padding: 48px 24px 80px;
+  display: flex; flex-direction: column; align-items: center; gap: 28px;
+}
+.masthead { max-width: 600px; text-align: center; display: flex; flex-direction: column; gap: 10px; }
+h1 { font-family: var(--font-display); font-weight: 400; font-size: 1.9rem; margin: 0; text-wrap: balance; }
+.subhead { font-family: var(--font-mono); font-size: 0.76rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--seal); }
+.caption { font-size: 0.95rem; line-height: 1.55; color: var(--ink-soft); text-wrap: pretty; }
+.stage { width: min(85vw, 713px); aspect-ratio: 1 / 1; pointer-events: none; }
+.stage svg { width: 100%; height: 100%; display: block; overflow: visible; pointer-events: none; }
+.ring { fill: none; stroke: var(--gridline); stroke-width: 1; }
+.spoke { display: none; }
+.bar { stroke: var(--ink); stroke-width: 3; stroke-linecap: round; }
+.hub { fill: var(--paper); stroke: var(--rule); stroke-width: 1; }
+.num-label text { font-family: var(--font-mono); font-size: 9px; fill: var(--ink); }
+.num-label { cursor: pointer; pointer-events: auto; }
+.num-label.active text { fill: var(--seal); }
+.glyph.active .bar { stroke: var(--seal); }
+.distance-link { fill: none; stroke: var(--verify); stroke-width: 1.5; opacity: 0.85; }
+.distance-tick { stroke: var(--verify); stroke-width: 1.5; opacity: 0.85; }
+.distance-label-bg { fill: var(--paper); stroke: var(--verify); stroke-width: 1.5; }
+.distance-label-text { font-family: var(--font-mono); font-size: 16px; font-weight: 700; fill: var(--verify); text-anchor: middle; dominant-baseline: central; }
+.diametric-line { stroke: var(--verify); stroke-width: 1.5; opacity: 0.85; }
+.axis-line { stroke: var(--verify); stroke-width: 1; stroke-dasharray: 6 5; opacity: 0.6; }
+.glyph.grouped .bar { stroke: var(--verify); }
+.num-label.grouped text { fill: var(--verify); }
+.num-label { cursor: pointer; pointer-events: auto; }
+.legend { display: flex; gap: 28px; font-size: 0.86rem; color: var(--ink-soft); }
+.legend-item { display: flex; align-items: center; gap: 10px; }
+.swatch { width: 30px; height: 8px; background: var(--ink); border-radius: 2px; }
+.swatch-yin { display: flex; gap: 5px; width: 30px; }
+.swatch-yin span { flex: 1; height: 8px; background: var(--ink); border-radius: 2px; }
+
+.pair-display {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  background: var(--paper-panel);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 24px 32px;
+  zoom: 0.612;
+  margin-top: -168px;
+}
+.pair-display.active { display: flex; }
+.pd-caption { font-family: var(--font-mono); font-size: 0.8rem; color: var(--seal); letter-spacing: 0.02em; }
+.pd-slots { display: flex; align-items: flex-start; gap: 56px; }
+.pd-pair { display: flex; align-items: flex-start; gap: 22px; }
+.pd-hex { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.pd-hex .pd-glyph rect { fill: var(--ink); }
+.pd-num { font-family: var(--font-mono); font-size: 1.05rem; color: var(--ink-soft); }
+</style>
+
+<div class="masthead">
+  <div class="subhead">FuXi21</div>
+  <h1>Fu Xi 64-Hexagram Circle</h1>
+  <p class="caption">Click any hexagram to highlight and connect its own group — a quartet of 4 or a pair of 2 — shown larger below the circle.</p>
+</div>
+
+<div class="stage">
+<svg viewBox="0 0 1000 1000">
+  <circle cx="500" cy="500" r="268.96" class="ring"/>
+  <circle cx="500" cy="500" r="276.04" class="ring"/>
+  <circle cx="500" cy="500" r="283.13" class="ring"/>
+  <circle cx="500" cy="500" r="290.21" class="ring"/>
+  <circle cx="500" cy="500" r="297.29" class="ring"/>
+  <circle cx="500" cy="500" r="304.38" class="ring"/>
+  <circle cx="500" cy="500" r="311.46" class="ring"/>
+<g transform="rotate(-2.8125 500 500)">
+<line x1="500.00" y1="290.00" x2="500.00" y2="86.00" class="spoke"/>
+<line x1="351.51" y1="351.51" x2="207.26" y2="207.26" class="spoke"/>
+<line x1="290.00" y1="500.00" x2="86.00" y2="500.00" class="spoke"/>
+<line x1="351.51" y1="648.49" x2="207.26" y2="792.74" class="spoke"/>
+<line x1="500.00" y1="710.00" x2="500.00" y2="914.00" class="spoke"/>
+<line x1="648.49" y1="648.49" x2="792.74" y2="792.74" class="spoke"/>
+<line x1="710.00" y1="500.00" x2="914.00" y2="500.00" class="spoke"/>
+<line x1="648.49" y1="351.51" x2="792.74" y2="207.26" class="spoke"/>
+<g class="glyph" id="glyph-1">
+<title>Qian  90°</title>
+<line x1="492.00" y1="227.50" x2="508.00" y2="227.50" class="bar" data-line="1"/>
+<line x1="492.00" y1="220.42" x2="508.00" y2="220.42" class="bar" data-line="2"/>
+<line x1="492.00" y1="213.33" x2="508.00" y2="213.33" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-1">
+<title>outer Qian (over 1)</title>
+<line x1="492.00" y1="206.25" x2="508.00" y2="206.25" class="bar" data-line="4"/>
+<line x1="492.00" y1="199.17" x2="508.00" y2="199.17" class="bar" data-line="5"/>
+<line x1="492.00" y1="192.08" x2="508.00" y2="192.08" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-17">
+<title>Dui  135°</title>
+<line x1="301.66" y1="312.97" x2="312.97" y2="301.66" class="bar" data-line="1"/>
+<line x1="296.65" y1="307.96" x2="307.96" y2="296.65" class="bar" data-line="2"/>
+<line x1="295.53" y1="299.06" x2="291.64" y2="302.95" class="bar" data-line="3"/>
+<line x1="302.95" y1="291.64" x2="299.06" y2="295.53" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-17">
+<title>outer Qian (over 17)</title>
+<line x1="286.63" y1="297.94" x2="297.94" y2="286.63" class="bar" data-line="4"/>
+<line x1="281.62" y1="292.94" x2="292.94" y2="281.62" class="bar" data-line="5"/>
+<line x1="276.61" y1="287.93" x2="287.93" y2="276.61" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-33">
+<title>Li  180°</title>
+<line x1="227.50" y1="508.00" x2="227.50" y2="492.00" class="bar" data-line="1"/>
+<line x1="220.42" y1="502.50" x2="220.42" y2="508.00" class="bar" data-line="2"/>
+<line x1="220.42" y1="492.00" x2="220.42" y2="497.50" class="bar" data-line="2"/>
+<line x1="213.33" y1="508.00" x2="213.33" y2="492.00" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-33">
+<title>outer Qian (over 33)</title>
+<line x1="206.25" y1="508.00" x2="206.25" y2="492.00" class="bar" data-line="4"/>
+<line x1="199.17" y1="508.00" x2="199.17" y2="492.00" class="bar" data-line="5"/>
+<line x1="192.08" y1="508.00" x2="192.08" y2="492.00" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-49">
+<title>Zhen  225°</title>
+<line x1="312.97" y1="698.34" x2="301.66" y2="687.03" class="bar" data-line="1"/>
+<line x1="304.07" y1="699.46" x2="307.96" y2="703.35" class="bar" data-line="2"/>
+<line x1="296.65" y1="692.04" x2="300.54" y2="695.93" class="bar" data-line="2"/>
+<line x1="299.06" y1="704.47" x2="302.95" y2="708.36" class="bar" data-line="3"/>
+<line x1="291.64" y1="697.05" x2="295.53" y2="700.94" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-49">
+<title>outer Qian (over 49)</title>
+<line x1="297.94" y1="713.37" x2="286.63" y2="702.06" class="bar" data-line="4"/>
+<line x1="292.94" y1="718.38" x2="281.62" y2="707.06" class="bar" data-line="5"/>
+<line x1="287.93" y1="723.39" x2="276.61" y2="712.07" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-2">
+<title>Kun  270°</title>
+<line x1="502.50" y1="772.50" x2="508.00" y2="772.50" class="bar" data-line="1"/>
+<line x1="492.00" y1="772.50" x2="497.50" y2="772.50" class="bar" data-line="1"/>
+<line x1="502.50" y1="779.58" x2="508.00" y2="779.58" class="bar" data-line="2"/>
+<line x1="492.00" y1="779.58" x2="497.50" y2="779.58" class="bar" data-line="2"/>
+<line x1="502.50" y1="786.67" x2="508.00" y2="786.67" class="bar" data-line="3"/>
+<line x1="492.00" y1="786.67" x2="497.50" y2="786.67" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-2">
+<title>outer Kun (over 2)</title>
+<line x1="502.50" y1="793.75" x2="508.00" y2="793.75" class="bar" data-line="4"/>
+<line x1="492.00" y1="793.75" x2="497.50" y2="793.75" class="bar" data-line="4"/>
+<line x1="502.50" y1="800.83" x2="508.00" y2="800.83" class="bar" data-line="5"/>
+<line x1="492.00" y1="800.83" x2="497.50" y2="800.83" class="bar" data-line="5"/>
+<line x1="502.50" y1="807.92" x2="508.00" y2="807.92" class="bar" data-line="6"/>
+<line x1="492.00" y1="807.92" x2="497.50" y2="807.92" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-18">
+<title>Gen  315°</title>
+<line x1="694.45" y1="690.92" x2="698.34" y2="687.03" class="bar" data-line="1"/>
+<line x1="687.03" y1="698.34" x2="690.92" y2="694.45" class="bar" data-line="1"/>
+<line x1="699.46" y1="695.93" x2="703.35" y2="692.04" class="bar" data-line="2"/>
+<line x1="692.04" y1="703.35" x2="695.93" y2="699.46" class="bar" data-line="2"/>
+<line x1="708.36" y1="697.05" x2="697.05" y2="708.36" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-18">
+<title>outer Kun (over 18)</title>
+<line x1="709.48" y1="705.94" x2="713.37" y2="702.06" class="bar" data-line="4"/>
+<line x1="702.06" y1="713.37" x2="705.94" y2="709.48" class="bar" data-line="4"/>
+<line x1="714.49" y1="710.95" x2="718.38" y2="707.06" class="bar" data-line="5"/>
+<line x1="707.06" y1="718.38" x2="710.95" y2="714.49" class="bar" data-line="5"/>
+<line x1="719.50" y1="715.96" x2="723.39" y2="712.07" class="bar" data-line="6"/>
+<line x1="712.07" y1="723.39" x2="715.96" y2="719.50" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-34">
+<title>Kan  0°</title>
+<line x1="772.50" y1="497.50" x2="772.50" y2="492.00" class="bar" data-line="1"/>
+<line x1="772.50" y1="508.00" x2="772.50" y2="502.50" class="bar" data-line="1"/>
+<line x1="779.58" y1="492.00" x2="779.58" y2="508.00" class="bar" data-line="2"/>
+<line x1="786.67" y1="497.50" x2="786.67" y2="492.00" class="bar" data-line="3"/>
+<line x1="786.67" y1="508.00" x2="786.67" y2="502.50" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-34">
+<title>outer Kun (over 34)</title>
+<line x1="793.75" y1="497.50" x2="793.75" y2="492.00" class="bar" data-line="4"/>
+<line x1="793.75" y1="508.00" x2="793.75" y2="502.50" class="bar" data-line="4"/>
+<line x1="800.83" y1="497.50" x2="800.83" y2="492.00" class="bar" data-line="5"/>
+<line x1="800.83" y1="508.00" x2="800.83" y2="502.50" class="bar" data-line="5"/>
+<line x1="807.92" y1="497.50" x2="807.92" y2="492.00" class="bar" data-line="6"/>
+<line x1="807.92" y1="508.00" x2="807.92" y2="502.50" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-50">
+<title>Xun  45°</title>
+<line x1="690.92" y1="305.55" x2="687.03" y2="301.66" class="bar" data-line="1"/>
+<line x1="698.34" y1="312.97" x2="694.45" y2="309.08" class="bar" data-line="1"/>
+<line x1="692.04" y1="296.65" x2="703.35" y2="307.96" class="bar" data-line="2"/>
+<line x1="697.05" y1="291.64" x2="708.36" y2="302.95" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-50">
+<title>outer Kun (over 50)</title>
+<line x1="705.94" y1="290.52" x2="702.06" y2="286.63" class="bar" data-line="4"/>
+<line x1="713.37" y1="297.94" x2="709.48" y2="294.06" class="bar" data-line="4"/>
+<line x1="710.95" y1="285.51" x2="707.06" y2="281.62" class="bar" data-line="5"/>
+<line x1="718.38" y1="292.94" x2="714.49" y2="289.05" class="bar" data-line="5"/>
+<line x1="715.96" y1="280.50" x2="712.07" y2="276.61" class="bar" data-line="6"/>
+<line x1="723.39" y1="287.93" x2="719.50" y2="284.04" class="bar" data-line="6"/>
+</g>
+</g>
+<g transform="rotate(-8.4375 500 500)">
+<line x1="500.00" y1="290.00" x2="500.00" y2="86.00" class="spoke"/>
+<line x1="351.51" y1="351.51" x2="207.26" y2="207.26" class="spoke"/>
+<line x1="290.00" y1="500.00" x2="86.00" y2="500.00" class="spoke"/>
+<line x1="351.51" y1="648.49" x2="207.26" y2="792.74" class="spoke"/>
+<line x1="500.00" y1="710.00" x2="500.00" y2="914.00" class="spoke"/>
+<line x1="648.49" y1="648.49" x2="792.74" y2="792.74" class="spoke"/>
+<line x1="710.00" y1="500.00" x2="914.00" y2="500.00" class="spoke"/>
+<line x1="648.49" y1="351.51" x2="792.74" y2="207.26" class="spoke"/>
+<g class="glyph" id="glyph-3">
+<title>Qian  90°</title>
+<line x1="492.00" y1="227.50" x2="508.00" y2="227.50" class="bar" data-line="1"/>
+<line x1="492.00" y1="220.42" x2="508.00" y2="220.42" class="bar" data-line="2"/>
+<line x1="492.00" y1="213.33" x2="508.00" y2="213.33" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-3">
+<title>outer Dui (over 3)</title>
+<line x1="492.00" y1="206.25" x2="508.00" y2="206.25" class="bar" data-line="4"/>
+<line x1="492.00" y1="199.17" x2="508.00" y2="199.17" class="bar" data-line="5"/>
+<line x1="497.50" y1="192.08" x2="492.00" y2="192.08" class="bar" data-line="6"/>
+<line x1="508.00" y1="192.08" x2="502.50" y2="192.08" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-19">
+<title>Dui  135°</title>
+<line x1="301.66" y1="312.97" x2="312.97" y2="301.66" class="bar" data-line="1"/>
+<line x1="296.65" y1="307.96" x2="307.96" y2="296.65" class="bar" data-line="2"/>
+<line x1="295.53" y1="299.06" x2="291.64" y2="302.95" class="bar" data-line="3"/>
+<line x1="302.95" y1="291.64" x2="299.06" y2="295.53" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-19">
+<title>outer Dui (over 19)</title>
+<line x1="286.63" y1="297.94" x2="297.94" y2="286.63" class="bar" data-line="4"/>
+<line x1="281.62" y1="292.94" x2="292.94" y2="281.62" class="bar" data-line="5"/>
+<line x1="280.50" y1="284.04" x2="276.61" y2="287.93" class="bar" data-line="6"/>
+<line x1="287.93" y1="276.61" x2="284.04" y2="280.50" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-35">
+<title>Li  180°</title>
+<line x1="227.50" y1="508.00" x2="227.50" y2="492.00" class="bar" data-line="1"/>
+<line x1="220.42" y1="502.50" x2="220.42" y2="508.00" class="bar" data-line="2"/>
+<line x1="220.42" y1="492.00" x2="220.42" y2="497.50" class="bar" data-line="2"/>
+<line x1="213.33" y1="508.00" x2="213.33" y2="492.00" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-35">
+<title>outer Dui (over 35)</title>
+<line x1="206.25" y1="508.00" x2="206.25" y2="492.00" class="bar" data-line="4"/>
+<line x1="199.17" y1="508.00" x2="199.17" y2="492.00" class="bar" data-line="5"/>
+<line x1="192.08" y1="502.50" x2="192.08" y2="508.00" class="bar" data-line="6"/>
+<line x1="192.08" y1="492.00" x2="192.08" y2="497.50" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-51">
+<title>Zhen  225°</title>
+<line x1="312.97" y1="698.34" x2="301.66" y2="687.03" class="bar" data-line="1"/>
+<line x1="304.07" y1="699.46" x2="307.96" y2="703.35" class="bar" data-line="2"/>
+<line x1="296.65" y1="692.04" x2="300.54" y2="695.93" class="bar" data-line="2"/>
+<line x1="299.06" y1="704.47" x2="302.95" y2="708.36" class="bar" data-line="3"/>
+<line x1="291.64" y1="697.05" x2="295.53" y2="700.94" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-51">
+<title>outer Dui (over 51)</title>
+<line x1="297.94" y1="713.37" x2="286.63" y2="702.06" class="bar" data-line="4"/>
+<line x1="292.94" y1="718.38" x2="281.62" y2="707.06" class="bar" data-line="5"/>
+<line x1="284.04" y1="719.50" x2="287.93" y2="723.39" class="bar" data-line="6"/>
+<line x1="276.61" y1="712.07" x2="280.50" y2="715.96" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-4">
+<title>Kun  270°</title>
+<line x1="502.50" y1="772.50" x2="508.00" y2="772.50" class="bar" data-line="1"/>
+<line x1="492.00" y1="772.50" x2="497.50" y2="772.50" class="bar" data-line="1"/>
+<line x1="502.50" y1="779.58" x2="508.00" y2="779.58" class="bar" data-line="2"/>
+<line x1="492.00" y1="779.58" x2="497.50" y2="779.58" class="bar" data-line="2"/>
+<line x1="502.50" y1="786.67" x2="508.00" y2="786.67" class="bar" data-line="3"/>
+<line x1="492.00" y1="786.67" x2="497.50" y2="786.67" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-4">
+<title>outer Gen (over 4)</title>
+<line x1="502.50" y1="793.75" x2="508.00" y2="793.75" class="bar" data-line="4"/>
+<line x1="492.00" y1="793.75" x2="497.50" y2="793.75" class="bar" data-line="4"/>
+<line x1="502.50" y1="800.83" x2="508.00" y2="800.83" class="bar" data-line="5"/>
+<line x1="492.00" y1="800.83" x2="497.50" y2="800.83" class="bar" data-line="5"/>
+<line x1="508.00" y1="807.92" x2="492.00" y2="807.92" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-20">
+<title>Gen  315°</title>
+<line x1="694.45" y1="690.92" x2="698.34" y2="687.03" class="bar" data-line="1"/>
+<line x1="687.03" y1="698.34" x2="690.92" y2="694.45" class="bar" data-line="1"/>
+<line x1="699.46" y1="695.93" x2="703.35" y2="692.04" class="bar" data-line="2"/>
+<line x1="692.04" y1="703.35" x2="695.93" y2="699.46" class="bar" data-line="2"/>
+<line x1="708.36" y1="697.05" x2="697.05" y2="708.36" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-20">
+<title>outer Gen (over 20)</title>
+<line x1="709.48" y1="705.94" x2="713.37" y2="702.06" class="bar" data-line="4"/>
+<line x1="702.06" y1="713.37" x2="705.94" y2="709.48" class="bar" data-line="4"/>
+<line x1="714.49" y1="710.95" x2="718.38" y2="707.06" class="bar" data-line="5"/>
+<line x1="707.06" y1="718.38" x2="710.95" y2="714.49" class="bar" data-line="5"/>
+<line x1="723.39" y1="712.07" x2="712.07" y2="723.39" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-36">
+<title>Kan  0°</title>
+<line x1="772.50" y1="497.50" x2="772.50" y2="492.00" class="bar" data-line="1"/>
+<line x1="772.50" y1="508.00" x2="772.50" y2="502.50" class="bar" data-line="1"/>
+<line x1="779.58" y1="492.00" x2="779.58" y2="508.00" class="bar" data-line="2"/>
+<line x1="786.67" y1="497.50" x2="786.67" y2="492.00" class="bar" data-line="3"/>
+<line x1="786.67" y1="508.00" x2="786.67" y2="502.50" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-36">
+<title>outer Gen (over 36)</title>
+<line x1="793.75" y1="497.50" x2="793.75" y2="492.00" class="bar" data-line="4"/>
+<line x1="793.75" y1="508.00" x2="793.75" y2="502.50" class="bar" data-line="4"/>
+<line x1="800.83" y1="497.50" x2="800.83" y2="492.00" class="bar" data-line="5"/>
+<line x1="800.83" y1="508.00" x2="800.83" y2="502.50" class="bar" data-line="5"/>
+<line x1="807.92" y1="492.00" x2="807.92" y2="508.00" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-52">
+<title>Xun  45°</title>
+<line x1="690.92" y1="305.55" x2="687.03" y2="301.66" class="bar" data-line="1"/>
+<line x1="698.34" y1="312.97" x2="694.45" y2="309.08" class="bar" data-line="1"/>
+<line x1="692.04" y1="296.65" x2="703.35" y2="307.96" class="bar" data-line="2"/>
+<line x1="697.05" y1="291.64" x2="708.36" y2="302.95" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-52">
+<title>outer Gen (over 52)</title>
+<line x1="705.94" y1="290.52" x2="702.06" y2="286.63" class="bar" data-line="4"/>
+<line x1="713.37" y1="297.94" x2="709.48" y2="294.06" class="bar" data-line="4"/>
+<line x1="710.95" y1="285.51" x2="707.06" y2="281.62" class="bar" data-line="5"/>
+<line x1="718.38" y1="292.94" x2="714.49" y2="289.05" class="bar" data-line="5"/>
+<line x1="712.07" y1="276.61" x2="723.39" y2="287.93" class="bar" data-line="6"/>
+</g>
+</g>
+<g transform="rotate(-14.0625 500 500)">
+<line x1="500.00" y1="290.00" x2="500.00" y2="86.00" class="spoke"/>
+<line x1="351.51" y1="351.51" x2="207.26" y2="207.26" class="spoke"/>
+<line x1="290.00" y1="500.00" x2="86.00" y2="500.00" class="spoke"/>
+<line x1="351.51" y1="648.49" x2="207.26" y2="792.74" class="spoke"/>
+<line x1="500.00" y1="710.00" x2="500.00" y2="914.00" class="spoke"/>
+<line x1="648.49" y1="648.49" x2="792.74" y2="792.74" class="spoke"/>
+<line x1="710.00" y1="500.00" x2="914.00" y2="500.00" class="spoke"/>
+<line x1="648.49" y1="351.51" x2="792.74" y2="207.26" class="spoke"/>
+<g class="glyph" id="glyph-5">
+<title>Qian  90°</title>
+<line x1="492.00" y1="227.50" x2="508.00" y2="227.50" class="bar" data-line="1"/>
+<line x1="492.00" y1="220.42" x2="508.00" y2="220.42" class="bar" data-line="2"/>
+<line x1="492.00" y1="213.33" x2="508.00" y2="213.33" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-5">
+<title>outer Li (over 5)</title>
+<line x1="492.00" y1="206.25" x2="508.00" y2="206.25" class="bar" data-line="4"/>
+<line x1="497.50" y1="199.17" x2="492.00" y2="199.17" class="bar" data-line="5"/>
+<line x1="508.00" y1="199.17" x2="502.50" y2="199.17" class="bar" data-line="5"/>
+<line x1="492.00" y1="192.08" x2="508.00" y2="192.08" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-21">
+<title>Dui  135°</title>
+<line x1="301.66" y1="312.97" x2="312.97" y2="301.66" class="bar" data-line="1"/>
+<line x1="296.65" y1="307.96" x2="307.96" y2="296.65" class="bar" data-line="2"/>
+<line x1="295.53" y1="299.06" x2="291.64" y2="302.95" class="bar" data-line="3"/>
+<line x1="302.95" y1="291.64" x2="299.06" y2="295.53" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-21">
+<title>outer Li (over 21)</title>
+<line x1="286.63" y1="297.94" x2="297.94" y2="286.63" class="bar" data-line="4"/>
+<line x1="285.51" y1="289.05" x2="281.62" y2="292.94" class="bar" data-line="5"/>
+<line x1="292.94" y1="281.62" x2="289.05" y2="285.51" class="bar" data-line="5"/>
+<line x1="276.61" y1="287.93" x2="287.93" y2="276.61" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-37">
+<title>Li  180°</title>
+<line x1="227.50" y1="508.00" x2="227.50" y2="492.00" class="bar" data-line="1"/>
+<line x1="220.42" y1="502.50" x2="220.42" y2="508.00" class="bar" data-line="2"/>
+<line x1="220.42" y1="492.00" x2="220.42" y2="497.50" class="bar" data-line="2"/>
+<line x1="213.33" y1="508.00" x2="213.33" y2="492.00" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-37">
+<title>outer Li (over 37)</title>
+<line x1="206.25" y1="508.00" x2="206.25" y2="492.00" class="bar" data-line="4"/>
+<line x1="199.17" y1="502.50" x2="199.17" y2="508.00" class="bar" data-line="5"/>
+<line x1="199.17" y1="492.00" x2="199.17" y2="497.50" class="bar" data-line="5"/>
+<line x1="192.08" y1="508.00" x2="192.08" y2="492.00" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-53">
+<title>Zhen  225°</title>
+<line x1="312.97" y1="698.34" x2="301.66" y2="687.03" class="bar" data-line="1"/>
+<line x1="304.07" y1="699.46" x2="307.96" y2="703.35" class="bar" data-line="2"/>
+<line x1="296.65" y1="692.04" x2="300.54" y2="695.93" class="bar" data-line="2"/>
+<line x1="299.06" y1="704.47" x2="302.95" y2="708.36" class="bar" data-line="3"/>
+<line x1="291.64" y1="697.05" x2="295.53" y2="700.94" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-53">
+<title>outer Li (over 53)</title>
+<line x1="297.94" y1="713.37" x2="286.63" y2="702.06" class="bar" data-line="4"/>
+<line x1="289.05" y1="714.49" x2="292.94" y2="718.38" class="bar" data-line="5"/>
+<line x1="281.62" y1="707.06" x2="285.51" y2="710.95" class="bar" data-line="5"/>
+<line x1="287.93" y1="723.39" x2="276.61" y2="712.07" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-6">
+<title>Kun  270°</title>
+<line x1="502.50" y1="772.50" x2="508.00" y2="772.50" class="bar" data-line="1"/>
+<line x1="492.00" y1="772.50" x2="497.50" y2="772.50" class="bar" data-line="1"/>
+<line x1="502.50" y1="779.58" x2="508.00" y2="779.58" class="bar" data-line="2"/>
+<line x1="492.00" y1="779.58" x2="497.50" y2="779.58" class="bar" data-line="2"/>
+<line x1="502.50" y1="786.67" x2="508.00" y2="786.67" class="bar" data-line="3"/>
+<line x1="492.00" y1="786.67" x2="497.50" y2="786.67" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-6">
+<title>outer Kan (over 6)</title>
+<line x1="502.50" y1="793.75" x2="508.00" y2="793.75" class="bar" data-line="4"/>
+<line x1="492.00" y1="793.75" x2="497.50" y2="793.75" class="bar" data-line="4"/>
+<line x1="508.00" y1="800.83" x2="492.00" y2="800.83" class="bar" data-line="5"/>
+<line x1="502.50" y1="807.92" x2="508.00" y2="807.92" class="bar" data-line="6"/>
+<line x1="492.00" y1="807.92" x2="497.50" y2="807.92" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-22">
+<title>Gen  315°</title>
+<line x1="694.45" y1="690.92" x2="698.34" y2="687.03" class="bar" data-line="1"/>
+<line x1="687.03" y1="698.34" x2="690.92" y2="694.45" class="bar" data-line="1"/>
+<line x1="699.46" y1="695.93" x2="703.35" y2="692.04" class="bar" data-line="2"/>
+<line x1="692.04" y1="703.35" x2="695.93" y2="699.46" class="bar" data-line="2"/>
+<line x1="708.36" y1="697.05" x2="697.05" y2="708.36" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-22">
+<title>outer Kan (over 22)</title>
+<line x1="709.48" y1="705.94" x2="713.37" y2="702.06" class="bar" data-line="4"/>
+<line x1="702.06" y1="713.37" x2="705.94" y2="709.48" class="bar" data-line="4"/>
+<line x1="718.38" y1="707.06" x2="707.06" y2="718.38" class="bar" data-line="5"/>
+<line x1="719.50" y1="715.96" x2="723.39" y2="712.07" class="bar" data-line="6"/>
+<line x1="712.07" y1="723.39" x2="715.96" y2="719.50" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-38">
+<title>Kan  0°</title>
+<line x1="772.50" y1="497.50" x2="772.50" y2="492.00" class="bar" data-line="1"/>
+<line x1="772.50" y1="508.00" x2="772.50" y2="502.50" class="bar" data-line="1"/>
+<line x1="779.58" y1="492.00" x2="779.58" y2="508.00" class="bar" data-line="2"/>
+<line x1="786.67" y1="497.50" x2="786.67" y2="492.00" class="bar" data-line="3"/>
+<line x1="786.67" y1="508.00" x2="786.67" y2="502.50" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-38">
+<title>outer Kan (over 38)</title>
+<line x1="793.75" y1="497.50" x2="793.75" y2="492.00" class="bar" data-line="4"/>
+<line x1="793.75" y1="508.00" x2="793.75" y2="502.50" class="bar" data-line="4"/>
+<line x1="800.83" y1="492.00" x2="800.83" y2="508.00" class="bar" data-line="5"/>
+<line x1="807.92" y1="497.50" x2="807.92" y2="492.00" class="bar" data-line="6"/>
+<line x1="807.92" y1="508.00" x2="807.92" y2="502.50" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-54">
+<title>Xun  45°</title>
+<line x1="690.92" y1="305.55" x2="687.03" y2="301.66" class="bar" data-line="1"/>
+<line x1="698.34" y1="312.97" x2="694.45" y2="309.08" class="bar" data-line="1"/>
+<line x1="692.04" y1="296.65" x2="703.35" y2="307.96" class="bar" data-line="2"/>
+<line x1="697.05" y1="291.64" x2="708.36" y2="302.95" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-54">
+<title>outer Kan (over 54)</title>
+<line x1="705.94" y1="290.52" x2="702.06" y2="286.63" class="bar" data-line="4"/>
+<line x1="713.37" y1="297.94" x2="709.48" y2="294.06" class="bar" data-line="4"/>
+<line x1="707.06" y1="281.62" x2="718.38" y2="292.94" class="bar" data-line="5"/>
+<line x1="715.96" y1="280.50" x2="712.07" y2="276.61" class="bar" data-line="6"/>
+<line x1="723.39" y1="287.93" x2="719.50" y2="284.04" class="bar" data-line="6"/>
+</g>
+</g>
+<g transform="rotate(-19.6875 500 500)">
+<line x1="500.00" y1="290.00" x2="500.00" y2="86.00" class="spoke"/>
+<line x1="351.51" y1="351.51" x2="207.26" y2="207.26" class="spoke"/>
+<line x1="290.00" y1="500.00" x2="86.00" y2="500.00" class="spoke"/>
+<line x1="351.51" y1="648.49" x2="207.26" y2="792.74" class="spoke"/>
+<line x1="500.00" y1="710.00" x2="500.00" y2="914.00" class="spoke"/>
+<line x1="648.49" y1="648.49" x2="792.74" y2="792.74" class="spoke"/>
+<line x1="710.00" y1="500.00" x2="914.00" y2="500.00" class="spoke"/>
+<line x1="648.49" y1="351.51" x2="792.74" y2="207.26" class="spoke"/>
+<g class="glyph" id="glyph-7">
+<title>Qian  90°</title>
+<line x1="492.00" y1="227.50" x2="508.00" y2="227.50" class="bar" data-line="1"/>
+<line x1="492.00" y1="220.42" x2="508.00" y2="220.42" class="bar" data-line="2"/>
+<line x1="492.00" y1="213.33" x2="508.00" y2="213.33" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-7">
+<title>outer Zhen (over 7)</title>
+<line x1="492.00" y1="206.25" x2="508.00" y2="206.25" class="bar" data-line="4"/>
+<line x1="497.50" y1="199.17" x2="492.00" y2="199.17" class="bar" data-line="5"/>
+<line x1="508.00" y1="199.17" x2="502.50" y2="199.17" class="bar" data-line="5"/>
+<line x1="497.50" y1="192.08" x2="492.00" y2="192.08" class="bar" data-line="6"/>
+<line x1="508.00" y1="192.08" x2="502.50" y2="192.08" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-23">
+<title>Dui  135°</title>
+<line x1="301.66" y1="312.97" x2="312.97" y2="301.66" class="bar" data-line="1"/>
+<line x1="296.65" y1="307.96" x2="307.96" y2="296.65" class="bar" data-line="2"/>
+<line x1="295.53" y1="299.06" x2="291.64" y2="302.95" class="bar" data-line="3"/>
+<line x1="302.95" y1="291.64" x2="299.06" y2="295.53" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-23">
+<title>outer Zhen (over 23)</title>
+<line x1="286.63" y1="297.94" x2="297.94" y2="286.63" class="bar" data-line="4"/>
+<line x1="285.51" y1="289.05" x2="281.62" y2="292.94" class="bar" data-line="5"/>
+<line x1="292.94" y1="281.62" x2="289.05" y2="285.51" class="bar" data-line="5"/>
+<line x1="280.50" y1="284.04" x2="276.61" y2="287.93" class="bar" data-line="6"/>
+<line x1="287.93" y1="276.61" x2="284.04" y2="280.50" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-39">
+<title>Li  180°</title>
+<line x1="227.50" y1="508.00" x2="227.50" y2="492.00" class="bar" data-line="1"/>
+<line x1="220.42" y1="502.50" x2="220.42" y2="508.00" class="bar" data-line="2"/>
+<line x1="220.42" y1="492.00" x2="220.42" y2="497.50" class="bar" data-line="2"/>
+<line x1="213.33" y1="508.00" x2="213.33" y2="492.00" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-39">
+<title>outer Zhen (over 39)</title>
+<line x1="206.25" y1="508.00" x2="206.25" y2="492.00" class="bar" data-line="4"/>
+<line x1="199.17" y1="502.50" x2="199.17" y2="508.00" class="bar" data-line="5"/>
+<line x1="199.17" y1="492.00" x2="199.17" y2="497.50" class="bar" data-line="5"/>
+<line x1="192.08" y1="502.50" x2="192.08" y2="508.00" class="bar" data-line="6"/>
+<line x1="192.08" y1="492.00" x2="192.08" y2="497.50" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-55">
+<title>Zhen  225°</title>
+<line x1="312.97" y1="698.34" x2="301.66" y2="687.03" class="bar" data-line="1"/>
+<line x1="304.07" y1="699.46" x2="307.96" y2="703.35" class="bar" data-line="2"/>
+<line x1="296.65" y1="692.04" x2="300.54" y2="695.93" class="bar" data-line="2"/>
+<line x1="299.06" y1="704.47" x2="302.95" y2="708.36" class="bar" data-line="3"/>
+<line x1="291.64" y1="697.05" x2="295.53" y2="700.94" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-55">
+<title>outer Zhen (over 55)</title>
+<line x1="297.94" y1="713.37" x2="286.63" y2="702.06" class="bar" data-line="4"/>
+<line x1="289.05" y1="714.49" x2="292.94" y2="718.38" class="bar" data-line="5"/>
+<line x1="281.62" y1="707.06" x2="285.51" y2="710.95" class="bar" data-line="5"/>
+<line x1="284.04" y1="719.50" x2="287.93" y2="723.39" class="bar" data-line="6"/>
+<line x1="276.61" y1="712.07" x2="280.50" y2="715.96" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-8">
+<title>Kun  270°</title>
+<line x1="502.50" y1="772.50" x2="508.00" y2="772.50" class="bar" data-line="1"/>
+<line x1="492.00" y1="772.50" x2="497.50" y2="772.50" class="bar" data-line="1"/>
+<line x1="502.50" y1="779.58" x2="508.00" y2="779.58" class="bar" data-line="2"/>
+<line x1="492.00" y1="779.58" x2="497.50" y2="779.58" class="bar" data-line="2"/>
+<line x1="502.50" y1="786.67" x2="508.00" y2="786.67" class="bar" data-line="3"/>
+<line x1="492.00" y1="786.67" x2="497.50" y2="786.67" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-8">
+<title>outer Xun (over 8)</title>
+<line x1="502.50" y1="793.75" x2="508.00" y2="793.75" class="bar" data-line="4"/>
+<line x1="492.00" y1="793.75" x2="497.50" y2="793.75" class="bar" data-line="4"/>
+<line x1="508.00" y1="800.83" x2="492.00" y2="800.83" class="bar" data-line="5"/>
+<line x1="508.00" y1="807.92" x2="492.00" y2="807.92" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-24">
+<title>Gen  315°</title>
+<line x1="694.45" y1="690.92" x2="698.34" y2="687.03" class="bar" data-line="1"/>
+<line x1="687.03" y1="698.34" x2="690.92" y2="694.45" class="bar" data-line="1"/>
+<line x1="699.46" y1="695.93" x2="703.35" y2="692.04" class="bar" data-line="2"/>
+<line x1="692.04" y1="703.35" x2="695.93" y2="699.46" class="bar" data-line="2"/>
+<line x1="708.36" y1="697.05" x2="697.05" y2="708.36" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-24">
+<title>outer Xun (over 24)</title>
+<line x1="709.48" y1="705.94" x2="713.37" y2="702.06" class="bar" data-line="4"/>
+<line x1="702.06" y1="713.37" x2="705.94" y2="709.48" class="bar" data-line="4"/>
+<line x1="718.38" y1="707.06" x2="707.06" y2="718.38" class="bar" data-line="5"/>
+<line x1="723.39" y1="712.07" x2="712.07" y2="723.39" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-40">
+<title>Kan  0°</title>
+<line x1="772.50" y1="497.50" x2="772.50" y2="492.00" class="bar" data-line="1"/>
+<line x1="772.50" y1="508.00" x2="772.50" y2="502.50" class="bar" data-line="1"/>
+<line x1="779.58" y1="492.00" x2="779.58" y2="508.00" class="bar" data-line="2"/>
+<line x1="786.67" y1="497.50" x2="786.67" y2="492.00" class="bar" data-line="3"/>
+<line x1="786.67" y1="508.00" x2="786.67" y2="502.50" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-40">
+<title>outer Xun (over 40)</title>
+<line x1="793.75" y1="497.50" x2="793.75" y2="492.00" class="bar" data-line="4"/>
+<line x1="793.75" y1="508.00" x2="793.75" y2="502.50" class="bar" data-line="4"/>
+<line x1="800.83" y1="492.00" x2="800.83" y2="508.00" class="bar" data-line="5"/>
+<line x1="807.92" y1="492.00" x2="807.92" y2="508.00" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-56">
+<title>Xun  45°</title>
+<line x1="690.92" y1="305.55" x2="687.03" y2="301.66" class="bar" data-line="1"/>
+<line x1="698.34" y1="312.97" x2="694.45" y2="309.08" class="bar" data-line="1"/>
+<line x1="692.04" y1="296.65" x2="703.35" y2="307.96" class="bar" data-line="2"/>
+<line x1="697.05" y1="291.64" x2="708.36" y2="302.95" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-56">
+<title>outer Xun (over 56)</title>
+<line x1="705.94" y1="290.52" x2="702.06" y2="286.63" class="bar" data-line="4"/>
+<line x1="713.37" y1="297.94" x2="709.48" y2="294.06" class="bar" data-line="4"/>
+<line x1="707.06" y1="281.62" x2="718.38" y2="292.94" class="bar" data-line="5"/>
+<line x1="712.07" y1="276.61" x2="723.39" y2="287.93" class="bar" data-line="6"/>
+</g>
+</g>
+<g transform="rotate(-25.3125 500 500)">
+<line x1="500.00" y1="290.00" x2="500.00" y2="86.00" class="spoke"/>
+<line x1="351.51" y1="351.51" x2="207.26" y2="207.26" class="spoke"/>
+<line x1="290.00" y1="500.00" x2="86.00" y2="500.00" class="spoke"/>
+<line x1="351.51" y1="648.49" x2="207.26" y2="792.74" class="spoke"/>
+<line x1="500.00" y1="710.00" x2="500.00" y2="914.00" class="spoke"/>
+<line x1="648.49" y1="648.49" x2="792.74" y2="792.74" class="spoke"/>
+<line x1="710.00" y1="500.00" x2="914.00" y2="500.00" class="spoke"/>
+<line x1="648.49" y1="351.51" x2="792.74" y2="207.26" class="spoke"/>
+<g class="glyph" id="glyph-9">
+<title>Qian  90°</title>
+<line x1="492.00" y1="227.50" x2="508.00" y2="227.50" class="bar" data-line="1"/>
+<line x1="492.00" y1="220.42" x2="508.00" y2="220.42" class="bar" data-line="2"/>
+<line x1="492.00" y1="213.33" x2="508.00" y2="213.33" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-9">
+<title>outer Xun (over 9)</title>
+<line x1="497.50" y1="206.25" x2="492.00" y2="206.25" class="bar" data-line="4"/>
+<line x1="508.00" y1="206.25" x2="502.50" y2="206.25" class="bar" data-line="4"/>
+<line x1="492.00" y1="199.17" x2="508.00" y2="199.17" class="bar" data-line="5"/>
+<line x1="492.00" y1="192.08" x2="508.00" y2="192.08" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-25">
+<title>Dui  135°</title>
+<line x1="301.66" y1="312.97" x2="312.97" y2="301.66" class="bar" data-line="1"/>
+<line x1="296.65" y1="307.96" x2="307.96" y2="296.65" class="bar" data-line="2"/>
+<line x1="295.53" y1="299.06" x2="291.64" y2="302.95" class="bar" data-line="3"/>
+<line x1="302.95" y1="291.64" x2="299.06" y2="295.53" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-25">
+<title>outer Xun (over 25)</title>
+<line x1="290.52" y1="294.06" x2="286.63" y2="297.94" class="bar" data-line="4"/>
+<line x1="297.94" y1="286.63" x2="294.06" y2="290.52" class="bar" data-line="4"/>
+<line x1="281.62" y1="292.94" x2="292.94" y2="281.62" class="bar" data-line="5"/>
+<line x1="276.61" y1="287.93" x2="287.93" y2="276.61" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-41">
+<title>Li  180°</title>
+<line x1="227.50" y1="508.00" x2="227.50" y2="492.00" class="bar" data-line="1"/>
+<line x1="220.42" y1="502.50" x2="220.42" y2="508.00" class="bar" data-line="2"/>
+<line x1="220.42" y1="492.00" x2="220.42" y2="497.50" class="bar" data-line="2"/>
+<line x1="213.33" y1="508.00" x2="213.33" y2="492.00" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-41">
+<title>outer Xun (over 41)</title>
+<line x1="206.25" y1="502.50" x2="206.25" y2="508.00" class="bar" data-line="4"/>
+<line x1="206.25" y1="492.00" x2="206.25" y2="497.50" class="bar" data-line="4"/>
+<line x1="199.17" y1="508.00" x2="199.17" y2="492.00" class="bar" data-line="5"/>
+<line x1="192.08" y1="508.00" x2="192.08" y2="492.00" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-57">
+<title>Zhen  225°</title>
+<line x1="312.97" y1="698.34" x2="301.66" y2="687.03" class="bar" data-line="1"/>
+<line x1="304.07" y1="699.46" x2="307.96" y2="703.35" class="bar" data-line="2"/>
+<line x1="296.65" y1="692.04" x2="300.54" y2="695.93" class="bar" data-line="2"/>
+<line x1="299.06" y1="704.47" x2="302.95" y2="708.36" class="bar" data-line="3"/>
+<line x1="291.64" y1="697.05" x2="295.53" y2="700.94" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-57">
+<title>outer Xun (over 57)</title>
+<line x1="294.06" y1="709.48" x2="297.94" y2="713.37" class="bar" data-line="4"/>
+<line x1="286.63" y1="702.06" x2="290.52" y2="705.94" class="bar" data-line="4"/>
+<line x1="292.94" y1="718.38" x2="281.62" y2="707.06" class="bar" data-line="5"/>
+<line x1="287.93" y1="723.39" x2="276.61" y2="712.07" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-10">
+<title>Kun  270°</title>
+<line x1="502.50" y1="772.50" x2="508.00" y2="772.50" class="bar" data-line="1"/>
+<line x1="492.00" y1="772.50" x2="497.50" y2="772.50" class="bar" data-line="1"/>
+<line x1="502.50" y1="779.58" x2="508.00" y2="779.58" class="bar" data-line="2"/>
+<line x1="492.00" y1="779.58" x2="497.50" y2="779.58" class="bar" data-line="2"/>
+<line x1="502.50" y1="786.67" x2="508.00" y2="786.67" class="bar" data-line="3"/>
+<line x1="492.00" y1="786.67" x2="497.50" y2="786.67" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-10">
+<title>outer Zhen (over 10)</title>
+<line x1="508.00" y1="793.75" x2="492.00" y2="793.75" class="bar" data-line="4"/>
+<line x1="502.50" y1="800.83" x2="508.00" y2="800.83" class="bar" data-line="5"/>
+<line x1="492.00" y1="800.83" x2="497.50" y2="800.83" class="bar" data-line="5"/>
+<line x1="502.50" y1="807.92" x2="508.00" y2="807.92" class="bar" data-line="6"/>
+<line x1="492.00" y1="807.92" x2="497.50" y2="807.92" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-26">
+<title>Gen  315°</title>
+<line x1="694.45" y1="690.92" x2="698.34" y2="687.03" class="bar" data-line="1"/>
+<line x1="687.03" y1="698.34" x2="690.92" y2="694.45" class="bar" data-line="1"/>
+<line x1="699.46" y1="695.93" x2="703.35" y2="692.04" class="bar" data-line="2"/>
+<line x1="692.04" y1="703.35" x2="695.93" y2="699.46" class="bar" data-line="2"/>
+<line x1="708.36" y1="697.05" x2="697.05" y2="708.36" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-26">
+<title>outer Zhen (over 26)</title>
+<line x1="713.37" y1="702.06" x2="702.06" y2="713.37" class="bar" data-line="4"/>
+<line x1="714.49" y1="710.95" x2="718.38" y2="707.06" class="bar" data-line="5"/>
+<line x1="707.06" y1="718.38" x2="710.95" y2="714.49" class="bar" data-line="5"/>
+<line x1="719.50" y1="715.96" x2="723.39" y2="712.07" class="bar" data-line="6"/>
+<line x1="712.07" y1="723.39" x2="715.96" y2="719.50" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-42">
+<title>Kan  0°</title>
+<line x1="772.50" y1="497.50" x2="772.50" y2="492.00" class="bar" data-line="1"/>
+<line x1="772.50" y1="508.00" x2="772.50" y2="502.50" class="bar" data-line="1"/>
+<line x1="779.58" y1="492.00" x2="779.58" y2="508.00" class="bar" data-line="2"/>
+<line x1="786.67" y1="497.50" x2="786.67" y2="492.00" class="bar" data-line="3"/>
+<line x1="786.67" y1="508.00" x2="786.67" y2="502.50" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-42">
+<title>outer Zhen (over 42)</title>
+<line x1="793.75" y1="492.00" x2="793.75" y2="508.00" class="bar" data-line="4"/>
+<line x1="800.83" y1="497.50" x2="800.83" y2="492.00" class="bar" data-line="5"/>
+<line x1="800.83" y1="508.00" x2="800.83" y2="502.50" class="bar" data-line="5"/>
+<line x1="807.92" y1="497.50" x2="807.92" y2="492.00" class="bar" data-line="6"/>
+<line x1="807.92" y1="508.00" x2="807.92" y2="502.50" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-58">
+<title>Xun  45°</title>
+<line x1="690.92" y1="305.55" x2="687.03" y2="301.66" class="bar" data-line="1"/>
+<line x1="698.34" y1="312.97" x2="694.45" y2="309.08" class="bar" data-line="1"/>
+<line x1="692.04" y1="296.65" x2="703.35" y2="307.96" class="bar" data-line="2"/>
+<line x1="697.05" y1="291.64" x2="708.36" y2="302.95" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-58">
+<title>outer Zhen (over 58)</title>
+<line x1="702.06" y1="286.63" x2="713.37" y2="297.94" class="bar" data-line="4"/>
+<line x1="710.95" y1="285.51" x2="707.06" y2="281.62" class="bar" data-line="5"/>
+<line x1="718.38" y1="292.94" x2="714.49" y2="289.05" class="bar" data-line="5"/>
+<line x1="715.96" y1="280.50" x2="712.07" y2="276.61" class="bar" data-line="6"/>
+<line x1="723.39" y1="287.93" x2="719.50" y2="284.04" class="bar" data-line="6"/>
+</g>
+</g>
+<g transform="rotate(-30.9375 500 500)">
+<line x1="500.00" y1="290.00" x2="500.00" y2="86.00" class="spoke"/>
+<line x1="351.51" y1="351.51" x2="207.26" y2="207.26" class="spoke"/>
+<line x1="290.00" y1="500.00" x2="86.00" y2="500.00" class="spoke"/>
+<line x1="351.51" y1="648.49" x2="207.26" y2="792.74" class="spoke"/>
+<line x1="500.00" y1="710.00" x2="500.00" y2="914.00" class="spoke"/>
+<line x1="648.49" y1="648.49" x2="792.74" y2="792.74" class="spoke"/>
+<line x1="710.00" y1="500.00" x2="914.00" y2="500.00" class="spoke"/>
+<line x1="648.49" y1="351.51" x2="792.74" y2="207.26" class="spoke"/>
+<g class="glyph" id="glyph-11">
+<title>Qian  90°</title>
+<line x1="492.00" y1="227.50" x2="508.00" y2="227.50" class="bar" data-line="1"/>
+<line x1="492.00" y1="220.42" x2="508.00" y2="220.42" class="bar" data-line="2"/>
+<line x1="492.00" y1="213.33" x2="508.00" y2="213.33" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-11">
+<title>outer Kan (over 11)</title>
+<line x1="497.50" y1="206.25" x2="492.00" y2="206.25" class="bar" data-line="4"/>
+<line x1="508.00" y1="206.25" x2="502.50" y2="206.25" class="bar" data-line="4"/>
+<line x1="492.00" y1="199.17" x2="508.00" y2="199.17" class="bar" data-line="5"/>
+<line x1="497.50" y1="192.08" x2="492.00" y2="192.08" class="bar" data-line="6"/>
+<line x1="508.00" y1="192.08" x2="502.50" y2="192.08" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-27">
+<title>Dui  135°</title>
+<line x1="301.66" y1="312.97" x2="312.97" y2="301.66" class="bar" data-line="1"/>
+<line x1="296.65" y1="307.96" x2="307.96" y2="296.65" class="bar" data-line="2"/>
+<line x1="295.53" y1="299.06" x2="291.64" y2="302.95" class="bar" data-line="3"/>
+<line x1="302.95" y1="291.64" x2="299.06" y2="295.53" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-27">
+<title>outer Kan (over 27)</title>
+<line x1="290.52" y1="294.06" x2="286.63" y2="297.94" class="bar" data-line="4"/>
+<line x1="297.94" y1="286.63" x2="294.06" y2="290.52" class="bar" data-line="4"/>
+<line x1="281.62" y1="292.94" x2="292.94" y2="281.62" class="bar" data-line="5"/>
+<line x1="280.50" y1="284.04" x2="276.61" y2="287.93" class="bar" data-line="6"/>
+<line x1="287.93" y1="276.61" x2="284.04" y2="280.50" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-43">
+<title>Li  180°</title>
+<line x1="227.50" y1="508.00" x2="227.50" y2="492.00" class="bar" data-line="1"/>
+<line x1="220.42" y1="502.50" x2="220.42" y2="508.00" class="bar" data-line="2"/>
+<line x1="220.42" y1="492.00" x2="220.42" y2="497.50" class="bar" data-line="2"/>
+<line x1="213.33" y1="508.00" x2="213.33" y2="492.00" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-43">
+<title>outer Kan (over 43)</title>
+<line x1="206.25" y1="502.50" x2="206.25" y2="508.00" class="bar" data-line="4"/>
+<line x1="206.25" y1="492.00" x2="206.25" y2="497.50" class="bar" data-line="4"/>
+<line x1="199.17" y1="508.00" x2="199.17" y2="492.00" class="bar" data-line="5"/>
+<line x1="192.08" y1="502.50" x2="192.08" y2="508.00" class="bar" data-line="6"/>
+<line x1="192.08" y1="492.00" x2="192.08" y2="497.50" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-59">
+<title>Zhen  225°</title>
+<line x1="312.97" y1="698.34" x2="301.66" y2="687.03" class="bar" data-line="1"/>
+<line x1="304.07" y1="699.46" x2="307.96" y2="703.35" class="bar" data-line="2"/>
+<line x1="296.65" y1="692.04" x2="300.54" y2="695.93" class="bar" data-line="2"/>
+<line x1="299.06" y1="704.47" x2="302.95" y2="708.36" class="bar" data-line="3"/>
+<line x1="291.64" y1="697.05" x2="295.53" y2="700.94" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-59">
+<title>outer Kan (over 59)</title>
+<line x1="294.06" y1="709.48" x2="297.94" y2="713.37" class="bar" data-line="4"/>
+<line x1="286.63" y1="702.06" x2="290.52" y2="705.94" class="bar" data-line="4"/>
+<line x1="292.94" y1="718.38" x2="281.62" y2="707.06" class="bar" data-line="5"/>
+<line x1="284.04" y1="719.50" x2="287.93" y2="723.39" class="bar" data-line="6"/>
+<line x1="276.61" y1="712.07" x2="280.50" y2="715.96" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-12">
+<title>Kun  270°</title>
+<line x1="502.50" y1="772.50" x2="508.00" y2="772.50" class="bar" data-line="1"/>
+<line x1="492.00" y1="772.50" x2="497.50" y2="772.50" class="bar" data-line="1"/>
+<line x1="502.50" y1="779.58" x2="508.00" y2="779.58" class="bar" data-line="2"/>
+<line x1="492.00" y1="779.58" x2="497.50" y2="779.58" class="bar" data-line="2"/>
+<line x1="502.50" y1="786.67" x2="508.00" y2="786.67" class="bar" data-line="3"/>
+<line x1="492.00" y1="786.67" x2="497.50" y2="786.67" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-12">
+<title>outer Li (over 12)</title>
+<line x1="508.00" y1="793.75" x2="492.00" y2="793.75" class="bar" data-line="4"/>
+<line x1="502.50" y1="800.83" x2="508.00" y2="800.83" class="bar" data-line="5"/>
+<line x1="492.00" y1="800.83" x2="497.50" y2="800.83" class="bar" data-line="5"/>
+<line x1="508.00" y1="807.92" x2="492.00" y2="807.92" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-28">
+<title>Gen  315°</title>
+<line x1="694.45" y1="690.92" x2="698.34" y2="687.03" class="bar" data-line="1"/>
+<line x1="687.03" y1="698.34" x2="690.92" y2="694.45" class="bar" data-line="1"/>
+<line x1="699.46" y1="695.93" x2="703.35" y2="692.04" class="bar" data-line="2"/>
+<line x1="692.04" y1="703.35" x2="695.93" y2="699.46" class="bar" data-line="2"/>
+<line x1="708.36" y1="697.05" x2="697.05" y2="708.36" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-28">
+<title>outer Li (over 28)</title>
+<line x1="713.37" y1="702.06" x2="702.06" y2="713.37" class="bar" data-line="4"/>
+<line x1="714.49" y1="710.95" x2="718.38" y2="707.06" class="bar" data-line="5"/>
+<line x1="707.06" y1="718.38" x2="710.95" y2="714.49" class="bar" data-line="5"/>
+<line x1="723.39" y1="712.07" x2="712.07" y2="723.39" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-44">
+<title>Kan  0°</title>
+<line x1="772.50" y1="497.50" x2="772.50" y2="492.00" class="bar" data-line="1"/>
+<line x1="772.50" y1="508.00" x2="772.50" y2="502.50" class="bar" data-line="1"/>
+<line x1="779.58" y1="492.00" x2="779.58" y2="508.00" class="bar" data-line="2"/>
+<line x1="786.67" y1="497.50" x2="786.67" y2="492.00" class="bar" data-line="3"/>
+<line x1="786.67" y1="508.00" x2="786.67" y2="502.50" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-44">
+<title>outer Li (over 44)</title>
+<line x1="793.75" y1="492.00" x2="793.75" y2="508.00" class="bar" data-line="4"/>
+<line x1="800.83" y1="497.50" x2="800.83" y2="492.00" class="bar" data-line="5"/>
+<line x1="800.83" y1="508.00" x2="800.83" y2="502.50" class="bar" data-line="5"/>
+<line x1="807.92" y1="492.00" x2="807.92" y2="508.00" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-60">
+<title>Xun  45°</title>
+<line x1="690.92" y1="305.55" x2="687.03" y2="301.66" class="bar" data-line="1"/>
+<line x1="698.34" y1="312.97" x2="694.45" y2="309.08" class="bar" data-line="1"/>
+<line x1="692.04" y1="296.65" x2="703.35" y2="307.96" class="bar" data-line="2"/>
+<line x1="697.05" y1="291.64" x2="708.36" y2="302.95" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-60">
+<title>outer Li (over 60)</title>
+<line x1="702.06" y1="286.63" x2="713.37" y2="297.94" class="bar" data-line="4"/>
+<line x1="710.95" y1="285.51" x2="707.06" y2="281.62" class="bar" data-line="5"/>
+<line x1="718.38" y1="292.94" x2="714.49" y2="289.05" class="bar" data-line="5"/>
+<line x1="712.07" y1="276.61" x2="723.39" y2="287.93" class="bar" data-line="6"/>
+</g>
+</g>
+<g transform="rotate(-36.5625 500 500)">
+<line x1="500.00" y1="290.00" x2="500.00" y2="86.00" class="spoke"/>
+<line x1="351.51" y1="351.51" x2="207.26" y2="207.26" class="spoke"/>
+<line x1="290.00" y1="500.00" x2="86.00" y2="500.00" class="spoke"/>
+<line x1="351.51" y1="648.49" x2="207.26" y2="792.74" class="spoke"/>
+<line x1="500.00" y1="710.00" x2="500.00" y2="914.00" class="spoke"/>
+<line x1="648.49" y1="648.49" x2="792.74" y2="792.74" class="spoke"/>
+<line x1="710.00" y1="500.00" x2="914.00" y2="500.00" class="spoke"/>
+<line x1="648.49" y1="351.51" x2="792.74" y2="207.26" class="spoke"/>
+<g class="glyph" id="glyph-13">
+<title>Qian  90°</title>
+<line x1="492.00" y1="227.50" x2="508.00" y2="227.50" class="bar" data-line="1"/>
+<line x1="492.00" y1="220.42" x2="508.00" y2="220.42" class="bar" data-line="2"/>
+<line x1="492.00" y1="213.33" x2="508.00" y2="213.33" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-13">
+<title>outer Gen (over 13)</title>
+<line x1="497.50" y1="206.25" x2="492.00" y2="206.25" class="bar" data-line="4"/>
+<line x1="508.00" y1="206.25" x2="502.50" y2="206.25" class="bar" data-line="4"/>
+<line x1="497.50" y1="199.17" x2="492.00" y2="199.17" class="bar" data-line="5"/>
+<line x1="508.00" y1="199.17" x2="502.50" y2="199.17" class="bar" data-line="5"/>
+<line x1="492.00" y1="192.08" x2="508.00" y2="192.08" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-29">
+<title>Dui  135°</title>
+<line x1="301.66" y1="312.97" x2="312.97" y2="301.66" class="bar" data-line="1"/>
+<line x1="296.65" y1="307.96" x2="307.96" y2="296.65" class="bar" data-line="2"/>
+<line x1="295.53" y1="299.06" x2="291.64" y2="302.95" class="bar" data-line="3"/>
+<line x1="302.95" y1="291.64" x2="299.06" y2="295.53" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-29">
+<title>outer Gen (over 29)</title>
+<line x1="290.52" y1="294.06" x2="286.63" y2="297.94" class="bar" data-line="4"/>
+<line x1="297.94" y1="286.63" x2="294.06" y2="290.52" class="bar" data-line="4"/>
+<line x1="285.51" y1="289.05" x2="281.62" y2="292.94" class="bar" data-line="5"/>
+<line x1="292.94" y1="281.62" x2="289.05" y2="285.51" class="bar" data-line="5"/>
+<line x1="276.61" y1="287.93" x2="287.93" y2="276.61" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-45">
+<title>Li  180°</title>
+<line x1="227.50" y1="508.00" x2="227.50" y2="492.00" class="bar" data-line="1"/>
+<line x1="220.42" y1="502.50" x2="220.42" y2="508.00" class="bar" data-line="2"/>
+<line x1="220.42" y1="492.00" x2="220.42" y2="497.50" class="bar" data-line="2"/>
+<line x1="213.33" y1="508.00" x2="213.33" y2="492.00" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-45">
+<title>outer Gen (over 45)</title>
+<line x1="206.25" y1="502.50" x2="206.25" y2="508.00" class="bar" data-line="4"/>
+<line x1="206.25" y1="492.00" x2="206.25" y2="497.50" class="bar" data-line="4"/>
+<line x1="199.17" y1="502.50" x2="199.17" y2="508.00" class="bar" data-line="5"/>
+<line x1="199.17" y1="492.00" x2="199.17" y2="497.50" class="bar" data-line="5"/>
+<line x1="192.08" y1="508.00" x2="192.08" y2="492.00" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-61">
+<title>Zhen  225°</title>
+<line x1="312.97" y1="698.34" x2="301.66" y2="687.03" class="bar" data-line="1"/>
+<line x1="304.07" y1="699.46" x2="307.96" y2="703.35" class="bar" data-line="2"/>
+<line x1="296.65" y1="692.04" x2="300.54" y2="695.93" class="bar" data-line="2"/>
+<line x1="299.06" y1="704.47" x2="302.95" y2="708.36" class="bar" data-line="3"/>
+<line x1="291.64" y1="697.05" x2="295.53" y2="700.94" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-61">
+<title>outer Gen (over 61)</title>
+<line x1="294.06" y1="709.48" x2="297.94" y2="713.37" class="bar" data-line="4"/>
+<line x1="286.63" y1="702.06" x2="290.52" y2="705.94" class="bar" data-line="4"/>
+<line x1="289.05" y1="714.49" x2="292.94" y2="718.38" class="bar" data-line="5"/>
+<line x1="281.62" y1="707.06" x2="285.51" y2="710.95" class="bar" data-line="5"/>
+<line x1="287.93" y1="723.39" x2="276.61" y2="712.07" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-14">
+<title>Kun  270°</title>
+<line x1="502.50" y1="772.50" x2="508.00" y2="772.50" class="bar" data-line="1"/>
+<line x1="492.00" y1="772.50" x2="497.50" y2="772.50" class="bar" data-line="1"/>
+<line x1="502.50" y1="779.58" x2="508.00" y2="779.58" class="bar" data-line="2"/>
+<line x1="492.00" y1="779.58" x2="497.50" y2="779.58" class="bar" data-line="2"/>
+<line x1="502.50" y1="786.67" x2="508.00" y2="786.67" class="bar" data-line="3"/>
+<line x1="492.00" y1="786.67" x2="497.50" y2="786.67" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-14">
+<title>outer Dui (over 14)</title>
+<line x1="508.00" y1="793.75" x2="492.00" y2="793.75" class="bar" data-line="4"/>
+<line x1="508.00" y1="800.83" x2="492.00" y2="800.83" class="bar" data-line="5"/>
+<line x1="502.50" y1="807.92" x2="508.00" y2="807.92" class="bar" data-line="6"/>
+<line x1="492.00" y1="807.92" x2="497.50" y2="807.92" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-30">
+<title>Gen  315°</title>
+<line x1="694.45" y1="690.92" x2="698.34" y2="687.03" class="bar" data-line="1"/>
+<line x1="687.03" y1="698.34" x2="690.92" y2="694.45" class="bar" data-line="1"/>
+<line x1="699.46" y1="695.93" x2="703.35" y2="692.04" class="bar" data-line="2"/>
+<line x1="692.04" y1="703.35" x2="695.93" y2="699.46" class="bar" data-line="2"/>
+<line x1="708.36" y1="697.05" x2="697.05" y2="708.36" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-30">
+<title>outer Dui (over 30)</title>
+<line x1="713.37" y1="702.06" x2="702.06" y2="713.37" class="bar" data-line="4"/>
+<line x1="718.38" y1="707.06" x2="707.06" y2="718.38" class="bar" data-line="5"/>
+<line x1="719.50" y1="715.96" x2="723.39" y2="712.07" class="bar" data-line="6"/>
+<line x1="712.07" y1="723.39" x2="715.96" y2="719.50" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-46">
+<title>Kan  0°</title>
+<line x1="772.50" y1="497.50" x2="772.50" y2="492.00" class="bar" data-line="1"/>
+<line x1="772.50" y1="508.00" x2="772.50" y2="502.50" class="bar" data-line="1"/>
+<line x1="779.58" y1="492.00" x2="779.58" y2="508.00" class="bar" data-line="2"/>
+<line x1="786.67" y1="497.50" x2="786.67" y2="492.00" class="bar" data-line="3"/>
+<line x1="786.67" y1="508.00" x2="786.67" y2="502.50" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-46">
+<title>outer Dui (over 46)</title>
+<line x1="793.75" y1="492.00" x2="793.75" y2="508.00" class="bar" data-line="4"/>
+<line x1="800.83" y1="492.00" x2="800.83" y2="508.00" class="bar" data-line="5"/>
+<line x1="807.92" y1="497.50" x2="807.92" y2="492.00" class="bar" data-line="6"/>
+<line x1="807.92" y1="508.00" x2="807.92" y2="502.50" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-62">
+<title>Xun  45°</title>
+<line x1="690.92" y1="305.55" x2="687.03" y2="301.66" class="bar" data-line="1"/>
+<line x1="698.34" y1="312.97" x2="694.45" y2="309.08" class="bar" data-line="1"/>
+<line x1="692.04" y1="296.65" x2="703.35" y2="307.96" class="bar" data-line="2"/>
+<line x1="697.05" y1="291.64" x2="708.36" y2="302.95" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-62">
+<title>outer Dui (over 62)</title>
+<line x1="702.06" y1="286.63" x2="713.37" y2="297.94" class="bar" data-line="4"/>
+<line x1="707.06" y1="281.62" x2="718.38" y2="292.94" class="bar" data-line="5"/>
+<line x1="715.96" y1="280.50" x2="712.07" y2="276.61" class="bar" data-line="6"/>
+<line x1="723.39" y1="287.93" x2="719.50" y2="284.04" class="bar" data-line="6"/>
+</g>
+</g>
+<g transform="rotate(-42.1875 500 500)">
+<line x1="500.00" y1="290.00" x2="500.00" y2="86.00" class="spoke"/>
+<line x1="351.51" y1="351.51" x2="207.26" y2="207.26" class="spoke"/>
+<line x1="290.00" y1="500.00" x2="86.00" y2="500.00" class="spoke"/>
+<line x1="351.51" y1="648.49" x2="207.26" y2="792.74" class="spoke"/>
+<line x1="500.00" y1="710.00" x2="500.00" y2="914.00" class="spoke"/>
+<line x1="648.49" y1="648.49" x2="792.74" y2="792.74" class="spoke"/>
+<line x1="710.00" y1="500.00" x2="914.00" y2="500.00" class="spoke"/>
+<line x1="648.49" y1="351.51" x2="792.74" y2="207.26" class="spoke"/>
+<g class="glyph" id="glyph-15">
+<title>Qian  90°</title>
+<line x1="492.00" y1="227.50" x2="508.00" y2="227.50" class="bar" data-line="1"/>
+<line x1="492.00" y1="220.42" x2="508.00" y2="220.42" class="bar" data-line="2"/>
+<line x1="492.00" y1="213.33" x2="508.00" y2="213.33" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-15">
+<title>outer Kun (over 15)</title>
+<line x1="497.50" y1="206.25" x2="492.00" y2="206.25" class="bar" data-line="4"/>
+<line x1="508.00" y1="206.25" x2="502.50" y2="206.25" class="bar" data-line="4"/>
+<line x1="497.50" y1="199.17" x2="492.00" y2="199.17" class="bar" data-line="5"/>
+<line x1="508.00" y1="199.17" x2="502.50" y2="199.17" class="bar" data-line="5"/>
+<line x1="497.50" y1="192.08" x2="492.00" y2="192.08" class="bar" data-line="6"/>
+<line x1="508.00" y1="192.08" x2="502.50" y2="192.08" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-31">
+<title>Dui  135°</title>
+<line x1="301.66" y1="312.97" x2="312.97" y2="301.66" class="bar" data-line="1"/>
+<line x1="296.65" y1="307.96" x2="307.96" y2="296.65" class="bar" data-line="2"/>
+<line x1="295.53" y1="299.06" x2="291.64" y2="302.95" class="bar" data-line="3"/>
+<line x1="302.95" y1="291.64" x2="299.06" y2="295.53" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-31">
+<title>outer Kun (over 31)</title>
+<line x1="290.52" y1="294.06" x2="286.63" y2="297.94" class="bar" data-line="4"/>
+<line x1="297.94" y1="286.63" x2="294.06" y2="290.52" class="bar" data-line="4"/>
+<line x1="285.51" y1="289.05" x2="281.62" y2="292.94" class="bar" data-line="5"/>
+<line x1="292.94" y1="281.62" x2="289.05" y2="285.51" class="bar" data-line="5"/>
+<line x1="280.50" y1="284.04" x2="276.61" y2="287.93" class="bar" data-line="6"/>
+<line x1="287.93" y1="276.61" x2="284.04" y2="280.50" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-47">
+<title>Li  180°</title>
+<line x1="227.50" y1="508.00" x2="227.50" y2="492.00" class="bar" data-line="1"/>
+<line x1="220.42" y1="502.50" x2="220.42" y2="508.00" class="bar" data-line="2"/>
+<line x1="220.42" y1="492.00" x2="220.42" y2="497.50" class="bar" data-line="2"/>
+<line x1="213.33" y1="508.00" x2="213.33" y2="492.00" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-47">
+<title>outer Kun (over 47)</title>
+<line x1="206.25" y1="502.50" x2="206.25" y2="508.00" class="bar" data-line="4"/>
+<line x1="206.25" y1="492.00" x2="206.25" y2="497.50" class="bar" data-line="4"/>
+<line x1="199.17" y1="502.50" x2="199.17" y2="508.00" class="bar" data-line="5"/>
+<line x1="199.17" y1="492.00" x2="199.17" y2="497.50" class="bar" data-line="5"/>
+<line x1="192.08" y1="502.50" x2="192.08" y2="508.00" class="bar" data-line="6"/>
+<line x1="192.08" y1="492.00" x2="192.08" y2="497.50" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-63">
+<title>Zhen  225°</title>
+<line x1="312.97" y1="698.34" x2="301.66" y2="687.03" class="bar" data-line="1"/>
+<line x1="304.07" y1="699.46" x2="307.96" y2="703.35" class="bar" data-line="2"/>
+<line x1="296.65" y1="692.04" x2="300.54" y2="695.93" class="bar" data-line="2"/>
+<line x1="299.06" y1="704.47" x2="302.95" y2="708.36" class="bar" data-line="3"/>
+<line x1="291.64" y1="697.05" x2="295.53" y2="700.94" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-63">
+<title>outer Kun (over 63)</title>
+<line x1="294.06" y1="709.48" x2="297.94" y2="713.37" class="bar" data-line="4"/>
+<line x1="286.63" y1="702.06" x2="290.52" y2="705.94" class="bar" data-line="4"/>
+<line x1="289.05" y1="714.49" x2="292.94" y2="718.38" class="bar" data-line="5"/>
+<line x1="281.62" y1="707.06" x2="285.51" y2="710.95" class="bar" data-line="5"/>
+<line x1="284.04" y1="719.50" x2="287.93" y2="723.39" class="bar" data-line="6"/>
+<line x1="276.61" y1="712.07" x2="280.50" y2="715.96" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-16">
+<title>Kun  270°</title>
+<line x1="502.50" y1="772.50" x2="508.00" y2="772.50" class="bar" data-line="1"/>
+<line x1="492.00" y1="772.50" x2="497.50" y2="772.50" class="bar" data-line="1"/>
+<line x1="502.50" y1="779.58" x2="508.00" y2="779.58" class="bar" data-line="2"/>
+<line x1="492.00" y1="779.58" x2="497.50" y2="779.58" class="bar" data-line="2"/>
+<line x1="502.50" y1="786.67" x2="508.00" y2="786.67" class="bar" data-line="3"/>
+<line x1="492.00" y1="786.67" x2="497.50" y2="786.67" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-16">
+<title>outer Qian (over 16)</title>
+<line x1="508.00" y1="793.75" x2="492.00" y2="793.75" class="bar" data-line="4"/>
+<line x1="508.00" y1="800.83" x2="492.00" y2="800.83" class="bar" data-line="5"/>
+<line x1="508.00" y1="807.92" x2="492.00" y2="807.92" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-32">
+<title>Gen  315°</title>
+<line x1="694.45" y1="690.92" x2="698.34" y2="687.03" class="bar" data-line="1"/>
+<line x1="687.03" y1="698.34" x2="690.92" y2="694.45" class="bar" data-line="1"/>
+<line x1="699.46" y1="695.93" x2="703.35" y2="692.04" class="bar" data-line="2"/>
+<line x1="692.04" y1="703.35" x2="695.93" y2="699.46" class="bar" data-line="2"/>
+<line x1="708.36" y1="697.05" x2="697.05" y2="708.36" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-32">
+<title>outer Qian (over 32)</title>
+<line x1="713.37" y1="702.06" x2="702.06" y2="713.37" class="bar" data-line="4"/>
+<line x1="718.38" y1="707.06" x2="707.06" y2="718.38" class="bar" data-line="5"/>
+<line x1="723.39" y1="712.07" x2="712.07" y2="723.39" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-48">
+<title>Kan  0°</title>
+<line x1="772.50" y1="497.50" x2="772.50" y2="492.00" class="bar" data-line="1"/>
+<line x1="772.50" y1="508.00" x2="772.50" y2="502.50" class="bar" data-line="1"/>
+<line x1="779.58" y1="492.00" x2="779.58" y2="508.00" class="bar" data-line="2"/>
+<line x1="786.67" y1="497.50" x2="786.67" y2="492.00" class="bar" data-line="3"/>
+<line x1="786.67" y1="508.00" x2="786.67" y2="502.50" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-48">
+<title>outer Qian (over 48)</title>
+<line x1="793.75" y1="492.00" x2="793.75" y2="508.00" class="bar" data-line="4"/>
+<line x1="800.83" y1="492.00" x2="800.83" y2="508.00" class="bar" data-line="5"/>
+<line x1="807.92" y1="492.00" x2="807.92" y2="508.00" class="bar" data-line="6"/>
+</g>
+<g class="glyph" id="glyph-64">
+<title>Xun  45°</title>
+<line x1="690.92" y1="305.55" x2="687.03" y2="301.66" class="bar" data-line="1"/>
+<line x1="698.34" y1="312.97" x2="694.45" y2="309.08" class="bar" data-line="1"/>
+<line x1="692.04" y1="296.65" x2="703.35" y2="307.96" class="bar" data-line="2"/>
+<line x1="697.05" y1="291.64" x2="708.36" y2="302.95" class="bar" data-line="3"/>
+</g>
+<g class="glyph outer" id="glyph-outer-64">
+<title>outer Qian (over 64)</title>
+<line x1="702.06" y1="286.63" x2="713.37" y2="297.94" class="bar" data-line="4"/>
+<line x1="707.06" y1="281.62" x2="718.38" y2="292.94" class="bar" data-line="5"/>
+<line x1="712.07" y1="276.61" x2="723.39" y2="287.93" class="bar" data-line="6"/>
+</g>
+</g>
+  <circle cx="500" cy="500" r="10" class="hub"/>
+<g class="num-label" id="num-1" data-num="1">
+<text x="487.34" y="242.31" text-anchor="middle" dominant-baseline="middle">1</text>
+</g>
+<g class="num-label" id="num-3" data-num="3">
+<text x="462.14" y="244.79" text-anchor="middle" dominant-baseline="middle">3</text>
+</g>
+<g class="num-label" id="num-5" data-num="5">
+<text x="437.31" y="249.73" text-anchor="middle" dominant-baseline="middle">5</text>
+</g>
+<g class="num-label" id="num-7" data-num="7">
+<text x="413.08" y="257.08" text-anchor="middle" dominant-baseline="middle">7</text>
+</g>
+<g class="num-label" id="num-9" data-num="9">
+<text x="389.69" y="266.77" text-anchor="middle" dominant-baseline="middle">9</text>
+</g>
+<g class="num-label" id="num-11" data-num="11">
+<text x="367.36" y="278.71" text-anchor="middle" dominant-baseline="middle">11</text>
+</g>
+<g class="num-label" id="num-13" data-num="13">
+<text x="346.31" y="292.77" text-anchor="middle" dominant-baseline="middle">13</text>
+</g>
+<g class="num-label" id="num-15" data-num="15">
+<text x="326.74" y="308.83" text-anchor="middle" dominant-baseline="middle">15</text>
+</g>
+<g class="num-label" id="num-17" data-num="17">
+<text x="308.83" y="326.74" text-anchor="middle" dominant-baseline="middle">17</text>
+</g>
+<g class="num-label" id="num-19" data-num="19">
+<text x="292.77" y="346.31" text-anchor="middle" dominant-baseline="middle">19</text>
+</g>
+<g class="num-label" id="num-21" data-num="21">
+<text x="278.71" y="367.36" text-anchor="middle" dominant-baseline="middle">21</text>
+</g>
+<g class="num-label" id="num-23" data-num="23">
+<text x="266.77" y="389.69" text-anchor="middle" dominant-baseline="middle">23</text>
+</g>
+<g class="num-label" id="num-25" data-num="25">
+<text x="257.08" y="413.08" text-anchor="middle" dominant-baseline="middle">25</text>
+</g>
+<g class="num-label" id="num-27" data-num="27">
+<text x="249.73" y="437.31" text-anchor="middle" dominant-baseline="middle">27</text>
+</g>
+<g class="num-label" id="num-29" data-num="29">
+<text x="244.79" y="462.14" text-anchor="middle" dominant-baseline="middle">29</text>
+</g>
+<g class="num-label" id="num-31" data-num="31">
+<text x="242.31" y="487.34" text-anchor="middle" dominant-baseline="middle">31</text>
+</g>
+<g class="num-label" id="num-33" data-num="33">
+<text x="242.31" y="512.66" text-anchor="middle" dominant-baseline="middle">33</text>
+</g>
+<g class="num-label" id="num-35" data-num="35">
+<text x="244.79" y="537.86" text-anchor="middle" dominant-baseline="middle">35</text>
+</g>
+<g class="num-label" id="num-37" data-num="37">
+<text x="249.73" y="562.69" text-anchor="middle" dominant-baseline="middle">37</text>
+</g>
+<g class="num-label" id="num-39" data-num="39">
+<text x="257.08" y="586.92" text-anchor="middle" dominant-baseline="middle">39</text>
+</g>
+<g class="num-label" id="num-41" data-num="41">
+<text x="266.77" y="610.31" text-anchor="middle" dominant-baseline="middle">41</text>
+</g>
+<g class="num-label" id="num-43" data-num="43">
+<text x="278.71" y="632.64" text-anchor="middle" dominant-baseline="middle">43</text>
+</g>
+<g class="num-label" id="num-45" data-num="45">
+<text x="292.77" y="653.69" text-anchor="middle" dominant-baseline="middle">45</text>
+</g>
+<g class="num-label" id="num-47" data-num="47">
+<text x="308.83" y="673.26" text-anchor="middle" dominant-baseline="middle">47</text>
+</g>
+<g class="num-label" id="num-49" data-num="49">
+<text x="326.74" y="691.17" text-anchor="middle" dominant-baseline="middle">49</text>
+</g>
+<g class="num-label" id="num-51" data-num="51">
+<text x="346.31" y="707.23" text-anchor="middle" dominant-baseline="middle">51</text>
+</g>
+<g class="num-label" id="num-53" data-num="53">
+<text x="367.36" y="721.29" text-anchor="middle" dominant-baseline="middle">53</text>
+</g>
+<g class="num-label" id="num-55" data-num="55">
+<text x="389.69" y="733.23" text-anchor="middle" dominant-baseline="middle">55</text>
+</g>
+<g class="num-label" id="num-57" data-num="57">
+<text x="413.08" y="742.92" text-anchor="middle" dominant-baseline="middle">57</text>
+</g>
+<g class="num-label" id="num-59" data-num="59">
+<text x="437.31" y="750.27" text-anchor="middle" dominant-baseline="middle">59</text>
+</g>
+<g class="num-label" id="num-61" data-num="61">
+<text x="462.14" y="755.21" text-anchor="middle" dominant-baseline="middle">61</text>
+</g>
+<g class="num-label" id="num-63" data-num="63">
+<text x="487.34" y="757.69" text-anchor="middle" dominant-baseline="middle">63</text>
+</g>
+<g class="num-label" id="num-2" data-num="2">
+<text x="512.66" y="757.69" text-anchor="middle" dominant-baseline="middle">2</text>
+</g>
+<g class="num-label" id="num-4" data-num="4">
+<text x="537.86" y="755.21" text-anchor="middle" dominant-baseline="middle">4</text>
+</g>
+<g class="num-label" id="num-6" data-num="6">
+<text x="562.69" y="750.27" text-anchor="middle" dominant-baseline="middle">6</text>
+</g>
+<g class="num-label" id="num-8" data-num="8">
+<text x="586.92" y="742.92" text-anchor="middle" dominant-baseline="middle">8</text>
+</g>
+<g class="num-label" id="num-10" data-num="10">
+<text x="610.31" y="733.23" text-anchor="middle" dominant-baseline="middle">10</text>
+</g>
+<g class="num-label" id="num-12" data-num="12">
+<text x="632.64" y="721.29" text-anchor="middle" dominant-baseline="middle">12</text>
+</g>
+<g class="num-label" id="num-14" data-num="14">
+<text x="653.69" y="707.23" text-anchor="middle" dominant-baseline="middle">14</text>
+</g>
+<g class="num-label" id="num-16" data-num="16">
+<text x="673.26" y="691.17" text-anchor="middle" dominant-baseline="middle">16</text>
+</g>
+<g class="num-label" id="num-18" data-num="18">
+<text x="691.17" y="673.26" text-anchor="middle" dominant-baseline="middle">18</text>
+</g>
+<g class="num-label" id="num-20" data-num="20">
+<text x="707.23" y="653.69" text-anchor="middle" dominant-baseline="middle">20</text>
+</g>
+<g class="num-label" id="num-22" data-num="22">
+<text x="721.29" y="632.64" text-anchor="middle" dominant-baseline="middle">22</text>
+</g>
+<g class="num-label" id="num-24" data-num="24">
+<text x="733.23" y="610.31" text-anchor="middle" dominant-baseline="middle">24</text>
+</g>
+<g class="num-label" id="num-26" data-num="26">
+<text x="742.92" y="586.92" text-anchor="middle" dominant-baseline="middle">26</text>
+</g>
+<g class="num-label" id="num-28" data-num="28">
+<text x="750.27" y="562.69" text-anchor="middle" dominant-baseline="middle">28</text>
+</g>
+<g class="num-label" id="num-30" data-num="30">
+<text x="755.21" y="537.86" text-anchor="middle" dominant-baseline="middle">30</text>
+</g>
+<g class="num-label" id="num-32" data-num="32">
+<text x="757.69" y="512.66" text-anchor="middle" dominant-baseline="middle">32</text>
+</g>
+<g class="num-label" id="num-34" data-num="34">
+<text x="757.69" y="487.34" text-anchor="middle" dominant-baseline="middle">34</text>
+</g>
+<g class="num-label" id="num-36" data-num="36">
+<text x="755.21" y="462.14" text-anchor="middle" dominant-baseline="middle">36</text>
+</g>
+<g class="num-label" id="num-38" data-num="38">
+<text x="750.27" y="437.31" text-anchor="middle" dominant-baseline="middle">38</text>
+</g>
+<g class="num-label" id="num-40" data-num="40">
+<text x="742.92" y="413.08" text-anchor="middle" dominant-baseline="middle">40</text>
+</g>
+<g class="num-label" id="num-42" data-num="42">
+<text x="733.23" y="389.69" text-anchor="middle" dominant-baseline="middle">42</text>
+</g>
+<g class="num-label" id="num-44" data-num="44">
+<text x="721.29" y="367.36" text-anchor="middle" dominant-baseline="middle">44</text>
+</g>
+<g class="num-label" id="num-46" data-num="46">
+<text x="707.23" y="346.31" text-anchor="middle" dominant-baseline="middle">46</text>
+</g>
+<g class="num-label" id="num-48" data-num="48">
+<text x="691.17" y="326.74" text-anchor="middle" dominant-baseline="middle">48</text>
+</g>
+<g class="num-label" id="num-50" data-num="50">
+<text x="673.26" y="308.83" text-anchor="middle" dominant-baseline="middle">50</text>
+</g>
+<g class="num-label" id="num-52" data-num="52">
+<text x="653.69" y="292.77" text-anchor="middle" dominant-baseline="middle">52</text>
+</g>
+<g class="num-label" id="num-54" data-num="54">
+<text x="632.64" y="278.71" text-anchor="middle" dominant-baseline="middle">54</text>
+</g>
+<g class="num-label" id="num-56" data-num="56">
+<text x="610.31" y="266.77" text-anchor="middle" dominant-baseline="middle">56</text>
+</g>
+<g class="num-label" id="num-58" data-num="58">
+<text x="586.92" y="257.08" text-anchor="middle" dominant-baseline="middle">58</text>
+</g>
+<g class="num-label" id="num-60" data-num="60">
+<text x="562.69" y="249.73" text-anchor="middle" dominant-baseline="middle">60</text>
+</g>
+<g class="num-label" id="num-62" data-num="62">
+<text x="537.86" y="244.79" text-anchor="middle" dominant-baseline="middle">62</text>
+</g>
+<g class="num-label" id="num-64" data-num="64">
+<text x="512.66" y="242.31" text-anchor="middle" dominant-baseline="middle">64</text>
+</g>
+<g id="distance-overlay"></g>
+</svg>
+</div>
+
+<div class="pair-display" id="pair-display">
+  <div class="pd-caption" id="pd-caption"></div>
+  <div class="pd-slots">
+    <div class="pd-pair" id="pd-slot-left"></div>
+    <div class="pd-pair" id="pd-slot-right"></div>
+  </div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><span class="swatch"></span> Yang — solid</div>
+  <div class="legend-item"><span class="swatch-yin"><span></span><span></span></span> Yin — broken</div>
+</div>
+
+<script>
+var HEXLINES = {"1":["yang","yang","yang","yang","yang","yang"],"2":["yin","yin","yin","yin","yin","yin"],"3":["yang","yang","yang","yang","yang","yin"],"4":["yin","yin","yin","yin","yin","yang"],"5":["yang","yang","yang","yang","yin","yang"],"6":["yin","yin","yin","yin","yang","yin"],"7":["yang","yang","yang","yang","yin","yin"],"8":["yin","yin","yin","yin","yang","yang"],"9":["yang","yang","yang","yin","yang","yang"],"10":["yin","yin","yin","yang","yin","yin"],"11":["yang","yang","yang","yin","yang","yin"],"12":["yin","yin","yin","yang","yin","yang"],"13":["yang","yang","yang","yin","yin","yang"],"14":["yin","yin","yin","yang","yang","yin"],"15":["yang","yang","yang","yin","yin","yin"],"16":["yin","yin","yin","yang","yang","yang"],"17":["yang","yang","yin","yang","yang","yang"],"18":["yin","yin","yang","yin","yin","yin"],"19":["yang","yang","yin","yang","yang","yin"],"20":["yin","yin","yang","yin","yin","yang"],"21":["yang","yang","yin","yang","yin","yang"],"22":["yin","yin","yang","yin","yang","yin"],"23":["yang","yang","yin","yang","yin","yin"],"24":["yin","yin","yang","yin","yang","yang"],"25":["yang","yang","yin","yin","yang","yang"],"26":["yin","yin","yang","yang","yin","yin"],"27":["yang","yang","yin","yin","yang","yin"],"28":["yin","yin","yang","yang","yin","yang"],"29":["yang","yang","yin","yin","yin","yang"],"30":["yin","yin","yang","yang","yang","yin"],"31":["yang","yang","yin","yin","yin","yin"],"32":["yin","yin","yang","yang","yang","yang"],"33":["yang","yin","yang","yang","yang","yang"],"34":["yin","yang","yin","yin","yin","yin"],"35":["yang","yin","yang","yang","yang","yin"],"36":["yin","yang","yin","yin","yin","yang"],"37":["yang","yin","yang","yang","yin","yang"],"38":["yin","yang","yin","yin","yang","yin"],"39":["yang","yin","yang","yang","yin","yin"],"40":["yin","yang","yin","yin","yang","yang"],"41":["yang","yin","yang","yin","yang","yang"],"42":["yin","yang","yin","yang","yin","yin"],"43":["yang","yin","yang","yin","yang","yin"],"44":["yin","yang","yin","yang","yin","yang"],"45":["yang","yin","yang","yin","yin","yang"],"46":["yin","yang","yin","yang","yang","yin"],"47":["yang","yin","yang","yin","yin","yin"],"48":["yin","yang","yin","yang","yang","yang"],"49":["yang","yin","yin","yang","yang","yang"],"50":["yin","yang","yang","yin","yin","yin"],"51":["yang","yin","yin","yang","yang","yin"],"52":["yin","yang","yang","yin","yin","yang"],"53":["yang","yin","yin","yang","yin","yang"],"54":["yin","yang","yang","yin","yang","yin"],"55":["yang","yin","yin","yang","yin","yin"],"56":["yin","yang","yang","yin","yang","yang"],"57":["yang","yin","yin","yin","yang","yang"],"58":["yin","yang","yang","yang","yin","yin"],"59":["yang","yin","yin","yin","yang","yin"],"60":["yin","yang","yang","yang","yin","yang"],"61":["yang","yin","yin","yin","yin","yang"],"62":["yin","yang","yang","yang","yang","yin"],"63":["yang","yin","yin","yin","yin","yin"],"64":["yin","yang","yang","yang","yang","yang"]};
+
+function largeHexSvg(n) {
+  var lines = HEXLINES[n];
+  var drawOrder = lines.slice().reverse();
+  var rects = '';
+  drawOrder.forEach(function (val, i) {
+    var y = 4 + i * 10;
+    if (val === 'yang') {
+      rects += '<rect x="12" y="' + y + '" width="36" height="5" rx="1.5"/>';
+    } else {
+      rects += '<rect x="12" y="' + y + '" width="15" height="5" rx="1.5"/>' +
+               '<rect x="33" y="' + y + '" width="15" height="5" rx="1.5"/>';
+    }
+  });
+  return '<svg class="pd-glyph" viewBox="0 0 60 64" width="60" height="64">' + rects + '</svg>';
+}
+
+function pdHexHtml(n) {
+  return '<div class="pd-hex">' + largeHexSvg(n) + '<span class="pd-num">' + n + '</span></div>';
+}
+
+function renderPairDisplay(g) {
+  var sorted = g.members.slice().sort(function (a, b) { return a - b; });
+  var caption = 'FX{' + sorted.join(',') + '}';
+  var left, right;
+  if (g.type === 'quartet') {
+    left = sorted.slice(0, 2);
+    right = sorted.slice(2, 4);
+  } else {
+    left = [sorted[0]];
+    right = [sorted[1]];
+  }
+  document.getElementById('pd-caption').textContent = caption;
+  document.getElementById('pd-slot-left').innerHTML = left.map(pdHexHtml).join('');
+  document.getElementById('pd-slot-right').innerHTML = right.map(pdHexHtml).join('');
+  document.getElementById('pair-display').classList.add('active');
+}
+
+function clearPairDisplay() {
+  document.getElementById('pair-display').classList.remove('active');
+  document.getElementById('pd-slot-left').innerHTML = '';
+  document.getElementById('pd-slot-right').innerHTML = '';
+  document.getElementById('pd-caption').textContent = '';
+}
+
+document.querySelectorAll('[data-num]').forEach(function (numEl) {
+  var n = numEl.getAttribute('data-num');
+  var glyph = document.getElementById('glyph-' + n);
+  var outerGlyph = document.getElementById('glyph-outer-' + n);
+  numEl.addEventListener('mouseenter', function () {
+    numEl.classList.add('active');
+    if (glyph) glyph.classList.add('active');
+    if (outerGlyph) outerGlyph.classList.add('active');
+  });
+  numEl.addEventListener('mouseleave', function () {
+    numEl.classList.remove('active');
+    if (glyph) glyph.classList.remove('active');
+    if (outerGlyph) outerGlyph.classList.remove('active');
+  });
+});
+
+var GROUPS = [{"id": 0, "type": "pair", "members": [1, 2], "dual": 19, "competing": null, "axis": [31, 32]}, {"id": 1, "type": "quartet", "members": [3, 4, 63, 64], "pairs": [[3, 63], [4, 64]], "distance": 31, "dual": 12, "competing": true, "axis": [33, 34]}, {"id": 2, "type": "quartet", "members": [5, 6, 33, 34], "pairs": [[5, 33], [6, 34]], "distance": 15, "dual": 13, "competing": true, "axis": [31, 32]}, {"id": 3, "type": "quartet", "members": [7, 8, 31, 32], "pairs": [[7, 31], [8, 32]], "distance": 13, "dual": 14, "competing": false, "axis": [33, 34]}, {"id": 4, "type": "quartet", "members": [9, 10, 17, 18], "pairs": [[9, 17], [10, 18]], "distance": 5, "dual": 17, "competing": false, "axis": [31, 32]}, {"id": 5, "type": "quartet", "members": [11, 12, 47, 48], "pairs": [[11, 47], [12, 48]], "distance": 19, "dual": 8, "competing": true, "axis": [33, 34]}, {"id": 6, "type": "quartet", "members": [13, 14, 49, 50], "pairs": [[13, 49], [14, 50]], "distance": 19, "dual": 9, "competing": true, "axis": [31, 32]}, {"id": 7, "type": "pair", "members": [15, 16], "dual": 18, "competing": null, "axis": [33, 34]}, {"id": 8, "type": "quartet", "members": [19, 20, 55, 56], "pairs": [[19, 55], [20, 56]], "distance": 19, "dual": 5, "competing": true, "axis": [33, 34]}, {"id": 9, "type": "quartet", "members": [21, 22, 41, 42], "pairs": [[21, 41], [22, 42]], "distance": 11, "dual": 6, "competing": true, "axis": [31, 32]}, {"id": 10, "type": "pair", "members": [23, 24], "dual": 16, "competing": null, "axis": [33, 34]}, {"id": 11, "type": "pair", "members": [25, 26], "dual": 15, "competing": null, "axis": [31, 32]}, {"id": 12, "type": "quartet", "members": [27, 28, 39, 40], "pairs": [[27, 39], [28, 40]], "distance": 7, "dual": 1, "competing": true, "axis": [33, 34]}, {"id": 13, "type": "quartet", "members": [29, 30, 57, 58], "pairs": [[29, 57], [30, 58]], "distance": 15, "dual": 2, "competing": true, "axis": [31, 32]}, {"id": 14, "type": "quartet", "members": [35, 36, 59, 60], "pairs": [[35, 59], [36, 60]], "distance": 13, "dual": 3, "competing": false, "axis": [33, 34]}, {"id": 15, "type": "pair", "members": [37, 38], "dual": 11, "competing": null, "axis": [31, 32]}, {"id": 16, "type": "pair", "members": [43, 44], "dual": 10, "competing": null, "axis": [33, 34]}, {"id": 17, "type": "quartet", "members": [45, 46, 53, 54], "pairs": [[45, 53], [46, 54]], "distance": 5, "dual": 4, "competing": false, "axis": [31, 32]}, {"id": 18, "type": "pair", "members": [51, 52], "dual": 7, "competing": null, "axis": [33, 34]}, {"id": 19, "type": "pair", "members": [61, 62], "dual": 0, "competing": null, "axis": [31, 32]}];
+var HEX_TO_GROUP = {};
+GROUPS.forEach(function (g) {
+  g.members.forEach(function (m) { HEX_TO_GROUP[m] = g.id; });
+});
+
+var SVG_NS = 'http://www.w3.org/2000/svg';
+var CX = 500, CY = 500;
+var R_ARC = 330, R_TICK = 320, LABEL_R = 15;
+var R_ARC_OUTER = 365, R_TICK_OUTER = 355;
+var overlay = document.getElementById('distance-overlay');
+var currentGroupId = null;
+
+function thetaForLabel(n) {
+  var m;
+  if (n % 2 === 1) {
+    m = (16 + (n - 1) / 2) % 64;
+  } else {
+    m = (48 + (n - 2) / 2) % 64;
+  }
+  return (2.8125 + 5.625 * m) % 360;
+}
+
+function pt(r, thetaDeg) {
+  var t = thetaDeg * Math.PI / 180;
+  return [CX + r * Math.cos(t), CY - r * Math.sin(t)];
+}
+
+function svgEl(tag, attrs) {
+  var el = document.createElementNS(SVG_NS, tag);
+  for (var k in attrs) el.setAttribute(k, attrs[k]);
+  return el;
+}
+
+function arcPath(startTheta, endTheta, r) {
+  var p1 = pt(r, startTheta);
+  var p2 = pt(r, endTheta);
+  return 'M ' + p1[0].toFixed(2) + ' ' + p1[1].toFixed(2) +
+    ' A ' + r + ' ' + r + ' 0 0 0 ' + p2[0].toFixed(2) + ' ' + p2[1].toFixed(2);
+}
+
+function buildDistanceLink(p, q, dist, arcR, tickR) {
+  var a = ((thetaForLabel(p) % 360) + 360) % 360;
+  var b = ((thetaForLabel(q) % 360) + 360) % 360;
+  var diff = ((b - a) % 360 + 360) % 360;
+  var start, end;
+  if (diff <= 180) { start = a; end = a + diff; }
+  else { start = b; end = b + (360 - diff); }
+  var mid = (start + end) / 2;
+  var halfDelta = Math.asin(LABEL_R / (2 * arcR)) * 180 / Math.PI;
+
+  overlay.appendChild(svgEl('path', { d: arcPath(start, mid - halfDelta, arcR), class: 'distance-link' }));
+  overlay.appendChild(svgEl('path', { d: arcPath(mid + halfDelta, end, arcR), class: 'distance-link' }));
+
+  [start, end].forEach(function (theta) {
+    var p1 = pt(arcR, theta), p2 = pt(tickR, theta);
+    overlay.appendChild(svgEl('line', {
+      x1: p1[0].toFixed(2), y1: p1[1].toFixed(2),
+      x2: p2[0].toFixed(2), y2: p2[1].toFixed(2), class: 'distance-tick'
+    }));
+  });
+
+  var mp = pt(arcR, mid);
+  overlay.appendChild(svgEl('circle', { cx: mp[0].toFixed(2), cy: mp[1].toFixed(2), r: LABEL_R, class: 'distance-label-bg' }));
+  var textEl = svgEl('text', { x: mp[0].toFixed(2), y: mp[1].toFixed(2), dy: '0.5', class: 'distance-label-text' });
+  textEl.textContent = dist;
+  overlay.appendChild(textEl);
+}
+
+var R_LINE_END = 240;
+var R_AXIS = 400;
+
+function buildDiametricLine(p, q) {
+  var p1 = pt(R_LINE_END, thetaForLabel(p));
+  var p2 = pt(R_LINE_END, thetaForLabel(q));
+  overlay.appendChild(svgEl('line', {
+    x1: p1[0].toFixed(2), y1: p1[1].toFixed(2),
+    x2: p2[0].toFixed(2), y2: p2[1].toFixed(2), class: 'diametric-line'
+  }));
+}
+
+var R_AXIS_GAP_INNER = R_LINE_END, R_AXIS_GAP_OUTER = 325;
+
+function buildAxisLine(axisMembers) {
+  var theta = thetaForLabel(axisMembers[0]);
+  // signed radius: pt(-r, theta) === pt(r, theta+180), so one theta covers both sides
+  var segments = [
+    [-R_AXIS, -R_AXIS_GAP_OUTER],
+    [-R_AXIS_GAP_INNER, R_AXIS_GAP_INNER],
+    [R_AXIS_GAP_OUTER, R_AXIS]
+  ];
+  segments.forEach(function (seg) {
+    var p1 = pt(seg[0], theta);
+    var p2 = pt(seg[1], theta);
+    overlay.appendChild(svgEl('line', {
+      x1: p1[0].toFixed(2), y1: p1[1].toFixed(2),
+      x2: p2[0].toFixed(2), y2: p2[1].toFixed(2), class: 'axis-line'
+    }));
+  });
+}
+
+function clearGroup() {
+  document.querySelectorAll('.grouped').forEach(function (el) { el.classList.remove('grouped'); });
+  overlay.innerHTML = '';
+  currentGroupId = null;
+  clearPairDisplay();
+}
+
+function renderGroup(g, arcR, tickR) {
+  g.members.forEach(function (m) {
+    ['glyph-' + m, 'glyph-outer-' + m, 'num-' + m].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.classList.add('grouped');
+    });
+  });
+  if (g.type === 'quartet') {
+    g.pairs.forEach(function (pair) { buildDistanceLink(pair[0], pair[1], g.distance, arcR, tickR); });
+    buildDiametricLine(g.members[0], g.members[1]);
+    buildDiametricLine(g.members[2], g.members[3]);
+  } else if (g.type === 'pair') {
+    buildDiametricLine(g.members[0], g.members[1]);
+  }
+}
+
+function showGroup(groupId) {
+  clearGroup();
+  var g = GROUPS[groupId];
+  currentGroupId = groupId;
+  renderPairDisplay(g);
+  renderGroup(g, R_ARC, R_TICK);
+}
+
+document.querySelectorAll('[data-num]').forEach(function (numEl) {
+  numEl.addEventListener('click', function () {
+    var n = parseInt(numEl.getAttribute('data-num'), 10);
+    var groupId = HEX_TO_GROUP[n];
+    if (currentGroupId === groupId) { clearGroup(); }
+    else { showGroup(groupId); }
+  });
+});
+
+document.addEventListener('click', function (e) {
+  if (!e.target.closest('.stage') && !e.target.closest('.pair-display')) {
+    clearGroup();
+  }
+});
+</script>

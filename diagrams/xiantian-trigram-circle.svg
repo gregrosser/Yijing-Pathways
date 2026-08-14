@@ -1,0 +1,54 @@
+<svg viewBox="0 0 440 440" width="235" height="235" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="0" width="440" height="440" fill="#f2ecdc"/>
+  <circle cx="220" cy="220" r="150" fill="none" stroke="#c9bfa2" stroke-width="1.5"/>
+
+  <!-- Cross A: self-reversing trigrams (Qian/Kun, Li/Kan) -->
+  <line x1="220" y1="70" x2="220" y2="370" stroke="#a23b2e" stroke-width="2"/>
+  <line x1="70" y1="220" x2="370" y2="220" stroke="#a23b2e" stroke-width="2"/>
+
+  <!-- Cross B: mixed trigrams (Xun/Zhen, Dui/Gen), rotated 45 degrees -->
+  <line x1="326.07" y1="113.93" x2="113.93" y2="326.07" stroke="#6b6355" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <line x1="113.93" y1="113.93" x2="326.07" y2="326.07" stroke="#6b6355" stroke-width="1.5" stroke-dasharray="5 4"/>
+
+  <g font-family="Georgia, serif" text-anchor="middle">
+    <!-- Qian 90 -->
+    <circle cx="220" cy="70" r="24" fill="#f2ecdc" stroke="#a23b2e" stroke-width="1.5"/>
+    <text x="220" y="80" font-size="28" fill="#201d16">&#9776;</text>
+    <text x="220" y="40" font-size="12" font-weight="bold" fill="#6b6355">Qian</text>
+
+    <!-- Xun 45 -->
+    <circle cx="326.07" cy="113.93" r="24" fill="#f2ecdc" stroke="#6b6355" stroke-width="1.5"/>
+    <text x="326.07" y="123.93" font-size="28" fill="#201d16">&#9780;</text>
+    <text x="350.81" y="94.19" font-size="12" font-weight="bold" fill="#6b6355">Xun</text>
+
+    <!-- Kan 0 -->
+    <circle cx="370" cy="220" r="24" fill="#f2ecdc" stroke="#a23b2e" stroke-width="1.5"/>
+    <text x="370" y="230" font-size="28" fill="#201d16">&#9781;</text>
+    <text x="405" y="225" font-size="12" font-weight="bold" fill="#6b6355">Kan</text>
+
+    <!-- Gen 315 -->
+    <circle cx="326.07" cy="326.07" r="24" fill="#f2ecdc" stroke="#6b6355" stroke-width="1.5"/>
+    <text x="326.07" y="336.07" font-size="28" fill="#201d16">&#9782;</text>
+    <text x="350.81" y="355.81" font-size="12" font-weight="bold" fill="#6b6355">Gen</text>
+
+    <!-- Kun 270 -->
+    <circle cx="220" cy="370" r="24" fill="#f2ecdc" stroke="#a23b2e" stroke-width="1.5"/>
+    <text x="220" y="380" font-size="28" fill="#201d16">&#9783;</text>
+    <text x="220" y="410" font-size="12" font-weight="bold" fill="#6b6355">Kun</text>
+
+    <!-- Zhen 225 -->
+    <circle cx="113.93" cy="326.07" r="24" fill="#f2ecdc" stroke="#6b6355" stroke-width="1.5"/>
+    <text x="113.93" y="336.07" font-size="28" fill="#201d16">&#9779;</text>
+    <text x="89.19" y="355.81" font-size="12" font-weight="bold" fill="#6b6355">Zhen</text>
+
+    <!-- Li 180 -->
+    <circle cx="70" cy="220" r="24" fill="#f2ecdc" stroke="#a23b2e" stroke-width="1.5"/>
+    <text x="70" y="230" font-size="28" fill="#201d16">&#9778;</text>
+    <text x="35" y="225" font-size="12" font-weight="bold" fill="#6b6355">Li</text>
+
+    <!-- Dui 135 -->
+    <circle cx="113.93" cy="113.93" r="24" fill="#f2ecdc" stroke="#6b6355" stroke-width="1.5"/>
+    <text x="113.93" y="123.93" font-size="28" fill="#201d16">&#9777;</text>
+    <text x="89.19" y="94.19" font-size="12" font-weight="bold" fill="#6b6355">Dui</text>
+  </g>
+</svg>

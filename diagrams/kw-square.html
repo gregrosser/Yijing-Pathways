@@ -1,0 +1,469 @@
+<title>KW Square — Yijing Pathways</title>
+<style>
+  :root {
+    --paper: #F2ECDC;
+    --card-border: #DCD3B8;
+    --ink: #201D16;
+    --ink-soft: #6B6355;
+    --rule: #C9BFA2;
+    --structure: #A23B2E;
+  }
+  :root {
+    --paper-panel: #EAE2CC;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #1B1712;
+      --paper-panel: #242019;
+      --card-border: #3A342A;
+      --ink: #EDE6D6;
+      --ink-soft: #A79C87;
+      --rule: #4A4436;
+      --structure: #E3806B;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #1B1712;
+    --paper-panel: #242019;
+    --card-border: #3A342A;
+    --ink: #EDE6D6;
+    --ink-soft: #A79C87;
+    --rule: #4A4436;
+    --structure: #E3806B;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'URW Palladio L', P052, Georgia, serif;
+    padding: 56px 24px 96px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .mono { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; }
+
+  header {
+    max-width: 720px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .eyebrow {
+    font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--structure);
+  }
+  h1 { font-weight: 400; font-size: 2.1rem; margin: 0; text-wrap: balance; }
+  .intro { color: var(--ink-soft); font-size: 0.98rem; line-height: 1.6; text-wrap: pretty; }
+
+  .square-wrap { max-width: 100%; overflow-x: auto; }
+
+  .square {
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    margin: 0 auto;
+  }
+  .sq-row { display: flex; }
+
+  .cell {
+    flex: none;
+    width: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 6px 2px;
+    cursor: pointer;
+  }
+
+  .num {
+    font-size: 0.76rem;
+    color: var(--ink-soft);
+  }
+
+  .cell:hover .hex-glyph rect { fill: var(--structure); }
+  .cell:hover .num { color: var(--structure); }
+  .cell.hl .hex-glyph rect { fill: var(--structure); }
+  .cell.hl .num { color: var(--structure); font-weight: 700; }
+
+  .pair-display {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    background: var(--paper-panel);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 24px 32px;
+  }
+  .pair-display.active { display: flex; }
+  .pd-caption { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 0.8rem; color: var(--structure); letter-spacing: 0.02em; }
+  .pd-slots { display: flex; align-items: flex-start; gap: 56px; }
+  .pd-pair { display: flex; align-items: flex-start; gap: 22px; }
+  .pd-hex { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .pd-hex .pd-glyph rect { fill: var(--ink); }
+  .pd-num { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 1.05rem; color: var(--ink-soft); }
+
+  .legend {
+    display: flex;
+    gap: 28px;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+  .legend-item { display: flex; align-items: center; gap: 10px; }
+  .legend-swatch { width: 24px; height: 6px; background: var(--ink); border-radius: 1px; }
+  .legend-swatch.split { display: flex; gap: 4px; width: 24px; }
+  .legend-swatch.split span { flex: 1; height: 6px; background: var(--ink); border-radius: 1px; }
+
+  footer {
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+  }
+  footer a { color: var(--structure); }
+</style>
+
+<header>
+  <div class="eyebrow">Structure &middot; KW Hexagram Square</div>
+  <h1>KW Square</h1>
+  <p class="intro">
+    The 64 hexagrams in traditional King Wen order, arranged 8&times;8.
+    Following the Legge orientation, KW{1} sits at the top right, with
+    each row descending right-to-left: row 1 is KW{8..1}, row 2 is
+    KW{16..9}, and so on down to KW{64} at bottom left.
+  </p>
+</header>
+
+<div class="square-wrap">
+  <div class="square">
+  <div class="sq-row"><div class="cell" data-hex="6" data-kw="8">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">8</span>
+        </div><div class="cell" data-hex="34" data-kw="7">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">7</span>
+        </div><div class="cell" data-hex="48" data-kw="6">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">6</span>
+        </div><div class="cell" data-hex="11" data-kw="5">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">5</span>
+        </div><div class="cell" data-hex="36" data-kw="4">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">4</span>
+        </div><div class="cell" data-hex="59" data-kw="3">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">3</span>
+        </div><div class="cell" data-hex="2" data-kw="2">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">2</span>
+        </div><div class="cell" data-hex="1" data-kw="1">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">1</span>
+        </div></div>
+  <div class="sq-row"><div class="cell" data-hex="10" data-kw="16">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">16</span>
+        </div><div class="cell" data-hex="18" data-kw="15">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">15</span>
+        </div><div class="cell" data-hex="5" data-kw="14">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">14</span>
+        </div><div class="cell" data-hex="33" data-kw="13">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">13</span>
+        </div><div class="cell" data-hex="16" data-kw="12">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">12</span>
+        </div><div class="cell" data-hex="15" data-kw="11">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">11</span>
+        </div><div class="cell" data-hex="17" data-kw="10">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">10</span>
+        </div><div class="cell" data-hex="9" data-kw="9">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">9</span>
+        </div></div>
+  <div class="sq-row"><div class="cell" data-hex="63" data-kw="24">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">24</span>
+        </div><div class="cell" data-hex="4" data-kw="23">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">23</span>
+        </div><div class="cell" data-hex="45" data-kw="22">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">22</span>
+        </div><div class="cell" data-hex="53" data-kw="21">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">21</span>
+        </div><div class="cell" data-hex="8" data-kw="20">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">20</span>
+        </div><div class="cell" data-hex="31" data-kw="19">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">19</span>
+        </div><div class="cell" data-hex="52" data-kw="18">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">18</span>
+        </div><div class="cell" data-hex="51" data-kw="17">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">17</span>
+        </div></div>
+  <div class="sq-row"><div class="cell" data-hex="58" data-kw="32">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">32</span>
+        </div><div class="cell" data-hex="30" data-kw="31">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">31</span>
+        </div><div class="cell" data-hex="37" data-kw="30">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">30</span>
+        </div><div class="cell" data-hex="38" data-kw="29">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">29</span>
+        </div><div class="cell" data-hex="62" data-kw="28">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">28</span>
+        </div><div class="cell" data-hex="61" data-kw="27">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">27</span>
+        </div><div class="cell" data-hex="13" data-kw="26">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">26</span>
+        </div><div class="cell" data-hex="49" data-kw="25">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">25</span>
+        </div></div>
+  <div class="sq-row"><div class="cell" data-hex="42" data-kw="40">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">40</span>
+        </div><div class="cell" data-hex="22" data-kw="39">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">39</span>
+        </div><div class="cell" data-hex="21" data-kw="38">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">38</span>
+        </div><div class="cell" data-hex="41" data-kw="37">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">37</span>
+        </div><div class="cell" data-hex="47" data-kw="36">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">36</span>
+        </div><div class="cell" data-hex="12" data-kw="35">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">35</span>
+        </div><div class="cell" data-hex="7" data-kw="34">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">34</span>
+        </div><div class="cell" data-hex="32" data-kw="33">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">33</span>
+        </div></div>
+  <div class="sq-row"><div class="cell" data-hex="54" data-kw="48">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">48</span>
+        </div><div class="cell" data-hex="46" data-kw="47">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">47</span>
+        </div><div class="cell" data-hex="50" data-kw="46">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">46</span>
+        </div><div class="cell" data-hex="14" data-kw="45">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">45</span>
+        </div><div class="cell" data-hex="64" data-kw="44">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">44</span>
+        </div><div class="cell" data-hex="3" data-kw="43">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">43</span>
+        </div><div class="cell" data-hex="57" data-kw="42">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">42</span>
+        </div><div class="cell" data-hex="29" data-kw="41">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">41</span>
+        </div></div>
+  <div class="sq-row"><div class="cell" data-hex="28" data-kw="56">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">56</span>
+        </div><div class="cell" data-hex="39" data-kw="55">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">55</span>
+        </div><div class="cell" data-hex="23" data-kw="54">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">54</span>
+        </div><div class="cell" data-hex="24" data-kw="53">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">53</span>
+        </div><div class="cell" data-hex="20" data-kw="52">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">52</span>
+        </div><div class="cell" data-hex="55" data-kw="51">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">51</span>
+        </div><div class="cell" data-hex="60" data-kw="50">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">50</span>
+        </div><div class="cell" data-hex="35" data-kw="49">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">49</span>
+        </div></div>
+  <div class="sq-row"><div class="cell" data-hex="44" data-kw="64">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">64</span>
+        </div><div class="cell" data-hex="43" data-kw="63">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">63</span>
+        </div><div class="cell" data-hex="26" data-kw="62">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="7.4" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="23.6" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">62</span>
+        </div><div class="cell" data-hex="25" data-kw="61">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">61</span>
+        </div><div class="cell" data-hex="27" data-kw="60">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">60</span>
+        </div><div class="cell" data-hex="40" data-kw="59">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">59</span>
+        </div><div class="cell" data-hex="19" data-kw="58">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="2.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="18.2" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="18" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">58</span>
+        </div><div class="cell" data-hex="56" data-kw="57">
+          <svg class="hex-glyph" viewBox="0 0 30 32" width="30" height="32"><rect x="6" y="2.0" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="7.4" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="12.8" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="18.2" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="23.6" width="18" height="2.4" rx="1" fill="var(--ink)"/><rect x="6" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/><rect x="17" y="29.0" width="7" height="2.4" rx="1" fill="var(--ink)"/></svg>
+          <span class="num mono">57</span>
+        </div></div>
+  </div>
+</div>
+
+<div class="pair-display" id="pair-display">
+  <div class="pd-caption" id="pd-caption"></div>
+  <div class="pd-slots">
+    <div class="pd-pair" id="pd-slot-left"></div>
+    <div class="pd-pair" id="pd-slot-right"></div>
+  </div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><span class="legend-swatch"></span> Yang &mdash; solid</div>
+  <div class="legend-item"><span class="legend-swatch split"><span></span><span></span></span> Yin &mdash; broken</div>
+</div>
+
+<footer>
+  <a href="index.html">&larr; Yijing Pathways</a>
+</footer>
+
+<script>
+var HEXLINES = {"1":["yang","yang","yang","yang","yang","yang"],"2":["yin","yin","yin","yin","yin","yin"],"3":["yang","yang","yang","yang","yang","yin"],"4":["yin","yin","yin","yin","yin","yang"],"5":["yang","yang","yang","yang","yin","yang"],"6":["yin","yin","yin","yin","yang","yin"],"7":["yang","yang","yang","yang","yin","yin"],"8":["yin","yin","yin","yin","yang","yang"],"9":["yang","yang","yang","yin","yang","yang"],"10":["yin","yin","yin","yang","yin","yin"],"11":["yang","yang","yang","yin","yang","yin"],"12":["yin","yin","yin","yang","yin","yang"],"13":["yang","yang","yang","yin","yin","yang"],"14":["yin","yin","yin","yang","yang","yin"],"15":["yang","yang","yang","yin","yin","yin"],"16":["yin","yin","yin","yang","yang","yang"],"17":["yang","yang","yin","yang","yang","yang"],"18":["yin","yin","yang","yin","yin","yin"],"19":["yang","yang","yin","yang","yang","yin"],"20":["yin","yin","yang","yin","yin","yang"],"21":["yang","yang","yin","yang","yin","yang"],"22":["yin","yin","yang","yin","yang","yin"],"23":["yang","yang","yin","yang","yin","yin"],"24":["yin","yin","yang","yin","yang","yang"],"25":["yang","yang","yin","yin","yang","yang"],"26":["yin","yin","yang","yang","yin","yin"],"27":["yang","yang","yin","yin","yang","yin"],"28":["yin","yin","yang","yang","yin","yang"],"29":["yang","yang","yin","yin","yin","yang"],"30":["yin","yin","yang","yang","yang","yin"],"31":["yang","yang","yin","yin","yin","yin"],"32":["yin","yin","yang","yang","yang","yang"],"33":["yang","yin","yang","yang","yang","yang"],"34":["yin","yang","yin","yin","yin","yin"],"35":["yang","yin","yang","yang","yang","yin"],"36":["yin","yang","yin","yin","yin","yang"],"37":["yang","yin","yang","yang","yin","yang"],"38":["yin","yang","yin","yin","yang","yin"],"39":["yang","yin","yang","yang","yin","yin"],"40":["yin","yang","yin","yin","yang","yang"],"41":["yang","yin","yang","yin","yang","yang"],"42":["yin","yang","yin","yang","yin","yin"],"43":["yang","yin","yang","yin","yang","yin"],"44":["yin","yang","yin","yang","yin","yang"],"45":["yang","yin","yang","yin","yin","yang"],"46":["yin","yang","yin","yang","yang","yin"],"47":["yang","yin","yang","yin","yin","yin"],"48":["yin","yang","yin","yang","yang","yang"],"49":["yang","yin","yin","yang","yang","yang"],"50":["yin","yang","yang","yin","yin","yin"],"51":["yang","yin","yin","yang","yang","yin"],"52":["yin","yang","yang","yin","yin","yang"],"53":["yang","yin","yin","yang","yin","yang"],"54":["yin","yang","yang","yin","yang","yin"],"55":["yang","yin","yin","yang","yin","yin"],"56":["yin","yang","yang","yin","yang","yang"],"57":["yang","yin","yin","yin","yang","yang"],"58":["yin","yang","yang","yang","yin","yin"],"59":["yang","yin","yin","yin","yang","yin"],"60":["yin","yang","yang","yang","yin","yang"],"61":["yang","yin","yin","yin","yin","yang"],"62":["yin","yang","yang","yang","yang","yin"],"63":["yang","yin","yin","yin","yin","yin"],"64":["yin","yang","yang","yang","yang","yang"]};
+
+function largeHexSvg(n) {
+  var lines = HEXLINES[n];
+  var drawOrder = lines.slice().reverse();
+  var rects = '';
+  drawOrder.forEach(function (val, i) {
+    var y = 4 + i * 10;
+    if (val === 'yang') {
+      rects += '<rect x="12" y="' + y + '" width="36" height="5" rx="1.5"/>';
+    } else {
+      rects += '<rect x="12" y="' + y + '" width="15" height="5" rx="1.5"/>' +
+               '<rect x="33" y="' + y + '" width="15" height="5" rx="1.5"/>';
+    }
+  });
+  return '<svg class="pd-glyph" viewBox="0 0 60 64" width="60" height="64">' + rects + '</svg>';
+}
+
+function pdHexHtml(fx, kw) {
+  return '<div class="pd-hex">' + largeHexSvg(fx) + '<span class="pd-num">' + kw + '</span></div>';
+}
+
+var GROUPS = [{"id": 0, "type": "pair", "members": [1, 2], "dual": 19, "competing": null, "axis": [31, 32]}, {"id": 1, "type": "quartet", "members": [3, 4, 63, 64], "pairs": [[3, 63], [4, 64]], "distance": 31, "dual": 12, "competing": true, "axis": [33, 34]}, {"id": 2, "type": "quartet", "members": [5, 6, 33, 34], "pairs": [[5, 33], [6, 34]], "distance": 15, "dual": 13, "competing": true, "axis": [31, 32]}, {"id": 3, "type": "quartet", "members": [7, 8, 31, 32], "pairs": [[7, 31], [8, 32]], "distance": 13, "dual": 14, "competing": false, "axis": [33, 34]}, {"id": 4, "type": "quartet", "members": [9, 10, 17, 18], "pairs": [[9, 17], [10, 18]], "distance": 5, "dual": 17, "competing": false, "axis": [31, 32]}, {"id": 5, "type": "quartet", "members": [11, 12, 47, 48], "pairs": [[11, 47], [12, 48]], "distance": 19, "dual": 8, "competing": true, "axis": [33, 34]}, {"id": 6, "type": "quartet", "members": [13, 14, 49, 50], "pairs": [[13, 49], [14, 50]], "distance": 19, "dual": 9, "competing": true, "axis": [31, 32]}, {"id": 7, "type": "pair", "members": [15, 16], "dual": 18, "competing": null, "axis": [33, 34]}, {"id": 8, "type": "quartet", "members": [19, 20, 55, 56], "pairs": [[19, 55], [20, 56]], "distance": 19, "dual": 5, "competing": true, "axis": [33, 34]}, {"id": 9, "type": "quartet", "members": [21, 22, 41, 42], "pairs": [[21, 41], [22, 42]], "distance": 11, "dual": 6, "competing": true, "axis": [31, 32]}, {"id": 10, "type": "pair", "members": [23, 24], "dual": 16, "competing": null, "axis": [33, 34]}, {"id": 11, "type": "pair", "members": [25, 26], "dual": 15, "competing": null, "axis": [31, 32]}, {"id": 12, "type": "quartet", "members": [27, 28, 39, 40], "pairs": [[27, 39], [28, 40]], "distance": 7, "dual": 1, "competing": true, "axis": [33, 34]}, {"id": 13, "type": "quartet", "members": [29, 30, 57, 58], "pairs": [[29, 57], [30, 58]], "distance": 15, "dual": 2, "competing": true, "axis": [31, 32]}, {"id": 14, "type": "quartet", "members": [35, 36, 59, 60], "pairs": [[35, 59], [36, 60]], "distance": 13, "dual": 3, "competing": false, "axis": [33, 34]}, {"id": 15, "type": "pair", "members": [37, 38], "dual": 11, "competing": null, "axis": [31, 32]}, {"id": 16, "type": "pair", "members": [43, 44], "dual": 10, "competing": null, "axis": [33, 34]}, {"id": 17, "type": "quartet", "members": [45, 46, 53, 54], "pairs": [[45, 53], [46, 54]], "distance": 5, "dual": 4, "competing": false, "axis": [31, 32]}, {"id": 18, "type": "pair", "members": [51, 52], "dual": 7, "competing": null, "axis": [33, 34]}, {"id": 19, "type": "pair", "members": [61, 62], "dual": 0, "competing": null, "axis": [31, 32]}];
+var HEX_TO_GROUP = {};
+GROUPS.forEach(function (g) {
+  g.members.forEach(function (m) { HEX_TO_GROUP[m] = g.id; });
+});
+
+var FX_TO_KW = {}, KW_TO_FX = {};
+document.querySelectorAll('.cell[data-hex]').forEach(function (cell) {
+  var fx = parseInt(cell.getAttribute('data-hex'), 10);
+  var kw = parseInt(cell.getAttribute('data-kw'), 10);
+  FX_TO_KW[fx] = kw;
+  KW_TO_FX[kw] = fx;
+});
+
+var currentGroupId = null;
+
+function clearPairDisplay() {
+  document.getElementById('pair-display').classList.remove('active');
+  document.getElementById('pd-slot-left').innerHTML = '';
+  document.getElementById('pd-slot-right').innerHTML = '';
+  document.getElementById('pd-caption').textContent = '';
+}
+
+function clearGroup() {
+  document.querySelectorAll('.cell.hl').forEach(function (el) { el.classList.remove('hl'); });
+  currentGroupId = null;
+  clearPairDisplay();
+}
+
+function cellForKw(kw) {
+  return document.querySelector('.cell[data-kw="' + kw + '"]');
+}
+
+function renderPairDisplay(g) {
+  var sorted = g.members.slice().sort(function (a, b) { return FX_TO_KW[a] - FX_TO_KW[b]; });
+  var kwSorted = sorted.map(function (fx) { return FX_TO_KW[fx]; }).sort(function (a, b) { return a - b; });
+  var caption = 'KW{' + kwSorted.join(',') + '}';
+  var left, right;
+  if (g.type === 'quartet') {
+    left = sorted.slice(0, 2);
+    right = sorted.slice(2, 4);
+  } else {
+    left = [sorted[0]];
+    right = [sorted[1]];
+  }
+  document.getElementById('pd-caption').textContent = caption;
+  document.getElementById('pd-slot-left').innerHTML = left.map(function (fx) { return pdHexHtml(fx, FX_TO_KW[fx]); }).join('');
+  document.getElementById('pd-slot-right').innerHTML = right.map(function (fx) { return pdHexHtml(fx, FX_TO_KW[fx]); }).join('');
+  document.getElementById('pair-display').classList.add('active');
+}
+
+function showGroup(groupId) {
+  clearGroup();
+  var g = GROUPS[groupId];
+  currentGroupId = groupId;
+  g.members.forEach(function (fx) {
+    var cell = cellForKw(FX_TO_KW[fx]);
+    if (cell) cell.classList.add('hl');
+  });
+  renderPairDisplay(g);
+}
+
+document.querySelectorAll('.cell[data-hex]').forEach(function (cell) {
+  cell.addEventListener('click', function () {
+    var fx = parseInt(cell.getAttribute('data-hex'), 10);
+    var groupId = HEX_TO_GROUP[fx];
+    if (currentGroupId === groupId) { clearGroup(); }
+    else { showGroup(groupId); }
+  });
+});
+
+document.addEventListener('click', function (e) {
+  if (!e.target.closest('.square') && !e.target.closest('.pair-display')) {
+    clearGroup();
+  }
+});
+</script>
+

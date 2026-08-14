@@ -1,0 +1,433 @@
+<title>KW_spine_2tone</title>
+<style>
+:root {
+  --paper: #f2ecdc;
+  --paper-panel: #eae2cc;
+  --ink: #201d16;
+  --ink-soft: #6b6355;
+  --ink-faint: #b8ae96;
+  --seal: #a23b2e;
+  --rule: #c9bfa2;
+  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+:root[data-theme="dark"] {
+  --paper: #181510; --paper-panel: #201c15; --ink: #e9e1cd;
+  --ink-soft: #a89d84; --ink-faint: #55503f; --seal: #e2725a; --rule: #3a3527;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #181510; --paper-panel: #201c15; --ink: #e9e1cd;
+    --ink-soft: #a89d84; --ink-faint: #55503f; --seal: #e2725a; --rule: #3a3527;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font-family: var(--font-body); padding: 48px 24px 80px;
+  display: flex; flex-direction: column; align-items: center; gap: 28px;
+}
+.masthead { max-width: 620px; text-align: center; display: flex; flex-direction: column; gap: 10px; }
+h1 { font-family: var(--font-display); font-weight: 400; font-size: 1.9rem; margin: 0; text-wrap: balance; }
+.subhead { font-family: var(--font-mono); font-size: 0.76rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--seal); }
+.caption { font-size: 0.95rem; line-height: 1.55; color: var(--ink-soft); text-wrap: pretty; }
+
+.spine-wrap { position: relative; z-index: 0; width: 4234px; max-width: 100%; }
+.spine { display: flex; flex-direction: column-reverse; width: 100%; }
+.curve-overlay { position: absolute; top: 0; left: 0; pointer-events: none; overflow: visible; z-index: -1; }
+.ribbon { stroke-width: 1; opacity: 1; }
+.ribbon-3132 { fill: var(--ink-faint); fill-opacity: 0.8; stroke: var(--ink-faint); }
+.ribbon-3334 { fill: var(--ink); fill-opacity: 0.8; stroke: var(--ink); }
+.pair-ellipse-3132 { fill: none; stroke: var(--ink-faint); stroke-width: 6pt; }
+.pair-ellipse-3334 { fill: none; stroke: var(--ink); stroke-width: 6pt; }
+.group-circle-3132 { fill: none; stroke: var(--ink-faint); stroke-width: 8pt; }
+.group-circle-3334 { fill: none; stroke: var(--ink); stroke-width: 8pt; }
+.spine-row { display: grid; grid-template-columns: 1fr; align-items: center; padding: 3px 10px; }
+.pair { display: flex; justify-content: center; align-items: center; gap: 2px; }
+.rel-mark { font-family: var(--font-mono); font-size: 0.7rem; color: var(--ink-faint); width: 14px; text-align: center; }
+.num-circle {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: 50%;
+  border: 1.5px solid var(--ink); font-family: var(--font-mono); font-weight: 700;
+  font-size: 0.92rem; color: var(--ink); font-variant-numeric: tabular-nums;
+  background: var(--paper);
+}
+
+.legend { display: flex; gap: 28px; font-size: 0.86rem; color: var(--ink-soft); flex-wrap: wrap; justify-content: center; max-width: 480px; text-align: center; }
+.legend-item { display: flex; align-items: center; gap: 10px; }
+.legend-circle {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--ink);
+  font-family: var(--font-mono); font-size: 0.6rem; color: var(--ink); background: var(--paper); flex: none;
+}
+</style>
+
+<div class="masthead">
+  <div class="subhead">King Wen Spine</div>
+  <h1>The Complement Spine</h1>
+</div>
+
+<div class="spine-wrap">
+<svg class="curve-overlay" id="curve-overlay"></svg>
+<div class="spine">
+<div class="spine-row pivot-row" data-row="1"><div class="pair"><span class="num-circle" data-side="left">1</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">2</span></div></div>
+<div class="spine-row pivot-row" data-row="2"><div class="pair"><span class="num-circle" data-side="left">2</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">1</span></div></div>
+<div class="spine-row" data-row="3"><div class="pair"><span class="num-circle" data-side="left">3</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">50</span></div></div>
+<div class="spine-row" data-row="4"><div class="pair"><span class="num-circle" data-side="left">4</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">49</span></div></div>
+<div class="spine-row" data-row="5"><div class="pair"><span class="num-circle" data-side="left">5</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">35</span></div></div>
+<div class="spine-row" data-row="6"><div class="pair"><span class="num-circle" data-side="left">6</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">36</span></div></div>
+<div class="spine-row" data-row="7"><div class="pair"><span class="num-circle" data-side="left">7</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">13</span></div></div>
+<div class="spine-row" data-row="8"><div class="pair"><span class="num-circle" data-side="left">8</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">14</span></div></div>
+<div class="spine-row" data-row="9"><div class="pair"><span class="num-circle" data-side="left">9</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">16</span></div></div>
+<div class="spine-row" data-row="10"><div class="pair"><span class="num-circle" data-side="left">10</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">15</span></div></div>
+<div class="spine-row" data-row="11"><div class="pair"><span class="num-circle" data-side="left">11</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">12</span></div></div>
+<div class="spine-row" data-row="12"><div class="pair"><span class="num-circle" data-side="left">12</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">11</span></div></div>
+<div class="spine-row" data-row="13"><div class="pair"><span class="num-circle" data-side="left">13</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">7</span></div></div>
+<div class="spine-row" data-row="14"><div class="pair"><span class="num-circle" data-side="left">14</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">8</span></div></div>
+<div class="spine-row" data-row="15"><div class="pair"><span class="num-circle" data-side="left">15</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">10</span></div></div>
+<div class="spine-row" data-row="16"><div class="pair"><span class="num-circle" data-side="left">16</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">9</span></div></div>
+<div class="spine-row" data-row="17"><div class="pair"><span class="num-circle" data-side="left">17</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">18</span></div></div>
+<div class="spine-row" data-row="18"><div class="pair"><span class="num-circle" data-side="left">18</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">17</span></div></div>
+<div class="spine-row" data-row="19"><div class="pair"><span class="num-circle" data-side="left">19</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">33</span></div></div>
+<div class="spine-row" data-row="20"><div class="pair"><span class="num-circle" data-side="left">20</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">34</span></div></div>
+<div class="spine-row" data-row="21"><div class="pair"><span class="num-circle" data-side="left">21</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">48</span></div></div>
+<div class="spine-row" data-row="22"><div class="pair"><span class="num-circle" data-side="left">22</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">47</span></div></div>
+<div class="spine-row" data-row="23"><div class="pair"><span class="num-circle" data-side="left">23</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">43</span></div></div>
+<div class="spine-row" data-row="24"><div class="pair"><span class="num-circle" data-side="left">24</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">44</span></div></div>
+<div class="spine-row" data-row="25"><div class="pair"><span class="num-circle" data-side="left">25</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">46</span></div></div>
+<div class="spine-row" data-row="26"><div class="pair"><span class="num-circle" data-side="left">26</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">45</span></div></div>
+<div class="spine-row pivot-row" data-row="27"><div class="pair"><span class="num-circle" data-side="left">27</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">28</span></div></div>
+<div class="spine-row pivot-row" data-row="28"><div class="pair"><span class="num-circle" data-side="left">28</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">27</span></div></div>
+<div class="spine-row pivot-row" data-row="29"><div class="pair"><span class="num-circle" data-side="left">29</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">30</span></div></div>
+<div class="spine-row pivot-row" data-row="30"><div class="pair"><span class="num-circle" data-side="left">30</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">29</span></div></div>
+<div class="spine-row" data-row="31"><div class="pair"><span class="num-circle" data-side="left">31</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">41</span></div></div>
+<div class="spine-row" data-row="32"><div class="pair"><span class="num-circle" data-side="left">32</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">42</span></div></div>
+<div class="spine-row" data-row="33"><div class="pair"><span class="num-circle" data-side="left">33</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">19</span></div></div>
+<div class="spine-row" data-row="34"><div class="pair"><span class="num-circle" data-side="left">34</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">20</span></div></div>
+<div class="spine-row" data-row="35"><div class="pair"><span class="num-circle" data-side="left">35</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">5</span></div></div>
+<div class="spine-row" data-row="36"><div class="pair"><span class="num-circle" data-side="left">36</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">6</span></div></div>
+<div class="spine-row" data-row="37"><div class="pair"><span class="num-circle" data-side="left">37</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">40</span></div></div>
+<div class="spine-row" data-row="38"><div class="pair"><span class="num-circle" data-side="left">38</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">39</span></div></div>
+<div class="spine-row" data-row="39"><div class="pair"><span class="num-circle" data-side="left">39</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">38</span></div></div>
+<div class="spine-row" data-row="40"><div class="pair"><span class="num-circle" data-side="left">40</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">37</span></div></div>
+<div class="spine-row" data-row="41"><div class="pair"><span class="num-circle" data-side="left">41</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">31</span></div></div>
+<div class="spine-row" data-row="42"><div class="pair"><span class="num-circle" data-side="left">42</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">32</span></div></div>
+<div class="spine-row" data-row="43"><div class="pair"><span class="num-circle" data-side="left">43</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">23</span></div></div>
+<div class="spine-row" data-row="44"><div class="pair"><span class="num-circle" data-side="left">44</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">24</span></div></div>
+<div class="spine-row" data-row="45"><div class="pair"><span class="num-circle" data-side="left">45</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">26</span></div></div>
+<div class="spine-row" data-row="46"><div class="pair"><span class="num-circle" data-side="left">46</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">25</span></div></div>
+<div class="spine-row" data-row="47"><div class="pair"><span class="num-circle" data-side="left">47</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">22</span></div></div>
+<div class="spine-row" data-row="48"><div class="pair"><span class="num-circle" data-side="left">48</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">21</span></div></div>
+<div class="spine-row" data-row="49"><div class="pair"><span class="num-circle" data-side="left">49</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">4</span></div></div>
+<div class="spine-row" data-row="50"><div class="pair"><span class="num-circle" data-side="left">50</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">3</span></div></div>
+<div class="spine-row" data-row="51"><div class="pair"><span class="num-circle" data-side="left">51</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">57</span></div></div>
+<div class="spine-row" data-row="52"><div class="pair"><span class="num-circle" data-side="left">52</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">58</span></div></div>
+<div class="spine-row" data-row="53"><div class="pair"><span class="num-circle" data-side="left">53</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">54</span></div></div>
+<div class="spine-row" data-row="54"><div class="pair"><span class="num-circle" data-side="left">54</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">53</span></div></div>
+<div class="spine-row" data-row="55"><div class="pair"><span class="num-circle" data-side="left">55</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">59</span></div></div>
+<div class="spine-row" data-row="56"><div class="pair"><span class="num-circle" data-side="left">56</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">60</span></div></div>
+<div class="spine-row" data-row="57"><div class="pair"><span class="num-circle" data-side="left">57</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">51</span></div></div>
+<div class="spine-row" data-row="58"><div class="pair"><span class="num-circle" data-side="left">58</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">52</span></div></div>
+<div class="spine-row" data-row="59"><div class="pair"><span class="num-circle" data-side="left">59</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">55</span></div></div>
+<div class="spine-row" data-row="60"><div class="pair"><span class="num-circle" data-side="left">60</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">56</span></div></div>
+<div class="spine-row pivot-row" data-row="61"><div class="pair"><span class="num-circle" data-side="left">61</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">62</span></div></div>
+<div class="spine-row pivot-row" data-row="62"><div class="pair"><span class="num-circle" data-side="left">62</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">61</span></div></div>
+<div class="spine-row" data-row="63"><div class="pair"><span class="num-circle" data-side="left">63</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">64</span></div></div>
+<div class="spine-row" data-row="64"><div class="pair"><span class="num-circle" data-side="left">64</span><span class="rel-mark">·</span><span class="num-circle" data-side="right">63</span></div></div>
+</div>
+</div>
+
+<script>
+function circleCenter(row, side, containerRect) {
+  var rowEl = document.querySelector('.spine-row[data-row="' + row + '"]');
+  var circleEl = rowEl.querySelector('.num-circle[data-side="' + side + '"]');
+  var r = circleEl.getBoundingClientRect();
+  return [(r.left + r.right) / 2 - containerRect.left, (r.top + r.bottom) / 2 - containerRect.top];
+}
+
+// Measured, not hardcoded: at some browser zoom levels the reported
+// getBoundingClientRect() values scale with zoom (confirmed by ribbons
+// rendering wildly oversized at 110% and squeezed thin at 30%). Every
+// width below is computed as a ratio against this constant -- if it's a
+// fixed 34 while the actual on-screen circle is larger or smaller, every
+// ratio drifts. Measuring it keeps the whole system self-consistent at
+// any zoom, since the circle size and the row-spacing measurements it's
+// divided against then scale together.
+var CIRCLE_DIAMETER = document.querySelector('.num-circle').getBoundingClientRect().width;
+var CIRCLE_RADIUS = CIRCLE_DIAMETER / 2;
+
+// pull an endpoint back from the circle's centre to its edge, in the
+// direction the curve leaves it, so the stroke never crosses into the circle
+function edgePoint(center, direction) {
+  return [center[0] - CIRCLE_RADIUS * direction, center[1]];
+}
+
+function fmt(p) { return p[0].toFixed(1) + ' ' + p[1].toFixed(1); }
+
+// control points for a symmetric cubic bezier between p1 and p2, bulging
+// by widthInDiameters at the midpoint (see the 0.75 factor note below)
+function bezierControls(p1, p2, widthInDiameters, direction) {
+  var targetMidWidth = widthInDiameters * CIRCLE_DIAMETER;
+  var bulge = (targetMidWidth / 0.75) * direction;
+  return [[p1[0] - bulge, p1[1]], [p2[0] - bulge, p2[1]]];
+}
+
+// sampled points of a half-ellipse from p1 to p2, bulging by
+// widthInDiameters at the midpoint. Works regardless of which of p1/p2 is
+// higher up, and direction (+1 left, -1 right) is independent of that order.
+function ellipsePoints(p1, p2, widthInDiameters, direction, steps) {
+  var cx = p1[0];
+  var cy = (p1[1] + p2[1]) / 2;
+  var rx = widthInDiameters * CIRCLE_DIAMETER;
+  var ry = (p2[1] - p1[1]) / 2;
+  var pts = [];
+  for (var i = 0; i <= steps; i++) {
+    var s = i / steps;
+    var theta = (-90 - 180 * s * direction) * Math.PI / 180;
+    pts.push([cx + rx * Math.cos(theta), cy + ry * Math.sin(theta)]);
+  }
+  return pts;
+}
+
+// builds the closed ribbon outline for one column. colSide is 'left' or
+// 'right'; outSign is +1 if the outer/inner curves bulge away to the left
+// (as for the left column) or -1 if they bulge away to the right (mirrored,
+// for the right column). The caps always bulge the opposite way, into the
+// gap between the two columns.
+// rowA/rowD are the outer (a,d) pair of the quartet, rowB/rowC the inner
+// (b,c) pair -- e.g. for KW[(3,4),(49,50)], rowA=3, rowB=4, rowC=49, rowD=50.
+// Unlike the FX spine (where rowA/rowD and rowB/rowC are zong-partners,
+// grouping two cuo-adjacent pairs), here rowA/rowD and rowB/rowC are
+// cuo-partners, grouping two zong-adjacent (KW-consecutive) pairs.
+function buildRibbonPath(containerRect, colSide, outSign, outerWidth, innerWidth, capWidth, rowA, rowB, rowC, rowD) {
+  var A = edgePoint(circleCenter(rowA, colSide, containerRect), outSign);
+  var B = edgePoint(circleCenter(rowD, colSide, containerRect), outSign);
+  var C = edgePoint(circleCenter(rowD, colSide, containerRect), -outSign);
+  var D = edgePoint(circleCenter(rowC, colSide, containerRect), -outSign);
+  var E = edgePoint(circleCenter(rowC, colSide, containerRect), outSign);
+  var F = edgePoint(circleCenter(rowB, colSide, containerRect), outSign);
+  var G = edgePoint(circleCenter(rowB, colSide, containerRect), -outSign);
+  var H = edgePoint(circleCenter(rowA, colSide, containerRect), -outSign);
+
+  var outerCtl = bezierControls(A, B, outerWidth, outSign);
+  var innerCtl = bezierControls(E, F, innerWidth, outSign);
+  var bottomCap = ellipsePoints(C, D, capWidth, -outSign, 24).slice(1);
+  var topCap = ellipsePoints(G, H, capWidth, -outSign, 24).slice(1);
+
+  return 'M ' + fmt(A) +
+    ' C ' + fmt(outerCtl[0]) + ', ' + fmt(outerCtl[1]) + ', ' + fmt(B) +
+    ' L ' + fmt(C) +
+    ' L ' + bottomCap.map(fmt).join(' L ') +
+    ' L ' + fmt(E) +
+    ' C ' + fmt(innerCtl[0]) + ', ' + fmt(innerCtl[1]) + ', ' + fmt(F) +
+    ' L ' + fmt(G) +
+    ' L ' + topCap.map(fmt).join(' L ') +
+    ' Z';
+}
+
+// Same outline as buildRibbonPath, but every edge -- not just the caps --
+// is a sampled true ellipse arc instead of a single cubic Bezier. A cubic
+// Bezier's tangent leaves each endpoint pointing straight at its control
+// point (here, dead horizontal), which reads as a slight corner; an
+// ellipse arc's tangent turns continuously along its whole length, which
+// is what actually looks "round." More arcSteps = smoother.
+function buildRibbonPathRound(containerRect, colSide, outSign, outerWidth, innerWidth, capWidth, rowA, rowB, rowC, rowD, arcSteps) {
+  var A = edgePoint(circleCenter(rowA, colSide, containerRect), outSign);
+  var B = edgePoint(circleCenter(rowD, colSide, containerRect), outSign);
+  var C = edgePoint(circleCenter(rowD, colSide, containerRect), -outSign);
+  var D = edgePoint(circleCenter(rowC, colSide, containerRect), -outSign);
+  var E = edgePoint(circleCenter(rowC, colSide, containerRect), outSign);
+  var F = edgePoint(circleCenter(rowB, colSide, containerRect), outSign);
+  var G = edgePoint(circleCenter(rowB, colSide, containerRect), -outSign);
+  var H = edgePoint(circleCenter(rowA, colSide, containerRect), -outSign);
+
+  var outerArc = ellipsePoints(A, B, outerWidth, outSign, arcSteps).slice(1);
+  var bottomCap = ellipsePoints(C, D, capWidth, -outSign, arcSteps).slice(1);
+  var innerArc = ellipsePoints(E, F, innerWidth, outSign, arcSteps).slice(1);
+  var topCap = ellipsePoints(G, H, capWidth, -outSign, arcSteps).slice(1);
+
+  return 'M ' + fmt(A) +
+    ' L ' + outerArc.map(fmt).join(' L ') +
+    ' L ' + fmt(C) +
+    ' L ' + bottomCap.map(fmt).join(' L ') +
+    ' L ' + fmt(E) +
+    ' L ' + innerArc.map(fmt).join(' L ') +
+    ' L ' + fmt(G) +
+    ' L ' + topCap.map(fmt).join(' L ') +
+    ' Z';
+}
+
+// A centred link for a single "inverse-complementary" pair: an upright
+// ellipse straddling the column's own centre line (not offset outward
+// like the quartet ribbons), spanning from rowTop's centre to rowBot's
+// centre. width = widthRatio * height (widthRatio < 1 keeps it taller
+// than wide). Ported from FX_spine_2tone.html.
+function pairEllipseAttrs(containerRect, colSide, widthRatio, rowTop, rowBot) {
+  var top = circleCenter(rowTop, colSide, containerRect);
+  var bot = circleCenter(rowBot, colSide, containerRect);
+  var ry = Math.abs(bot[1] - top[1]) / 2;
+  var rx = ry * widthRatio;
+  return { cx: top[0], cy: (top[1] + bot[1]) / 2, rx: rx, ry: ry };
+}
+
+// A single circle connecting all four corner points of a "complementary-
+// only" group (e.g. KW{1,2}): row A's left+right circles and row B's
+// left+right circles form a rectangle regardless of which numbers are
+// displayed at each corner, so the same circumcircle construction used in
+// FX_spine_2tone.html applies here unchanged. radiusScale pulls the
+// circle in from the exact circumradius.
+function groupCircleAttrs(containerRect, rowA, rowB, radiusScale) {
+  var AL = circleCenter(rowA, 'left', containerRect);
+  var AR = circleCenter(rowA, 'right', containerRect);
+  var BL = circleCenter(rowB, 'left', containerRect);
+  var cx = (AL[0] + AR[0]) / 2;
+  var cy = (AL[1] + BL[1]) / 2;
+  var r = Math.hypot(AR[0] - cx, AL[1] - cy) * radiusScale;
+  return { cx: cx, cy: cy, r: r };
+}
+
+function renderCurves() {
+  var wrap = document.querySelector('.spine-wrap');
+  var rect = wrap.getBoundingClientRect();
+  var svg = document.getElementById('curve-overlay');
+  svg.setAttribute('width', rect.width);
+  svg.setAttribute('height', rect.height);
+  svg.innerHTML = '';
+  var containerRect = wrap.getBoundingClientRect();
+
+  function rowCenterY(row) {
+    return circleCenter(row, 'left', containerRect)[1];
+  }
+
+  // measure actual row height so the gap between the two nested bezier
+  // curves stays deliberately smaller than one row's vertical spacing
+  var r3y = rowCenterY(1), r4y = rowCenterY(2);
+  var rowHeight = Math.abs(r4y - r3y);
+  var capWidth = 0.2; // flattened caps, stays short of the column midpoint
+  // Now that the ratio math itself is correct (see refInnerWidth below),
+  // the computed widths are honest but visually subtle -- a deliberate,
+  // single tunable multiplier to make ribbons read as substantial instead
+  // of thin, without reintroducing the old unit-conversion bug.
+  var WIDTH_SCALE = 7;
+
+  // reference quartet KW[(3,4),(49,50)] sets the height/width ratio every
+  // other quartet's ribbon will be scaled to match, once more are added
+  // 26.25*0.85 is a pixel value; every other width in this system is in
+  // "diameters" units (i.e. pre-divided by CIRCLE_DIAMETER) before being
+  // used in a ratio -- this one wasn't, making it ~34x too large and
+  // throwing every quartet's computed ribbon width off by the same
+  // factor (from a sane few-tens-of-px range up into the hundreds).
+  var refInnerWidth = (26.25 * 0.85) / CIRCLE_DIAMETER;
+  var refOuterWidth = refInnerWidth + (rowHeight * 0.5) / CIRCLE_DIAMETER;
+  var refOuterHeight = Math.abs(rowCenterY(50) - rowCenterY(3));
+  var refInnerHeight = Math.abs(rowCenterY(49) - rowCenterY(4));
+  var ratioOuter = refOuterHeight / (refOuterWidth * CIRCLE_DIAMETER);
+  var ratioInner = refInnerHeight / (refInnerWidth * CIRCLE_DIAMETER);
+
+  // one entry per quartet KW[(a,b),(c,d)]: rowA, rowB, rowC, rowD.
+  // Width scaling v6: same two anchors throughout (span 3 -> scale 1.0,
+  // span 47 -> scale 0.6). v3 used t^(1/2), v4 t^(1/3), v5 t^(1/4); v6
+  // sharpens further to t^(1/5).
+  // 5th entry: which FX axis this cross-cut belongs to, for colour-coding
+  // (matches the associated FX spine file's own ribbon colour -- see
+  // FX_spine_axis_31_32.html / FX_spine_axis_33_34.html).
+  var quartets = [
+    [3, 4, 49, 50, '3334'],  // KW[(3,4),(49,50)] -- the cuo-cross-cut of FX{35,36,59,60}
+    [5, 6, 35, 36, '3334'],  // KW[(5,6),(35,36)] -- the cuo-cross-cut of FX{11,12,47,48}
+    [7, 8, 13, 14, '3132'],  // KW[(7,8),(13,14)] -- the cuo-cross-cut of FX{5,6,33,34}
+    [9, 10, 15, 16, '3132'],  // KW[(9,10),(15,16)] -- the cuo-cross-cut of FX{9,10,17,18}
+    [25, 26, 45, 46, '3132'],  // KW[(25,26),(45,46)] -- the cuo-cross-cut of FX{13,14,49,50}
+    [37, 38, 39, 40, '3132', 0.65, true],  // KW[(37,38),(39,40)] -- the cuo-cross-cut of FX{21,22,41,42} -- width -35%, drawn with round arcs instead of Beziers
+    [31, 32, 42, 41, '3132'],  // KW[(31,32),(41,42)] -- the cuo-cross-cut of FX{29,30,57,58}
+    [21, 22, 47, 48, '3132'],  // KW[(21,22),(47,48)] -- the cuo-cross-cut of FX{45,46,53,54}
+    [19, 20, 34, 33, '3334'],  // KW[(19,20),(33,34)] -- the cuo-cross-cut of FX{7,8,31,32}
+    [23, 24, 44, 43, '3334'],  // KW[(23,24),(43,44)] -- the cuo-cross-cut of FX{3,4,63,64}
+    [55, 56, 60, 59, '3334'],  // KW[(55,56),(59,60)] -- the cuo-cross-cut of FX{27,28,39,40}
+    [51, 52, 58, 57, '3334']  // KW[(51,52),(57,58)] -- the cuo-cross-cut of FX{19,20,55,56}
+  ];
+
+  var SPAN_AT_SCALE_1 = 3, SPAN_AT_SCALE_MIN = 47, SCALE_MIN = 0.6;
+
+  quartets.forEach(function (q) {
+    var span = Math.abs(q[3] - q[0]);
+    var t = (span - SPAN_AT_SCALE_1) / (SPAN_AT_SCALE_MIN - SPAN_AT_SCALE_1);
+    var scale = 1 - Math.pow(t, 0.2) * (1 - SCALE_MIN);
+    var outerHeight = Math.abs(rowCenterY(q[3]) - rowCenterY(q[0]));
+    var innerHeight = Math.abs(rowCenterY(q[2]) - rowCenterY(q[1]));
+    var widthOverride = q.length > 5 ? q[5] : 1;
+    var useRoundArcs = q.length > 6 && q[6];
+    var outerWidth = (outerHeight / ratioOuter) / CIRCLE_DIAMETER * scale * widthOverride * WIDTH_SCALE;
+    var innerWidth = (innerHeight / ratioInner) / CIRCLE_DIAMETER * scale * widthOverride * WIDTH_SCALE;
+    var ribbonClass = q[4] === '3132' ? 'ribbon ribbon-3132' : 'ribbon ribbon-3334';
+    [['left', 1], ['right', -1]].forEach(function (spec) {
+      var d = useRoundArcs
+        ? buildRibbonPathRound(containerRect, spec[0], spec[1], outerWidth, innerWidth, capWidth, q[0], q[1], q[2], q[3], 48)
+        : buildRibbonPath(containerRect, spec[0], spec[1], outerWidth, innerWidth, capWidth, q[0], q[1], q[2], q[3]);
+      var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', d);
+      path.setAttribute('class', ribbonClass);
+      svg.appendChild(path);
+    });
+  });
+
+  // "Inverse-complementary" pairs: KW{11,12}, KW{53,54}, KW{63,64},
+  // KW{17,18} -- the King Wen numbering of the same four FX pair-groups
+  // (FX{15,16}, FX{23,24}, FX{43,44}, FX{51,52}) marked in
+  // FX_spine_2tone.html, where zōng and cuo coincide. Because this file's
+  // own row pairing {n, cuo(n)} already shows the complement side, these
+  // ellipses read as marking the coincidence itself: for these four pairs,
+  // the complement partner already shown at right is also the reversal
+  // partner. All four sit on the FX(33,34) axis, so coloured black to
+  // match those quartets. The other four pair-groups (FX{1,2}, FX{25,26},
+  // FX{37,38}, FX{61,62} -> KW{1,2}, KW{61,62}, KW{29,30}, KW{27,28}) are
+  // exactly this file's own 8 pivot-row hexagrams -- individually
+  // self-inverse rather than mutually so -- and are not marked here.
+  var complementPairs = [
+    [11, 12, '3334'],
+    [53, 54, '3334'],
+    [63, 64, '3334'],
+    [17, 18, '3334']
+  ];
+  var pairWidthRatio = 0.75;
+  complementPairs.forEach(function (p) {
+    var rowTop = Math.min(p[0], p[1]), rowBot = Math.max(p[0], p[1]);
+    var ellipseClass = p[2] === '3132' ? 'pair-ellipse-3132' : 'pair-ellipse-3334';
+    ['left', 'right'].forEach(function (colSide) {
+      var attrs = pairEllipseAttrs(containerRect, colSide, pairWidthRatio, rowTop, rowBot);
+      var ellipse = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+      ellipse.setAttribute('cx', attrs.cx.toFixed(1));
+      ellipse.setAttribute('cy', attrs.cy.toFixed(1));
+      ellipse.setAttribute('rx', attrs.rx.toFixed(1));
+      ellipse.setAttribute('ry', attrs.ry.toFixed(1));
+      ellipse.setAttribute('class', ellipseClass);
+      svg.appendChild(ellipse);
+    });
+  });
+
+  // "Complementary-only" groups: KW{1,2}, KW{27,28}, KW{29,30}, KW{61,62}
+  // -- the King Wen numbering of FX{1,2}, FX{61,62}, FX{37,38}, FX{25,26}
+  // (all on the FX(31,32) axis), which are exactly this file's own 8
+  // pivot-row hexagrams. Same circumcircle-through-four-corners
+  // construction as FX_spine_2tone.html, coloured light-gray to match.
+  var complementOnlyGroups = [
+    [1, 2, '3132'],
+    [27, 28, '3132'],
+    [29, 30, '3132'],
+    [61, 62, '3132']
+  ];
+  var groupCircleRadiusScale = 0.7225;
+  complementOnlyGroups.forEach(function (g) {
+    var attrs = groupCircleAttrs(containerRect, g[0], g[1], groupCircleRadiusScale);
+    var circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('cx', attrs.cx.toFixed(1));
+    circle.setAttribute('cy', attrs.cy.toFixed(1));
+    circle.setAttribute('r', attrs.r.toFixed(1));
+    circle.setAttribute('class', g[2] === '3132' ? 'group-circle-3132' : 'group-circle-3334');
+    svg.appendChild(circle);
+  });
+}
+
+renderCurves();
+window.addEventListener('resize', renderCurves);
+</script>
