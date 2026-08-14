@@ -167,7 +167,12 @@
     letter-spacing: 0.03em;
     color: var(--ink-soft);
     white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    transition: border-color .15s, color .15s, background-color .15s;
   }
+  .axis-tag:hover { border-color: var(--structure); color: var(--structure); }
+  .axis-tag.active { border-color: var(--structure); background: var(--structure); color: var(--paper); }
 
   .mode-box {
     margin-top: 6px;
@@ -432,6 +437,7 @@
 
   function setMode(mode) {
     clearAllSelected();
+    setActiveAxis(null);
     activeMode = (activeMode === mode) ? null : mode;
     Object.keys(modeBoxes).forEach(function (m) {
       modeBoxes[m].classList.toggle('active', m === activeMode);
@@ -440,6 +446,38 @@
 
   Object.keys(modeBoxes).forEach(function (m) {
     modeBoxes[m].addEventListener('click', function () { setMode(m); });
+  });
+
+  var activeAxis = null;
+  var axisTags = {
+    A: document.querySelector('.legend-item:nth-child(1) .axis-tag'),
+    B: document.querySelector('.legend-item:nth-child(2) .axis-tag')
+  };
+
+  function setActiveAxis(axis) {
+    activeAxis = axis;
+    Object.keys(axisTags).forEach(function (a) {
+      axisTags[a].classList.toggle('active', a === activeAxis);
+    });
+  }
+
+  function toggleAxisSelect(axis) {
+    clearAllSelected();
+    activeMode = null;
+    Object.keys(modeBoxes).forEach(function (m) { modeBoxes[m].classList.remove('active'); });
+    setActiveAxis(activeAxis === axis ? null : axis);
+    if (activeAxis) {
+      ROWS.forEach(function (row) {
+        row[activeAxis].forEach(function (f) {
+          selected.add(f);
+          setHighlight(f, true);
+        });
+      });
+    }
+  }
+
+  Object.keys(axisTags).forEach(function (a) {
+    axisTags[a].addEventListener('click', function () { toggleAxisSelect(a); });
   });
 
   function trioFor(fx) {
@@ -494,6 +532,7 @@
       if (activeMode) {
         selectByMode(fx, activeMode);
       } else {
+        setActiveAxis(null);
         toggleSelect(fx, e.ctrlKey);
       }
     });
@@ -518,7 +557,7 @@
   }
 
   document.addEventListener('click', function (e) {
-    if (!e.target.closest('.table-wrap') && !e.target.closest('.mode-box')) clearAllSelected();
+    if (!e.target.closest('.table-wrap') && !e.target.closest('.mode-box') && !e.target.closest('.axis-tag')) clearAllSelected();
   });
 
   // Align each legend column (axis-tag + mode-box) so it sits centred under
