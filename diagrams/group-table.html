@@ -152,14 +152,33 @@
 
   .legend {
     display: flex;
-    gap: 28px;
+    gap: 48px;
     font-size: 0.85rem;
     color: var(--ink-soft);
   }
-  .legend-item { display: flex; align-items: center; gap: 10px; }
+  .legend-item { display: flex; flex-direction: column; align-items: center; gap: 6px; }
   .legend-swatch { width: 24px; height: 6px; background: var(--ink); border-radius: 1px; }
   .legend-swatch.split { display: flex; gap: 4px; width: 24px; }
   .legend-swatch.split span { flex: 1; height: 6px; background: var(--ink); border-radius: 1px; }
+  .legend-label { font-size: 0.62rem; letter-spacing: 0.03em; }
+
+  .mode-box {
+    margin-top: 6px;
+    padding: 6px 14px;
+    border: 1.5px solid var(--rule);
+    border-radius: 6px;
+    font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--ink-soft);
+    cursor: pointer;
+    user-select: none;
+    transition: border-color .15s, color .15s, background-color .15s;
+  }
+  .mode-box:hover { border-color: var(--structure); color: var(--structure); }
+  .mode-box.active { border-color: var(--structure); background: var(--structure); color: var(--paper); }
 
   footer {
     font-size: 0.82rem;
@@ -330,8 +349,16 @@
 </div>
 
 <div class="legend">
-  <div class="legend-item"><span class="legend-swatch"></span> Yang &mdash; solid</div>
-  <div class="legend-item"><span class="legend-swatch split"><span></span><span></span></span> Yin &mdash; broken</div>
+  <div class="legend-item">
+    <span class="legend-swatch"></span>
+    <span class="legend-label">Yang &mdash; solid</span>
+    <div class="mode-box" id="mode-flip16" data-mode="flip16">Complementary lines 1 &amp; 6</div>
+  </div>
+  <div class="legend-item">
+    <span class="legend-swatch split"><span></span><span></span></span>
+    <span class="legend-label">Yin &mdash; broken</span>
+    <div class="mode-box" id="mode-trigram" data-mode="trigram">Complementary trigrams</div>
+  </div>
 </div>
 
 <footer>
@@ -344,6 +371,71 @@
   Object.keys(FX_TO_KW).forEach(function (fx) { KW_TO_FX[FX_TO_KW[fx]] = +fx; });
 
   var selected = new Set();
+
+  // Row groups, read from the table itself: ROWS[i] = { A: [fx...], B: [fx...] }
+  // for row i+1's two axis columns, in the order rows are printed (1..10).
+  var ROWS = [];
+  document.querySelectorAll('.grid-row').forEach(function (rowEl) {
+    var cells = rowEl.querySelectorAll('.cell');
+    function fxList(cell) {
+      return Array.prototype.map.call(cell.querySelectorAll('.set-label .num[data-fx]'), function (n) { return +n.dataset.fx; });
+    }
+    ROWS.push({ A: fxList(cells[0]), B: fxList(cells[1]) });
+  });
+
+  var FX_LOCATION = {};
+  ROWS.forEach(function (row, idx) {
+    row.A.forEach(function (fx) { FX_LOCATION[fx] = { row: idx, axis: 'A' }; });
+    row.B.forEach(function (fx) { FX_LOCATION[fx] = { row: idx, axis: 'B' }; });
+  });
+
+  // Quartet duals (row n <-> row 11-n) connected by the {1,6} line-flip: rows
+  // 1<->10 and 2<->9, but not 3<->8 (see Group-Table-properties.md, "three-flip
+  // pattern"). Pair duals 4<->7 and 5<->6 are connected only by {1,6}.
+  // Indices below are 0-based (row 1 = index 0).
+  var FLIP16_DUAL_ROW = { 0: 9, 9: 0, 1: 8, 8: 1, 2: null, 7: null, 3: 6, 6: 3, 4: 5, 5: 4 };
+
+  function groupsForMode(fx, mode) {
+    var loc = FX_LOCATION[fx];
+    if (!loc) return [];
+    var groups = [ROWS[loc.row][loc.axis]];
+    if (mode === 'flip16') {
+      var dualRow = FLIP16_DUAL_ROW[loc.row];
+      if (dualRow !== null && dualRow !== undefined) groups.push(ROWS[dualRow][loc.axis]);
+    } else if (mode === 'trigram') {
+      var otherAxis = loc.axis === 'A' ? 'B' : 'A';
+      groups.push(ROWS[loc.row][otherAxis]);
+    }
+    return groups;
+  }
+
+  function selectByMode(fx, mode) {
+    clearAllSelected();
+    groupsForMode(fx, mode).forEach(function (group) {
+      group.forEach(function (f) {
+        selected.add(f);
+        setHighlight(f, true);
+      });
+    });
+  }
+
+  var activeMode = null;
+  var modeBoxes = {
+    flip16: document.getElementById('mode-flip16'),
+    trigram: document.getElementById('mode-trigram')
+  };
+
+  function setMode(mode) {
+    clearAllSelected();
+    activeMode = (activeMode === mode) ? null : mode;
+    Object.keys(modeBoxes).forEach(function (m) {
+      modeBoxes[m].classList.toggle('active', m === activeMode);
+    });
+  }
+
+  Object.keys(modeBoxes).forEach(function (m) {
+    modeBoxes[m].addEventListener('click', function () { setMode(m); });
+  });
 
   function trioFor(fx) {
     var kw = FX_TO_KW[fx];
@@ -393,7 +485,13 @@
   function wire(el, fx) {
     el.addEventListener('mouseenter', function () { setHighlight(fx, true); });
     el.addEventListener('mouseleave', function () { if (!selected.has(fx)) setHighlight(fx, false); });
-    el.addEventListener('click', function (e) { toggleSelect(fx, e.ctrlKey); });
+    el.addEventListener('click', function (e) {
+      if (activeMode) {
+        selectByMode(fx, activeMode);
+      } else {
+        toggleSelect(fx, e.ctrlKey);
+      }
+    });
   }
 
   document.querySelectorAll('.hex[data-hex]').forEach(function (el) {
@@ -415,6 +513,6 @@
   }
 
   document.addEventListener('click', function (e) {
-    if (!e.target.closest('.table-wrap')) clearAllSelected();
+    if (!e.target.closest('.table-wrap') && !e.target.closest('.mode-box')) clearAllSelected();
   });
 </script>
