@@ -1,73 +1,155 @@
 <original_task>
-Session started from a prior handoff resume ("I have removed Asana and deactivated the account") and proceeded through a sequence of user-directed requests rather than one single task: reflect Asana's removal in tracking files, set up GitHub integration, evaluate/install tooling, publish the site via GitHub Pages, fix broken links, add interactive features to the Group Table diagram, and log a new TO-DO — each explicitly requested in turn. This handoff covers the GitHub Pages / diagram-editing portion of the session (the Asana removal and initial GitHub repo setup were completed and documented earlier in the session, and are preserved in memory — see `project_asana-removed.md` and `project_github-setup.md` — rather than restated in full here).
+"@Yijing-Pathways/ review" — an open-ended review of the Yijing Pathways project. Interpreted (and confirmed by the flow of the session) as a full project health review: repo hygiene, link integrity, the interactive diagram pages, the research notes, and the correctness of the underlying hexagram data. The user then directed fixes in stages: first "yes" to the mechanical batch (review items 1, 2, 6, 8), then "take care of items 3 and 4 now", then "push to master", then "refresh the whats-next" (this document).
 </original_task>
 
 <work_completed>
-**1. GitHub Pages publishing**
-- User asked whether Academia.edu (`rossergreg.academia.edu`) could host "Yijing Pathways." Advised it's a PDF repository, not a web host, and can't serve the interactive HTML/JS diagrams — recommended GitHub Pages instead, with Academia.edu as a complementary channel for PDF write-ups.
-- User confirmed; repo was private, so free Pages requires public. Asked the user via `AskUserQuestion` how to handle visibility — user chose "make it public."
-- Ran `gh repo edit gregrosser/Yijing-Pathways --visibility public`.
-- Enabled Pages via `gh api repos/gregrosser/Yijing-Pathways/pages -X POST -f "source[branch]=master" -f "source[path]=/"`.
-- Polled `gh api repos/gregrosser/Yijing-Pathways/pages/builds/latest` until `status: built`.
-- Verified live: `https://gregrosser.github.io/Yijing-Pathways/` and `diagrams/group-table.html` both return 200.
-- Updated memory `project_github-setup.md` (repo is now public, Pages live, source = master/root) and `MEMORY.md` index.
 
-**2. Fixed broken links across the site (in this order, each committed and pushed to `master` separately):**
-- `index.html` had 15 `href="file:///home/greg/pCloudDrive/YIJING/Yijing-Pathways/..."` absolute local links (12 PDFs under `collectionPDFs/view/`, plus `diagrams/FuXi21.html` and `diagrams/spine/Spine_Page1_FX.html`) — leftover from local browsing, never worked anywhere but the original machine. Fixed via `sed 's|href="file:///home/greg/pCloudDrive/YIJING/Yijing-Pathways/|href="|g'`. Verified all 15 targets exist in the repo and return 200 live. Commit `35db04c`.
-  - User reported "hard refresh, still nothing opens" — this was because the fix had been made locally but not yet pushed; clarified and pushed immediately, then re-verified live with `curl` against the actual gregrosser.github.io URLs (not just local file checks) after confirming the Pages build picked up the new commit.
-- Two `index.html` entries were plain unlinked `<div class="entry">` "Note" placeholders with no page to link to:
-  - "FX → King Wen Correspondence" (line ~322) → linked to `diagrams/FX_circle_KW_square.html`, changed to `<a class="entry" ...>`, meta changed from "Note" to "Interactive · local". Commit `412c868`.
-  - "Group Table Properties" (line ~328) → linked to `diagrams/group-table.html`, same treatment. Commit `e5b1c10`.
-- Footer "← Yijing Pathways" back-link was broken in three `diagrams/*.html` pages: `group-table.html`, `kw-square.html`, `FX_circle_KW_square.html` all had `href="index.html"`, which resolves to a nonexistent `diagrams/index.html` — the real `index.html` is at the repo root. Fixed all three to `href="../index.html"`. Confirmed via `grep -rln 'href="index.html"' diagrams/` that these were the only three, and confirmed `FuXi21.html` and the `diagrams/spine/*.html` pages have no such back-link (so no bug there). Commit `8c7f45c`.
+## Phase 1 — the review itself (no files changed)
 
-**3. Group Table (`diagrams/group-table.html`) interactive redesign — four separate commits:**
+**Data-layer verification (programmatic, not by reading).** Extracted the embedded JS tables from the diagram pages with Python and checked them:
+- `HEXLINES` — 64 entries, all distinct; the odd/even complement rule (hexagram n odd is the exact bit-inverse of n+1) holds for all 32 pairs.
+- `GROUPS` (20 groups) — members partition 1..64 exactly; every `dual` link is reciprocal; every group's `axis` field agrees with the line-1-vs-line-6 rule computed independently from `HEXLINES`.
+- `distance` field — initially appeared wrong; my first check assumed `|a-b|`. The actual rule is **`distance == |a-b|/2 + 1`** (counts pair-positions inclusive, since hexagrams sit in adjacent pairs). Under the correct formula all 12 quartets are self-consistent with zero exceptions. **The data was right; my check was wrong.**
+- `FX_TO_KW` — a true bijection; the hardcoded table in `group-table.html` matches the `data-kw` DOM attributes in both `kw-square.html` and `FX_circle_KW_square.html`, and matches all 64 rows of the HTML table in `notes/structure/FX_to_KW.md`.
+- `HEXLINES` and `GROUPS` are **byte-identical (md5-compared)** across `FuXi21.html`, `FX_circle_KW_square.html`, `kw-square.html`.
 
-*Commit `bb5fe91`* — Restyled the Yang/Yin legend (closer together, smaller font, text under the line swatches) and added two new toggleable mode boxes below it: "Flip lines 1 & 6" and "Flip trigrams" (later relabeled, see below). Implementation:
-- Added `ROWS` array built by walking the DOM (`.grid-row` → two `.cell`s → `.num[data-fx]` inside `.set-label`) so row-group membership is read from the table itself, not hardcoded.
-- Added `FX_LOCATION` (fx → {row, axis}), `FLIP16_DUAL_ROW` (0-indexed row→row mapping: quartet duals 0↔9, 1↔8 connected by the {1,6} line-flip per `notes/structure/Group-Table-properties.md`'s "three-flip pattern"; 2↔7 NOT connected; pair duals 3↔6, 4↔5 connected).
-- `groupsForMode(fx, mode)`: for `'flip16'` returns [own row-group, dual row-group if one exists]; for `'trigram'` returns [own row-group, same-row-other-axis group] (the universal "row-twin," confirmed zero exceptions in the properties doc).
-- `selectByMode`, `activeMode`, `modeBoxes`, `setMode()` wire the two boxes; clicking a hex/fx/kw while a mode is active calls `selectByMode` instead of the normal single/additive `toggleSelect`.
-- Verified against all three of the user's worked examples via a headless-Chromium DOM dump (not just visual inspection): FX{3}+flip16 → `{3,4,63,64}` only; FX{7}+flip16 → `{7,8,31,32},{35,36,59,60}`; FX{3}+trigram → `{3,4,63,64},{13,14,49,50}`. All matched exactly.
+**Link integrity.** Resolved every non-external `href`/`src` across all 16 HTML pages — all targets existed, no `file://` leftovers, all note wikilinks resolved. (This check had a blind spot — see Phase 3.)
 
-*Text-only follow-up* (included in a later commit): relabeled "Flip lines 1 & 6" / "Flip trigrams" → "Complementary lines 1 & 6" / "Complementary trigrams" per user request (uppercase is CSS `text-transform`, not literal markup).
+**Findings, as reported and ranked:**
+1. No `<!DOCTYPE html>` on any of the 16 pages (no `<html>`, `<head>`, `<body>`, `lang`, or `charset` either) → whole site rendered in quirks mode.
+2. No `<meta viewport>` anywhere → desktop-width rendering on phones.
+3. Spine pages / `kw-square.html` reachability (**partly wrong as first stated — corrected in Phase 3**).
+4. `notes/` published in the public repo but unreachable from the site; `Spinal Mapping` index entry was an unlinked "Note" placeholder.
+5. ~19 MB of duplicated PDFs: `collectionPDFs/*.pdf` vs `collectionPDFs/view/*.pdf` — same 13 documents, identical page counts, sizes within ~0.1% (the `view/` copies are Ghostscript re-runs). Only `view/` is linked from anywhere. Repo is 75 MB working tree + 35 MB `.git`.
+6. Stale `local` meta labels on 4 index entries, left from before publication.
+7. Hexagram data hand-synced across 4 files (3 byte-identical copies + 1 hardcoded `FX_TO_KW`).
+8. Stray untracked `TO-DOS.md.tmp.21047.e880bdb92401`, byte-identical to `TO-DOS.md`; `.gitignore` was a single line so `git add -A` would have published it.
+9. `design.md` loose end: the empty Figma file "PDF Collection Design Reference" still undecided (populate as index, or remove).
 
-*Commit `85dc0cb`* — Removed the Yang/Yin graphical line swatches and "Yang — solid"/"Yin — broken" text entirely. Replaced with two `.axis-tag` display boxes reading "line 1 = line 6" (left/axis A) and "line 1 /= line 6" (right/axis B, later changed to proper "≠"), stacked directly above the existing mode boxes in each column.
+## Phase 2 — mechanical batch (items 1, 2, 6, 8)
 
-*Commit `c9d2634`* — Aligned the two legend columns (axis-tag + mode-box stack) to sit precisely centered under their respective hex-glyph columns. Rather than relying on flex centering (which doesn't track the table's actual column geometry), added `alignLegendColumns()`: measures `getBoundingClientRect()` of a representative `.members` element on each side, computes the delta from each `.legend-item`'s current rendered center, and applies `transform: translateX(dx)`. Runs on `window.load` and `window.resize`. Also swapped literal "/=" for the Unicode "≠" (U+2260). Verified visually via headless-Chromium screenshot — both tags now sit centered under their hex columns.
+- Prepended to all 16 pages (`index.html`, `diagrams/*.html`, `diagrams/spine/*.html`; `archive/` deliberately left alone):
+  `<!DOCTYPE html>` / `<html lang="en">` / `<meta charset="utf-8">` / `<meta name="viewport" content="width=device-width, initial-scale=1">`
+- Removed all four stale `local` labels from `index.html`.
+- Deleted the stray `.tmp` file; expanded `.gitignore` with `*.tmp`, `*.tmp.*`, `*~`, `.DS_Store` (tested with a dummy file — correctly ignored).
 
-*Commit `7661dfb`* — Made the two `.axis-tag` boxes themselves clickable/selectable: clicking "line 1 = line 6" highlights all 32 left-axis (FX 31,32) hexagon glyphs; clicking "line 1 ≠ line 6" highlights all 32 right-axis (FX 33,34) ones. Toggles off on a second click. Added `activeAxis`, `axisTags`, `setActiveAxis()`, `toggleAxisSelect()`. Made mutually exclusive with the complementary-flip modes in both directions (`setMode()` now also calls `setActiveAxis(null)` and clears axis-tag active styling; `toggleAxisSelect()` clears `activeMode` and mode-box active styling) and with plain hex/fx/kw clicks (the `wire()` click handler now calls `setActiveAxis(null)` on normal clicks). Updated the outside-click-clears-selection document listener to also exclude `.axis-tag` (alongside the existing `.mode-box` exclusion) so clicking the tag itself doesn't immediately clear what it just selected. Verified via headless-Chromium: DOM-dumped the highlighted-hex list after simulating a click on the left axis-tag and confirmed it exactly matches the flattened `ROWS[*].A` set (32 members); screenshot-verified the right axis-tag too.
+**Verification:** before/after headless-Chromium screenshots of 6 pages, pixel-diffed with ImageMagick `compare -metric AE`. First pass showed `index.html` differing by 26% — but two runs of the *same unmodified file* also differed by 26%, proving nondeterminism (the IntersectionObserver fade-in), not regression. Re-ran with `--force-prefers-reduced-motion` (the CSS has a `prefers-reduced-motion` block pinning opacity to 1): same file twice = 0 pixels, and orig-vs-new = **0 differing pixels on all six pages**. Confirmed `document.compatMode === "CSS1Compat"`.
 
-**4. Added a new TO-DO** to `TO-DOS.md` (new section "## KW Square Distance Markers - 2026-08-14 14:15"): port the FX circle's per-group "distance" annotation (counting markers + brackets that pop up on group selection, implemented in `diagrams/FX_circle_KW_square.html` via `buildDistanceLink()` ~line 1752, the `#distance-overlay` `<g>`, and `showGroup()`/`clearGroup()`) to `diagrams/kw-square.html`, which has no equivalent yet. Explicitly noted the KW square's brackets must be **straight lines with tick marks**, not arcs, since the KW layout is a square grid, not a circle — the FX circle's `arcPath()`/`.distance-link` arc geometry doesn't apply directly. User explicitly said **"local is fine"** — this TO-DO is intentionally uncommitted/unpushed for now.
+**Mobile overflow measured** by injecting a probe script and reading `documentElement.scrollWidth` vs `clientWidth` at narrow width:
+- `index.html`, `kw-square.html`, `FuXi21.html` — no overflow, genuinely responsive (the CSS already used `min(85vw, …)` and media queries; it just never had the viewport tag to activate them)
+- `group-table.html` — 711 vs 485 (+226px), horizontally scrollable
+- `FX_circle_KW_square.html` — 723 vs 485 (+238px), horizontally scrollable
+Content is reachable by panning, not lost.
 
-**5. Established a standing reminder** (saved to memory as `feedback_push-reminder.md`): before ending a Yijing Pathways session, check `git status` and proactively ask whether to commit/push anything outstanding, since pushes to `master` now auto-publish via GitHub Pages (not just backups). This was exercised correctly during the session — e.g. caught and pushed the group-table.html + whats-next.md changes that were sitting uncommitted after the Group Table interactive work, and separately caught/pushed the index.html link fix after the user reported it "still" broken.
+## Phase 3 — items 3 and 4
+
+**Correction to review item 3.** The spine pages were **not** unreachable. All 11 had a `next-link`, and pages 1→2→…→10→1 formed a complete forward ring, so all ten were reachable from the index. What was actually broken was narrower:
+- forward-only navigation (no prev-links)
+- no back-link to the index on any spine page (unlike the other diagram pages, which have a `← Yijing Pathways` footer)
+- `Spine_Prototype_Both.html` was a true orphan (nothing linked to it) with a dead `next="#"`
+
+**Spine nav rebuild** (Python script rewriting both the CSS rule block and the markup block in all 10 pages):
+- added `.prev-link` (mirrored chevron SVG, `M40 20 L24 32 L40 44`), sharing hover/transition rules with `.next-link`
+- added `.nav-center` block with `PAGE n / 10` counter (`.nav-count`) and `.nav-home` → `../../index.html`
+- `.nav-row` changed from `justify-content: center` to centered flex with `gap: 32px`
+- kept the 10→1 wrap, so the ring is now closed in both directions (page 1's prev is page 10)
+- verified the full prev/next/home graph programmatically and by screenshot
+
+**Other item-3 work:**
+- `git mv diagrams/spine/Spine_Prototype_Both.html archive/old-architecture/` (user chose "move to archive")
+- added a "King Wen Square" entry to the Structure strand linking the orphaned `diagrams/kw-square.html`
+
+**Item 4 — notes published via Jekyll** (user chose "Jekyll front matter + layout"):
+- Created `_layouts/note.html` matching the index design system: same palette vars, same font stack (`'Iowan Old Style', 'Palatino Linotype', Palatino, 'URW Palladio L', P052, Georgia, serif` — the Palladio identity `design.md` documents as the collection's strongest brand signal), `.eyebrow` strand label, styled tables/code/blockquote, `← Yijing Pathways` footer at `../../index.html`, and `.note-body { overflow-x: auto }` so the wide hand-written tables stay reachable.
+- **Layout deliberately does not emit its own `<h1>`.** Each note already begins with `# Title`; the layout styles `.note-body > h1:first-child` to carry the header rule instead. This avoided duplicate headings *and* avoided editing note bodies.
+- Added front matter (`layout: note`, `title:`, `strand:`) to all 6 notes.
+- Converted all 6 Obsidian wikilinks to relative markdown links. **Targeted `.md`, not `.html`** — see attempted_approaches.
+- Fixed two genuinely broken links in `Spinal_Mapping.md` (`FX_spine_axis_31_32.html` / `_33_34.html`) which actually live in `archive/old-architecture/` — now `../../archive/old-architecture/…`.
+- Index wiring: converted the three "Note" placeholder `<div>`s into `<a class="entry">` links (Spinal Mapping, Chinese Culture, FuXi Sequence Origins) and added two new note entries ("Group Table — Observations", "FX → KW — Correspondence & Verification"). Checked for nested anchors (invalid HTML) — none; the existing diagram cards are already `<a class="entry">` wrappers, which is exactly why the notes became separate entries rather than nested secondary links.
+
+**Verification of the Jekyll work without Jekyll:** simulated the pipeline in Python — stripped front matter, converted the body with `pandoc -f markdown-raw_tex -t html5 --wrap=none`, substituted the Liquid variables and the `{% if page.strand == 'Culture' %}` conditional, wrote the result, confirmed zero unresolved Liquid tags, and rendered it in headless Chromium. Both strand accents resolved correctly and the raw HTML tables inside the notes survived intact.
+
+## Phase 4 — commit, push, live verification
+
+Two commits, split **along path lines** so no file needed interactive staging and the Jekyll-dependent work is isolated and cleanly revertible:
+- `dffd47c` "Fix page structure and spine navigation" — `.gitignore`, `diagrams/**`, `archive/` (16 files)
+- `6b366c6` "Publish research notes via Jekyll, link orphaned pages from the index" — `index.html`, `notes/**`, `_layouts/` (8 files)
+
+Pushed `cbe1b83..6b366c6` to `origin/master`. Polled `gh api repos/gregrosser/Yijing-Pathways/pages/builds/latest` until `status=built` **for the exact pushed commit** (took ~5 polls at 10s). Then verified live:
+- all 12 index-linked URLs return 200
+- note layout applied, both accents correct (`Structure &middot; Note`, `Culture &middot; Note`)
+- **`jekyll-relative-links` confirmed active**: `](Group-Table-properties.md)` was rewritten to `href="/Yijing-Pathways/notes/structure/Group-Table-properties.html"` — it handles the baseurl too, so no `_config.yml` was needed
+- crawled 47 internal links across 13 live pages — all 200
 </work_completed>
 
 <work_remaining>
-1. **`TO-DOS.md` has one uncommitted change** (the new "KW Square Distance Markers" section) — left local per explicit user instruction ("local is fine"). Not pushed. Should stay that way unless the user asks otherwise in a future session.
-2. **The new KW Square Distance Markers TO-DO itself is unstarted** — building `diagrams/kw-square.html`'s counting-markers/distance-brackets feature is future work, not begun this session. See the TO-DOS.md entry for the full Problem/Files/Solution breakdown; the key design constraint is straight-line-with-ticks brackets (not arcs) since it's a square layout.
-3. **All prior open `TO-DOS.md` items remain untouched this session** (not regressed, just not worked on): XianTian circle/hexagram-circle concentric mapping, linking those two diagrams, rebuilding the Group Table from a spreadsheet source (`data/spreadsheets/FX-01.ods`), pairing FX/KW trigram circles, showing yin/yang trigram-circle group relations, 3D cube trigrams "à la Z.D. Yung" (still needs user clarification on the reference/convention before starting), and the central-Taiji digram page (still needs user clarification on what "FX digrams" vs "KW digrams" means before starting).
-4. No other diagram pages were audited for the same class of bug found this session (absolute `file://` links, links to nonexistent `index.html` paths) beyond the ones explicitly checked: `index.html`, and the four `diagrams/*.html` top-level pages (`group-table.html`, `kw-square.html`, `FX_circle_KW_square.html`, `FuXi21.html`). The `diagrams/spine/*.html` pages (10 files) were confirmed to have no back-link at all (so nothing to break there), but were not otherwise checked for broken internal/asset links.
+
+1. **Item 5 — deduplicate the PDFs.** `collectionPDFs/*.pdf` (19 MB) and `collectionPDFs/view/*.pdf` (18 MB) are the same 13 documents; only `view/` is referenced (verified by grepping every HTML file). Decide which set is canonical and delete the other, updating `index.html`'s 12 `collectionPDFs/view/…` hrefs if `view/` is the one dropped. Note: deleting from the working tree does **not** shrink the 35 MB `.git` — that needs history rewriting, which is a separate decision and would break existing clones.
+
+2. **Item 7 — single source of truth for hexagram data.** `HEXLINES` (64 entries) and `GROUPS` (20 entries) are byte-identical copies in `diagrams/FuXi21.html`, `diagrams/FX_circle_KW_square.html`, `diagrams/kw-square.html`; `FX_TO_KW` is hardcoded in `diagrams/group-table.html` (line ~379 pre-change) but DOM-derived from `data-hex`/`data-kw` attributes in the other two. All four are consistent as of this session (verified). Proposed fix: generate a shared `data/hexagrams.js` from `data/spreadsheets/FX-01.ods` and have all four pages load it. **This subsumes the existing "Rebuild the hexagram Group Table starting from a spreadsheet" TO-DO** in `TO-DOS.md` — do them together.
+
+3. **Mobile responsiveness for the two dense pages.** `diagrams/group-table.html` (+226px) and `diagrams/FX_circle_KW_square.html` (+238px) overflow at phone width. Not a regression — before the viewport tag they were shrunk to fit at 980px — but they now need real responsive work. Note `group-table.html`'s `alignLegendColumns()` uses `getBoundingClientRect()` on `window.load`/`resize`, so any responsive reflow must keep that working.
+
+4. **The public `claude.ai` artifact URLs.** Six references across `notes/structure/Spinal_Mapping.md`, `FX_to_KW.md`, `Group-Table-properties.md` — including one as the subject line of `Group-Table-properties.md` ("Structural qualities of the **FX Group Table** artifact: https://claude.ai/code/artifact/0c3aa836-…"). These are private URLs, now dead ends for public readers. Rewriting the surrounding prose is an editorial call, deliberately left to the user.
+
+5. **Item 9 — `design.md` loose end.** The empty Figma file "PDF Collection Design Reference" (https://www.figma.com/design/ODWz0oFujC0DrgwyMAO7aq) is still undecided: populate as an index linking the 13 book files, or remove and drop the paragraph.
+
+6. **Optional:** `notes/structure/2026-08-13-group-table-artifact-design.md` has front matter and renders live, but is deliberately not linked from `index.html` (reads as an internal working doc). Surface it if wanted.
+
+7. **All prior `TO-DOS.md` items remain untouched** — XianTian circle logic, concentric trigram→hexagram mapping, linking those diagrams, FX/KW trigram circle pairing, yin/yang trigram groups, 3D cube trigrams "à la Z.D. Yung" (still needs the user's source/convention), the central-Taiji digram page (still needs clarification on "FX digrams" vs "KW digrams"), and the KW Square distance markers.
 </work_remaining>
 
 <attempted_approaches>
-- Tried Playwright's `browser_navigate` MCP tool first for verifying the group-table interactivity — failed immediately with "Chromium distribution 'chrome' is not found at /opt/google/chrome/chrome." Tried `npx playwright install chrome` as a fallback — failed because it needed `sudo` for system deps and the sandbox can't supply an interactive terminal password. Abandoned Playwright for this session; used the already-installed `chromium-browser` (apt/system package) via Bash with `--headless --disable-gpu --no-sandbox` instead, for both `--screenshot` (visual checks) and `--dump-dom` (logic verification by injecting a temporary `<script>` appended to a copy of the file that calls internal functions like `groupsForMode()` and dumps results into a `<pre>` element).
-- First attempt at headless verification failed with `ERR_FILE_NOT_FOUND` when the test file was placed under the session's `/tmp/claude-1000/...` scratchpad path — root cause: `chromium-browser` is a snap package with filesystem confinement that doesn't see that scratchpad location. Fix: copy test files to `/home/greg/` (inside the snap's accessible home directory) instead, then clean up afterward. This is a durable gotcha for any future headless-Chromium verification in this environment — don't use the scratchpad path for files chromium-browser needs to open.
-- No dead-end design approaches for the Group Table features — the flip-mode and axis-tag logic were derived directly from `notes/structure/Group-Table-properties.md`'s already-documented "three-flip pattern" and "row-twin" observations, and verified exactly against the user's own worked examples before committing, so there was no trial-and-error on the underlying logic itself.
+
+- **`sed` with `&` in the replacement — self-inflicted bug.** `sed 's|Interactive &middot; 10 pages &middot; local|Interactive &middot; 10 pages|'` mangled the line into `Interactive Interactive &middot; 10 pages &middot; localmiddot; 10 pages`, because unescaped `&` in a sed replacement expands to the entire match. Caught by grepping the result instead of trusting the command; fixed with the Edit tool. **The same trap applies to the `sed`-based link fixing used in the previous session** — escape `&` as `\&` or use a different tool.
+
+- **Installing Jekyll locally — failed, do not retry as-is.** `gem install --user-install --no-document jekyll` fails building the `http_parser.rb` native extension: `mkmf.rb can't find header files for ruby`. Needs the `ruby-dev` package, which needs sudo, which this environment can't supply interactively. Ruby 3.3 and pandoc are present; `jekyll`/`bundler` are not. Workaround used: simulate the pipeline with pandoc + manual Liquid substitution (good enough to validate the layout and content, **not** the real build).
+
+- **Wikilink target extension — first attempt was wrong.** Initially converted `[[Group-Table-properties]]` → `[…](Group-Table-properties.html)`. That works on the web but leaves the links **dead inside Obsidian**, breaking graph view and backlinks in the user's daily workflow. Switched all six to `.md` targets, which resolve natively in Obsidian and are rewritten to built URLs by `jekyll-relative-links` (a GitHub Pages default plugin). Confirmed live that the rewrite happens *and* that it prefixes the `/Yijing-Pathways/` baseurl. Alternatives considered and rejected: `permalink:` directory-style URLs (still dead in Obsidian); keeping wikilinks (GitHub Pages has no wikilink support); hand-maintained `.html` twins of each note (recreates the item-7 drift problem).
+
+- **Screenshot comparison without controlling for animation — misleading.** The first pixel-diff run reported `index.html` at 26% changed, which looked like a doctype regression. It was the IntersectionObserver fade-in. `--virtual-time-budget=6000` alone did **not** settle it (still 29%). `--force-prefers-reduced-motion` did, because the page's CSS has a `prefers-reduced-motion` block forcing `opacity: 1` and `animation: none`. **Always pass `--force-prefers-reduced-motion` when diffing screenshots of these pages, and always sanity-check determinism by diffing the same file against itself first.**
+
+- **Splitting commits per logical change — abandoned.** `index.html` carried three distinct changes (head fix, label cleanup + kw-square link, note entries), and interactive staging (`git add -p`) isn't available in this environment. Rather than reconstruct intermediate file states, split the commits along **path boundaries** instead, which kept every file whole and still isolated the risky Jekyll work in `6b366c6`.
+
+- **Playwright MCP** — not attempted this session. The previous session recorded it failing ("Chromium distribution 'chrome' is not found"); system `chromium-browser` via Bash was used throughout instead and worked fine.
 </attempted_approaches>
 
 <critical_context>
-- **Repo is now public**: `github.com/gregrosser/Yijing-Pathways`. This was a deliberate, user-confirmed visibility change specifically to enable free GitHub Pages. Anything committed is publicly visible — keep that in mind before committing anything sensitive. See `project_github-setup.md` (memory).
-- **Pushing to `master` now publishes, not just backs up** — GitHub Pages rebuilds automatically on every push to `master` (source = root `/`). Live site: `https://gregrosser.github.io/Yijing-Pathways/`. A push typically takes ~30-90 seconds to build; polling `gh api repos/gregrosser/Yijing-Pathways/pages/builds/latest --jq '.status'` until `"built"` is the reliable way to confirm before telling the user something is live (learned this the concrete way — the user checked before a build had actually deployed and reported the fix "still" not working, which was correct at that exact moment).
-- **Standing session habit**: per `feedback_push-reminder.md` (memory), check `git status` before/when a session is winding down and flag anything uncommitted or unpushed, asking rather than assuming — don't push automatically without asking.
-- **Group Table's flip/axis logic depends on `notes/structure/Group-Table-properties.md`** as the source of truth for which rows are "dual" under which flip. If that document's findings are ever revised, `diagrams/group-table.html`'s `FLIP16_DUAL_ROW` table (and the general `groupsForMode` logic) would need to be revisited to match.
-- **Headless-Chromium gotcha** (see attempted_approaches): always stage test/screenshot files under `/home/greg/`, never the session scratchpad path, or `chromium-browser` (snap-confined) will fail with `ERR_FILE_NOT_FOUND`. Always `rm` these temp files after use — none should be left behind (confirmed clean at end of session).
-- **`.claude/settings.local.json` is gitignored** (local-only permissions allowlist, not versioned) — unrelated to any of this session's work but confirmed still true.
-- User has an Academia.edu personal page (`rossergreg.academia.edu`) intended as a complementary channel for PDF write-ups of findings that link back to the live GitHub Pages site — not a host for the interactive pages themselves. No action taken on this yet; purely contextual for if it comes up again.
+
+- **Repo is public and pushing to `master` publishes.** `github.com/gregrosser/Yijing-Pathways`, Pages source = `master` / root, live at `https://gregrosser.github.io/Yijing-Pathways/`. Standing habit (`feedback_push-reminder.md` in memory): check `git status` when a session winds down and *ask* before committing/pushing — never push automatically.
+
+- **The site now depends on Jekyll.** This is new as of `6b366c6`. If a future change breaks the build, the **whole site** fails, not just the notes. Always poll `gh api repos/gregrosser/Yijing-Pathways/pages/builds/latest --jq '.status'` until `built` **and check `.commit` matches the pushed SHA** before declaring anything live. There is deliberately **no `_config.yml` and no `.nojekyll`** — GitHub Pages' defaults are doing the work, including the `jekyll-relative-links` plugin. Adding a malformed `_config.yml` is now a way to break the site.
+
+- **Jekyll conventions in play:** `_layouts/note.html` is the only layout. Notes render at `notes/<dir>/<Name>.html`. Files/dirs beginning with `_` are Jekyll-special. Markdown files **without** front matter are copied verbatim, not rendered. `notes/structure/2026-08-13-…md` is date-prefixed but is *not* treated as a post, because it isn't in `_posts/`.
+
+- **Obsidian ↔ web dual-audience constraint.** These notes are live vault files the user edits daily. Any future link rewriting must keep `.md` relative targets so Obsidian's graph/backlinks keep working; the web side is handled by `jekyll-relative-links`. Do not "fix" these to `.html`.
+
+- **`distance` semantics in `GROUPS`:** `distance == |a-b|/2 + 1`, not `|a-b|`. Worth knowing before touching the FX circle's `buildDistanceLink()` or porting it to `kw-square.html` (the open TO-DO).
+
+- **`group-table.html`'s flip/axis logic still depends on `notes/structure/Group-Table-properties.md`** as its source of truth (`FLIP16_DUAL_ROW`, `groupsForMode`). That note is now *published*, so revising it has both a correctness and a public-content consequence.
+
+- **Headless Chromium in this environment:** `chromium-browser` (snap, v150) works fine reading files directly from `/home/greg/obsidian/vault01/Yijing-Pathways/…` — the snap confinement only blocks the session scratchpad (`/tmp/claude-*`), not the vault, since the vault is under `$HOME`. Useful flags used: `--headless --disable-gpu --no-sandbox --hide-scrollbars --force-prefers-reduced-motion --virtual-time-budget=N --window-size=W,H --screenshot=… --dump-dom`. ImageMagick `compare -metric AE` and Python PIL are available for diffing/cropping; `pandoc` is available; `pip` is **not**, and `python3 -m markdown` is not installed.
+
+- **`index.html` entry cards:** diagram/note entries are `<a class="entry">` wrappers (whole card clickable — a deliberate change from earlier commits `412c868`/`e5b1c10`). PDF entries are `<div class="entry">` with a nested `open →` link. **Never nest an `<a>` inside an `<a class="entry">`** — that's why the notes became their own entries.
+
+- **Note links open in the same tab** (no `target="_blank"`), unlike the diagram entries, because the note layout provides a `← Yijing Pathways` back-link. Intentional.
+
+- **`TO-DOS.md` remains deliberately uncommitted/unpushed** per the user's earlier explicit "local is fine". It was untouched this session. Keep it that way unless asked.
+
+- **`.claude/settings.local.json` is gitignored** (local-only permissions allowlist).
 </critical_context>
 
 <current_state>
-- **Git**: `master` is pushed and up to date with `origin/master` through commit `8c7f45c` ("Fix broken 'Yijing Pathways' footer links in diagram pages"). One uncommitted local-only change remains: `TO-DOS.md` (new "KW Square Distance Markers" section) — deliberately left uncommitted per explicit user instruction.
-- **Live site**: `https://gregrosser.github.io/Yijing-Pathways/` is public, building from `master`/root, and confirmed fully functional as of the last push — homepage links (PDFs + diagram pages) all resolve, "FX → King Wen Correspondence" and "Group Table Properties" entries are now live links, and the "← Yijing Pathways" footer link works from all three previously-broken diagram pages.
-- **`diagrams/group-table.html`**: fully interactive and pushed — Yang/Yin legend replaced by clickable "line 1 = line 6" / "line 1 ≠ line 6" axis-selection tags (aligned under their hex columns), plus "Complementary lines 1 & 6" / "Complementary trigrams" mode-selection boxes below them; all four selection mechanisms (plain hex/fx/kw click, the two complementary modes, the two axis-tags) are mutually exclusive and confirmed working via headless-browser verification, not just visual inspection.
-- **No open questions pending from the user** — the last exchange was the explicit "local is fine" instruction (satisfied) followed by "refresh the whats-next before I shut down" (this document). No further action is expected unless the user starts a new request next session.
+
+- **Git:** working tree clean except the intentionally-local `TO-DOS.md`. `master` is pushed and up to date with `origin/master` at `6b366c6`. History: `cbe1b83` → `dffd47c` → `6b366c6`.
+
+- **Live site:** building from `master`/root, build confirmed `built` for `6b366c6`. 47 internal links across 13 pages verified 200. All five reader-facing notes render with the correct strand accents; the sixth (the artifact-design working doc) renders but is unlinked by design.
+
+- **Complete:** review items 1, 2, 3, 4, 6, 8. All verified — by pixel-diff (0 differing pixels across 6 pages), by simulated render, and by live HTTP crawl after the Pages build finished.
+
+- **Not started:** items 5 (duplicate PDFs), 7 (hexagram data single-sourcing), 9 (`design.md` Figma loose end), plus the mobile-responsiveness work on the two dense diagram pages and the decision about the public `claude.ai` artifact URLs.
+
+- **Open questions for the user:** which PDF set is canonical (`collectionPDFs/` vs `collectionPDFs/view/`); whether to rewrite or remove the `claude.ai` artifact references now that the notes are public; whether to surface the artifact-design note on the index; and whether the `.git` history rewrite for size is worth breaking existing clones.
+
+- **No temp files left behind.** All screenshot dirs (`/home/greg/shots`, `/home/greg/yijing-review-shots`), simulated renders (`/home/greg/_sim_*.html`), and probe copies were removed and the removal confirmed.
 </current_state>
