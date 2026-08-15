@@ -1,3 +1,9 @@
+---
+layout: note
+title: "Fuxi Sequence — Disputed Origins"
+strand: Culture
+---
+
 # Fuxi Trigram/Hexagram Sequence — Disputed Origins
 
 Research note (2026-08-09) on the dating and origins of the Fuxi trigram

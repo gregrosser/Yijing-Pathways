@@ -1,3 +1,9 @@
+---
+layout: note
+title: "Group Table Artifact — Design"
+strand: Structure
+---
+
 # Group Table Artifact — Design
 
 Replaces the Claude Artifact linked at the top of `Group-Table-properties.md`

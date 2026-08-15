@@ -1,3 +1,9 @@
+---
+layout: note
+title: "Chinese Culture"
+strand: Culture
+---
+
 # Chinese Culture
 
 An attempt to grasp the most important streams shaping Chinese culture,

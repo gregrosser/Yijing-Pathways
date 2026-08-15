@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ page.title }} &mdash; Yijing Pathways</title>
+<style>
+  :root {
+    --paper: #F2ECDC;
+    --card-bg: #FAF6EC;
+    --card-border: #DCD3B8;
+    --ink: #201D16;
+    --ink-soft: #6B6355;
+    --rule: #C9BFA2;
+    --structure: #A23B2E;
+    --culture: #9C5F12;
+    --accent: var(--structure);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'URW Palladio L', P052, Georgia, serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .mono {
+    font-family: ui-monospace, 'SF Mono', 'Cascadia Code', 'Roboto Mono', Consolas, 'Liberation Mono', monospace;
+  }
+
+  .wrap {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 3.5rem 1.5rem 4rem;
+  }
+
+  header { margin-bottom: 0.5rem; }
+
+  /* the note's own leading "# Title" is the visible heading, so it carries the header rule */
+  .note-body > h1:first-child {
+    margin-top: 0;
+    padding-bottom: 1.4rem;
+    margin-bottom: 2.2rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .eyebrow {
+    font-family: ui-monospace, 'SF Mono', 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 0.5rem;
+  }
+
+  h1 { font-size: 2rem; font-weight: 600; margin: 0; line-height: 1.2; }
+  h2 { font-size: 1.35rem; font-weight: 600; margin: 2.4rem 0 0.8rem; }
+  h3 { font-size: 1.08rem; font-weight: 600; margin: 1.8rem 0 0.6rem; color: var(--ink-soft); }
+
+  p, li { font-size: 1.02rem; }
+  a { color: var(--accent); }
+  a:hover { color: var(--ink); }
+
+  code {
+    font-family: ui-monospace, 'SF Mono', 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
+    font-size: 0.88em;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 3px;
+    padding: 0.08em 0.32em;
+  }
+
+  pre {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 4px;
+    padding: 0.9rem 1.1rem;
+    overflow-x: auto;
+  }
+  pre code { background: none; border: none; padding: 0; }
+
+  blockquote {
+    margin: 1.4rem 0;
+    padding-left: 1.1rem;
+    border-left: 3px solid var(--rule);
+    color: var(--ink-soft);
+  }
+
+  table { border-collapse: collapse; margin: 1.2rem 0; }
+  th, td { border: 1px solid var(--card-border); padding: 0.35rem 0.7rem; text-align: left; }
+  th { background: var(--card-bg); font-weight: 600; }
+
+  hr { border: none; border-top: 1px solid var(--rule); margin: 2.4rem 0; }
+
+  /* wide content (the hand-written HTML tables inside some notes) stays reachable on narrow screens */
+  .note-body { overflow-x: auto; }
+
+  footer {
+    margin-top: 3.5rem;
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--rule);
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+  footer a:hover { color: var(--ink); }
+</style>
+
+<div class="wrap" {% if page.strand == 'Culture' %}style="--accent: var(--culture);"{% endif %}>
+  <header>
+    <p class="eyebrow">{{ page.strand | default: 'Notes' }} &middot; Note</p>
+  </header>
+
+  <div class="note-body">
+    {{ content }}
+  </div>
+
+  <footer>
+    <a href="../../index.html">&larr; Yijing Pathways</a>
+  </footer>
+</div>

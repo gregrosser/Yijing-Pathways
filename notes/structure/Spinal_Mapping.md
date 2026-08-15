@@ -1,16 +1,22 @@
+---
+layout: note
+title: "Spinal Mapping"
+strand: Structure
+---
+
 # Spinal Mapping
 
 The **FX Spine** artifacts (two axis variants), imported locally so they
 don't depend solely on the claude.ai-hosted copies:
-- FX_spine_axis_31_32 — [local copy](FX_spine_axis_31_32.html) · [claude.ai artifact](https://claude.ai/code/artifact/9c879d6c-a1b4-49f2-a8d5-b8599f7d6a08)
-- FX_spine_axis_33_34 — [local copy](FX_spine_axis_33_34.html) · [claude.ai artifact](https://claude.ai/code/artifact/26ebb7d6-cf9f-4c2a-a4c6-6e3ee3df7fb2)
+- FX_spine_axis_31_32 — [local copy](../../archive/old-architecture/FX_spine_axis_31_32.html) · [claude.ai artifact](https://claude.ai/code/artifact/9c879d6c-a1b4-49f2-a8d5-b8599f7d6a08)
+- FX_spine_axis_33_34 — [local copy](../../archive/old-architecture/FX_spine_axis_33_34.html) · [claude.ai artifact](https://claude.ai/code/artifact/26ebb7d6-cf9f-4c2a-a4c6-6e3ee3df7fb2)
 
 Both render the same underlying 64-row table (identical data, identical
 pairing); they differ only in which axis's six quartets get ribbon overlays
 drawn across the spine. Companion artifact, source of the FX numbering and
 the quartet/pair groupings referenced below: the **FX Group Table** —
 https://claude.ai/code/artifact/0c3aa836-a82e-4bde-b072-b9a87ecbf557
-(documented in full in [[Group-Table-properties]]).
+(documented in full in [Group Table Properties](Group-Table-properties.md)).
 
 ## Overview
 
@@ -32,7 +38,7 @@ reversed — e.g. row 3 shows {64, 3} and row 64 shows {3, 64}.
 
 Each axis variant additionally draws ribbon overlays linking the three
 zōng-dual pairs that make up each of that axis's six quartets (see
-[[Group-Table-properties]] Observation 2 for the quartet structure itself).
+[Group Table Properties](Group-Table-properties.md) Observation 2 for the quartet structure itself).
 The 31/32-axis file scales its ribbons 30% narrower than the 33/34-axis
 file and uses a different reference quartet (FX{13,14,49,50}, the largest
 span on that axis, distance 19) — a cosmetic choice, not a structural one.
@@ -59,7 +65,7 @@ both spine artifacts was checked against the result.
 ### 3. Relationship to the FX Group Table
 
 The spine is a second rendering of the same zōng structure documented as
-**Observation 2 (Lateral symmetry)** in [[Group-Table-properties]] — that
+**Observation 2 (Lateral symmetry)** in [Group Table Properties](Group-Table-properties.md) — that
 document derives the row-(11−*n*) quartet-matching pattern from the group
 table's own layout; this one lays all 64 hexagrams out as a single ordered
 column and draws the zōng pairing directly, rather than reading it off two

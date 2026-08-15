@@ -1,3 +1,9 @@
+---
+layout: note
+title: "FX to KW"
+strand: Structure
+---
+
 # FX to KW
 
 Correspondence between this project's own hexagram numbering (FX_01–FX_64)
@@ -7,7 +13,7 @@ correspondence reveals about how the two sequences are built.
 Live data: `spreadsheets/FX-01.ods`, tables T3 (`A13:J22`, the KW-number
 mirror of T1), T4 (`L13:O22`, KW-group sums) and T5 (`Q13:T22`, FX+KW sums
 combined) — all cross-checked against this document with zero
-discrepancies. See also [[Group-Table-properties]] and [[Spinal_Mapping]]
+discrepancies. See also [Group Table Properties](Group-Table-properties.md) and [Spinal Mapping](Spinal_Mapping.md)
 for the FX-side structure this builds on.
 
 ## Overview
@@ -192,7 +198,7 @@ resting on the above math — is that FX predates KW: a long-lived,
 sophisticated FX-based interpretive culture, later giving rise to a
 breakaway "humanitarian" reordering (KW) at the Zhou cultural shift, with
 FX's power/logic-based structure recast into KW's more human, interwoven
-one. See [[Fuxi-sequence-origins]] for the fuller antiquity/elite-secrecy
+one. See [Fuxi Sequence — Disputed Origins](../culture/Fuxi-sequence-origins.md) for the fuller antiquity/elite-secrecy
 framing this extends.
 
 The one honest resonance worth naming: KW's structure isn't

@@ -1,3 +1,9 @@
+---
+layout: note
+title: "Group Table Properties"
+strand: Structure
+---
+
 # Group Table Properties
 
 Structural qualities of the **FX Group Table** artifact:
