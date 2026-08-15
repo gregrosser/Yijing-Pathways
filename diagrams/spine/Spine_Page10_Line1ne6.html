@@ -1,3 +1,7 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Spine — Page 10 — line₁ ≠ line₆ (no number circles)</title>
 <style>
 :root {
@@ -54,11 +58,15 @@ h1 { font-family: var(--font-display); font-weight: 400; font-size: 1.9rem; marg
 .num-text, .num-self-text { font-family: var(--font-mono); font-weight: 400; font-size: 18.63px; fill: var(--ink); text-anchor: middle; dominant-baseline: central; }
 .rel-mark { fill: var(--ink-faint); }
 
-.nav-row { width: 100%; display: flex; justify-content: center; margin-top: 40px; }
-.next-link { display: inline-flex; align-items: center; justify-content: center; transition: transform 0.15s ease; }
-.next-link svg circle { transition: fill 0.15s ease; }
-.next-link:hover svg circle { fill: var(--paper-panel); }
-.next-link:hover { transform: scale(1.08); }
+.nav-row { width: 100%; display: flex; align-items: center; justify-content: center; gap: 32px; margin-top: 40px; }
+.next-link, .prev-link { display: inline-flex; align-items: center; justify-content: center; transition: transform 0.15s ease; }
+.next-link svg circle, .prev-link svg circle { transition: fill 0.15s ease; }
+.next-link:hover svg circle, .prev-link:hover svg circle { fill: var(--paper-panel); }
+.next-link:hover, .prev-link:hover { transform: scale(1.08); }
+.nav-center { display: flex; flex-direction: column; align-items: center; gap: 4px; font-family: var(--font-body); }
+.nav-count { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); }
+.nav-home { font-size: 0.82rem; color: var(--ink-soft); text-decoration: none; }
+.nav-home:hover { color: var(--seal); }
 
 .name-tag {
   display: inline-block;
@@ -451,6 +459,16 @@ h1 { font-family: var(--font-display); font-weight: 400; font-size: 1.9rem; marg
 </div>
 
 <div class="nav-row">
+<a class="prev-link" href="Spine_Page9_Line1eq6.html" aria-label="Previous page">
+  <svg viewBox="0 0 64 64" width="56" height="56">
+    <circle cx="32" cy="32" r="30" fill="none" stroke="var(--ink)" stroke-width="2"/>
+    <path d="M40 20 L24 32 L40 44" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</a>
+<div class="nav-center">
+  <span class="nav-count">Page 10 / 10</span>
+  <a class="nav-home" href="../../index.html">&larr; Yijing Pathways</a>
+</div>
 <a class="next-link" href="Spine_Page1_FX.html" aria-label="Next page">
   <svg viewBox="0 0 64 64" width="56" height="56">
     <circle cx="32" cy="32" r="30" fill="none" stroke="var(--ink)" stroke-width="2"/>
