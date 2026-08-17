@@ -3,6 +3,10 @@
 Converting a PDF to SVG with `dvisvgm`, for pulling diagram assets into
 Inkscape/Blender for this project.
 
+For turning the raw output into something a data-driven generator can
+reuse (not just a static image), see
+[[dvisvgm-output-inkscape-edit]].
+
 ## Basic conversion
 
 ```

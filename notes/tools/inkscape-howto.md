@@ -3,6 +3,10 @@
 Working notes from editing `dvisvgm`-exported SVGs in Inkscape for this
 project.
 
+For the specific ungroup/regroup/rename checklist that preps a
+dvisvgm export for reuse by a data-driven diagram generator, see
+[[dvisvgm-output-inkscape-edit]].
+
 ## Making elements selectable
 
 A single click with the Selection tool (S) usually grabs the whole
