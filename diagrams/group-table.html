@@ -154,6 +154,13 @@
   .hex.hl .hex-glyph rect { fill: var(--structure); }
   .num.hl { color: var(--structure); font-weight: 700; }
 
+  /* Axis-tag selection highlights only lines 1 and 6, so the relationship the
+     tag names is the thing that lights up. The .l1/.l6 classes are applied at
+     init by y-position (see script) rather than with :first-child/:last-child,
+     because a yin line is two rects and a yang line only one. */
+  .hex.hl-axis .hex-glyph rect.l1,
+  .hex.hl-axis .hex-glyph rect.l6 { fill: var(--structure); }
+
   .legend {
     display: flex;
     gap: 48px;
@@ -452,6 +459,19 @@
     modeBoxes[m].addEventListener('click', function () { setMode(m); });
   });
 
+  // Mark the line-1 and line-6 rects of every glyph. Within each
+  // viewBox="0 0 30 32" the six line rows sit at y = 2.0, 7.4, 12.8, 18.2,
+  // 23.6, 29.0 top-to-bottom, and the glyph is drawn line-6-first, so y="2.0"
+  // is line 6 and y="29.0" is line 1 -- i.e. the reverse of the HEXLINES array
+  // order, where index 0 is line 1. Checked against both HEXLINES and the
+  // GROUPS axis field, 64/64 agreement. Tag by y rather than child index: a
+  // yang line is one rect, a yin line two, so rect counts differ per glyph.
+  var LINE_ROW_CLASS = { '2.0': 'l6', '29.0': 'l1' };
+  document.querySelectorAll('.hex-glyph rect').forEach(function (r) {
+    var cls = LINE_ROW_CLASS[r.getAttribute('y')];
+    if (cls) r.classList.add(cls);
+  });
+
   var activeAxis = null;
   var axisTags = {
     A: document.querySelector('.legend-item:nth-child(1) .axis-tag'),
@@ -465,17 +485,32 @@
     });
   }
 
+  // Axis highlighting is deliberately kept out of the `selected` set: it marks
+  // the .hex element only, so the FX/KW number labels stay unhighlighted and a
+  // hover preview over an axis-lit hexagram still clears on mouseleave.
+  function setAxisHighlight(fx, on) {
+    var el = document.querySelector('.hex[data-hex="' + fx + '"]');
+    if (el) el.classList.toggle('hl-axis', on);
+  }
+
+  function clearAxisHighlight() {
+    document.querySelectorAll('.hex.hl-axis').forEach(function (el) {
+      el.classList.remove('hl-axis');
+    });
+    setActiveAxis(null);
+  }
+
   function toggleAxisSelect(axis) {
+    // Decide before clearing: clearAllSelected() resets activeAxis, which would
+    // otherwise turn a second click on an active tag into a re-select.
+    var next = (activeAxis === axis) ? null : axis;
     clearAllSelected();
     activeMode = null;
     Object.keys(modeBoxes).forEach(function (m) { modeBoxes[m].classList.remove('active'); });
-    setActiveAxis(activeAxis === axis ? null : axis);
+    setActiveAxis(next);
     if (activeAxis) {
       ROWS.forEach(function (row) {
-        row[activeAxis].forEach(function (f) {
-          selected.add(f);
-          setHighlight(f, true);
-        });
+        row[activeAxis].forEach(function (f) { setAxisHighlight(f, true); });
       });
     }
   }
@@ -505,6 +540,7 @@
   function clearAllSelected() {
     selected.forEach(function (f) { setHighlight(f, false); });
     selected.clear();
+    clearAxisHighlight();
   }
 
   function toggleSelect(fx, additive) {
@@ -536,7 +572,10 @@
       if (activeMode) {
         selectByMode(fx, activeMode);
       } else {
-        setActiveAxis(null);
+        // clearAxisHighlight() rather than setActiveAxis(null): the latter drops
+        // the tag's active styling but leaves the lit lines behind, since
+        // toggleSelect() only clears what's in `selected`.
+        clearAxisHighlight();
         toggleSelect(fx, e.ctrlKey);
       }
     });
