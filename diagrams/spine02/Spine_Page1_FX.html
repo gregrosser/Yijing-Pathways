@@ -32,7 +32,7 @@ body {
   font-family: var(--font-body); padding: 448px 24px 80px;
   display: flex; flex-direction: column; align-items: center;
 }
-h1 { font-family: var(--font-display); font-weight: 400; font-size: 1.9rem; margin: 0; text-wrap: balance; text-align: center; }
+h1 { font-family: var(--font-display); font-weight: 400; font-size: 1.9rem; margin: 0; text-wrap: balance; text-align: center; min-height: 2.4em; display: flex; align-items: center; justify-content: center; }
 
 :root { --page-w: min(4056px, 100%); --page-gap: 200px; --page-divider: 1px; }
 .page-columns { display: grid; grid-template-columns: 1fr auto 1fr; gap: var(--page-gap); align-items: start; width: var(--page-w); }
@@ -48,7 +48,7 @@ h1 { font-family: var(--font-display); font-weight: 400; font-size: 1.9rem; marg
    glyphs in the source SVG's own coordinate space -- at the standard
    single-panel width they scale down past legibility. Render this page's
    diagram larger than a normal single panel so the numbers stay readable. */
-.single-panel-wrap--diagram { width: min(1900px, 96vw); }
+.single-panel-wrap--diagram { width: calc((var(--page-w) - 2 * var(--page-gap) - var(--page-divider)) * 0.5476565229725482); }
 
 .spine-svg { width: 100%; height: auto; display: block; }
 .ribbon { fill: none; stroke-width: 1.6; opacity: 1; }
@@ -91,711 +91,711 @@ h1 { font-family: var(--font-display); font-weight: 400; font-size: 1.9rem; marg
 <div class="single-panel-wrap single-panel-wrap--diagram">
 <div class="panel fx-panel">
 <svg class="spine-svg" viewBox="110 65 348 661" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Fu Xi body schema with hexagram numbers">
-<path d="m 283.92,80.708 c -7.29,0 -7.29,10.023 0,10.023 7.29,0 7.29,-10.023 0,-10.023" stroke="var(--ink-faint)" fill="var(--ink-faint)" stroke-width="1.40912" stroke-miterlimit="10" stroke-linejoin="round" id="path55" style="fill:var(--ink-faint);stroke:var(--ink-faint);stroke-opacity:1;stroke-width:1.409;stroke-dasharray:none;fill-opacity:0.8" inkscape:label="FX{1,2}"/>
-<path d="m 283.92,682.106 c -7.29,0 -7.29,10.023 0,10.023 7.29,0 7.29,-10.023 0,-10.023" stroke="var(--ink-faint)" fill="var(--ink-faint)" stroke-width="1.40912" stroke-miterlimit="10" stroke-linejoin="round" id="path14" style="fill:var(--ink-faint);stroke:var(--ink-faint);stroke-opacity:1;stroke-width:1.409;stroke-dasharray:none;fill-opacity:0.8" inkscape:label="FX{61,62}"/>
-<g id="g8" inkscape:label="FX{51,52}" style="fill:var(--ink);fill-opacity:0.8;stroke:var(--ink);stroke-opacity:1;stroke-width:1.4;stroke-dasharray:none">
-  <path d="m 278.908,591.896 c -5.011,0 -5.011,-10.023 0,-10.023 5.012,0 5.012,10.023 0,10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="1.40912" stroke-miterlimit="10" stroke-linejoin="round" id="path16" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;fill-opacity:0.8;stroke-width:1.4;stroke-dasharray:none"/>
-  <path d="m 288.932,591.896 c 5.011,0 5.011,-10.023 0,-10.023 -5.012,0 -5.012,10.023 0,10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="1.40912" stroke-miterlimit="10" stroke-linejoin="round" id="path18" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;fill-opacity:0.8;stroke-width:1.4;stroke-dasharray:none"/>
+<path d="m 283.92,80.708 c -7.29,0 -7.29,10.023 0,10.023 7.29,0 7.29,-10.023 0,-10.023" stroke="var(--ink-faint)" fill="none" stroke-width="2.025" stroke-miterlimit="10" stroke-linejoin="round" id="path55" style="fill:none;stroke:var(--ink-faint);stroke-opacity:1;stroke-width:2.025;stroke-dasharray:none" inkscape:label="FX{1,2}"/>
+<path d="m 283.92,682.106 c -7.29,0 -7.29,10.023 0,10.023 7.29,0 7.29,-10.023 0,-10.023" stroke="var(--ink-faint)" fill="none" stroke-width="2.025" stroke-miterlimit="10" stroke-linejoin="round" id="path14" style="fill:none;stroke:var(--ink-faint);stroke-opacity:1;stroke-width:2.025;stroke-dasharray:none" inkscape:label="FX{61,62}"/>
+<g id="g8" inkscape:label="FX{51,52}" style="fill:none;stroke:var(--ink);stroke-opacity:1;stroke-width:1.2285;stroke-dasharray:none">
+  <path d="m 278.908,591.896 c -5.011,0 -5.011,-10.023 0,-10.023 5.012,0 5.012,10.023 0,10.023" stroke="var(--ink)" fill="none" stroke-width="1.23651" stroke-miterlimit="10" stroke-linejoin="round" id="path16" style="fill:none;stroke:var(--ink);stroke-opacity:1;stroke-width:1.2285;stroke-dasharray:none"/>
+  <path d="m 288.932,591.896 c 5.011,0 5.011,-10.023 0,-10.023 -5.012,0 -5.012,10.023 0,10.023" stroke="var(--ink)" fill="none" stroke-width="1.23651" stroke-miterlimit="10" stroke-linejoin="round" id="path18" style="fill:none;stroke:var(--ink);stroke-opacity:1;stroke-width:1.2285;stroke-dasharray:none"/>
 </g>
-<g id="g6" inkscape:label="FX{43,44}" style="fill:var(--ink);fill-opacity:0.8;stroke:var(--ink);stroke-opacity:1;stroke-width:1.4;stroke-dasharray:none">
-  <path d="m 278.908,511.71 c -5.011,0 -5.011,-10.024 0,-10.024 5.012,0 5.012,10.024 0,10.024" stroke="var(--ink)" fill="var(--ink)" stroke-width="1.40912" stroke-miterlimit="10" stroke-linejoin="round" id="path20" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;fill-opacity:0.8;stroke-width:1.4;stroke-dasharray:none"/>
-  <path d="m 288.932,511.71 c 5.011,0 5.011,-10.024 0,-10.024 -5.012,0 -5.012,10.024 0,10.024" stroke="var(--ink)" fill="var(--ink)" stroke-width="1.40912" stroke-miterlimit="10" stroke-linejoin="round" id="path22" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;fill-opacity:0.8;stroke-width:1.4;stroke-dasharray:none"/>
+<g id="g6" inkscape:label="FX{43,44}" style="fill:none;stroke:var(--ink);stroke-opacity:1;stroke-width:1.2285;stroke-dasharray:none">
+  <path d="m 278.908,511.71 c -5.011,0 -5.011,-10.024 0,-10.024 5.012,0 5.012,10.024 0,10.024" stroke="var(--ink)" fill="none" stroke-width="1.23651" stroke-miterlimit="10" stroke-linejoin="round" id="path20" style="fill:none;stroke:var(--ink);stroke-opacity:1;stroke-width:1.2285;stroke-dasharray:none"/>
+  <path d="m 288.932,511.71 c 5.011,0 5.011,-10.024 0,-10.024 -5.012,0 -5.012,10.024 0,10.024" stroke="var(--ink)" fill="none" stroke-width="1.23651" stroke-miterlimit="10" stroke-linejoin="round" id="path22" style="fill:none;stroke:var(--ink);stroke-opacity:1;stroke-width:1.2285;stroke-dasharray:none"/>
 </g>
-<path d="m 283.92,441.546 c -7.29,0 -7.29,10.024 0,10.024 7.29,0 7.29,-10.024 0,-10.024" stroke="var(--ink-faint)" fill="var(--ink-faint)" stroke-width="1.40912" stroke-miterlimit="10" stroke-linejoin="round" id="path24" style="fill:var(--ink-faint);stroke:var(--ink-faint);stroke-opacity:1;stroke-width:1.409;stroke-dasharray:none;fill-opacity:0.8" inkscape:label="FX{37,38}"/>
-<path d="m 283.92,321.267 c -7.29,0 -7.29,10.023 0,10.023 7.29,0 7.29,-10.023 0,-10.023" stroke="var(--ink-faint)" fill="var(--ink-faint)" stroke-width="1.40912" stroke-miterlimit="10" stroke-linejoin="round" id="path30" style="fill:var(--ink-faint);stroke:var(--ink-faint);stroke-opacity:1;fill-opacity:0.8" inkscape:label="FX{25,26}"/>
-<g id="g2" inkscape:label="FX{23,24}" style="fill:var(--ink);fill-opacity:0.8">
-  <path d="m 278.908,301.22 c -5.011,0 -5.011,10.024 0,10.024 5.012,0 5.012,-10.024 0,-10.024" stroke="var(--ink)" fill="var(--ink)" stroke-width="1.40912" stroke-miterlimit="10" stroke-linejoin="round" id="path32" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;fill-opacity:0.8"/>
-  <path d="m 288.932,301.22 c 5.011,0 5.011,10.024 0,10.024 -5.012,0 -5.012,-10.024 0,-10.024" stroke="var(--ink)" fill="var(--ink)" stroke-width="1.40912" stroke-miterlimit="10" stroke-linejoin="round" id="path34" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;fill-opacity:0.8"/>
+<path d="m 283.92,441.546 c -7.29,0 -7.29,10.024 0,10.024 7.29,0 7.29,-10.024 0,-10.024" stroke="var(--ink-faint)" fill="none" stroke-width="2.025" stroke-miterlimit="10" stroke-linejoin="round" id="path24" style="fill:none;stroke:var(--ink-faint);stroke-opacity:1;stroke-width:2.025;stroke-dasharray:none" inkscape:label="FX{37,38}"/>
+<path d="m 283.92,321.267 c -7.29,0 -7.29,10.023 0,10.023 7.29,0 7.29,-10.023 0,-10.023" stroke="var(--ink-faint)" fill="none" stroke-width="2.025" stroke-miterlimit="10" stroke-linejoin="round" id="path30" style="fill:none;stroke:var(--ink-faint);stroke-opacity:1" inkscape:label="FX{25,26}"/>
+<g id="g2" inkscape:label="FX{23,24}" style="fill:none">
+  <path d="m 278.908,301.22 c -5.011,0 -5.011,10.024 0,10.024 5.012,0 5.012,-10.024 0,-10.024" stroke="var(--ink)" fill="none" stroke-width="1.23651" stroke-miterlimit="10" stroke-linejoin="round" id="path32" style="fill:none;stroke:var(--ink);stroke-opacity:1"/>
+  <path d="m 288.932,301.22 c 5.011,0 5.011,10.024 0,10.024 -5.012,0 -5.012,-10.024 0,-10.024" stroke="var(--ink)" fill="none" stroke-width="1.23651" stroke-miterlimit="10" stroke-linejoin="round" id="path34" style="fill:none;stroke:var(--ink);stroke-opacity:1"/>
 </g>
-<g id="FX_15_16" inkscape:label="FX{15,16}" style="fill:var(--ink);fill-opacity:0.8;stroke:var(--ink);stroke-opacity:1;stroke-width:1.4;stroke-dasharray:none">
-  <path d="m 278.908,221.034 c -5.011,0 -5.011,10.023 0,10.023 5.012,0 5.012,-10.023 0,-10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="1.40912" stroke-miterlimit="10" stroke-linejoin="round" id="path36" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;fill-opacity:0.8;stroke-width:1.4;stroke-dasharray:none"/>
-  <path d="m 288.932,221.034 c 5.011,0 5.011,10.023 0,10.023 -5.012,0 -5.012,-10.023 0,-10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="1.40912" stroke-miterlimit="10" stroke-linejoin="round" id="path38" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;fill-opacity:0.8;stroke-width:1.4;stroke-dasharray:none"/>
+<g id="FX_15_16" inkscape:label="FX{15,16}" style="fill:none;stroke:var(--ink);stroke-opacity:1;stroke-width:1.2285;stroke-dasharray:none">
+  <path d="m 278.908,221.034 c -5.011,0 -5.011,10.023 0,10.023 5.012,0 5.012,-10.023 0,-10.023" stroke="var(--ink)" fill="none" stroke-width="1.23651" stroke-miterlimit="10" stroke-linejoin="round" id="path36" style="fill:none;stroke:var(--ink);stroke-opacity:1;stroke-width:1.2285;stroke-dasharray:none"/>
+  <path d="m 288.932,221.034 c 5.011,0 5.011,10.023 0,10.023 -5.012,0 -5.012,-10.023 0,-10.023" stroke="var(--ink)" fill="none" stroke-width="1.23651" stroke-miterlimit="10" stroke-linejoin="round" id="path38" style="fill:none;stroke:var(--ink);stroke-opacity:1;stroke-width:1.2285;stroke-dasharray:none"/>
 </g>
-<g id="g5" inkscape:label="FX{35,36,59,60}" style="fill:var(--ink);fill-opacity:0.8;stroke:var(--ink);stroke-opacity:1;stroke-width:1;stroke-dasharray:none">
-  <path d="m 288.932,421.5 c 80.186,0 80.186,250.582 0,250.582 -5.012,0 -5.012,-10.023 0,-10.023 75.174,0 75.174,-230.536 0,-230.536 -5.012,0 -5.012,-10.023 0,-10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.352279" stroke-miterlimit="10" stroke-linejoin="round" id="path26" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;fill-opacity:0.8;stroke-width:1;stroke-dasharray:none"/>
-  <path d="m 278.908,421.5 c -80.186,0 -80.186,250.582 0,250.582 5.012,0 5.012,-10.023 0,-10.023 -75.174,0 -75.174,-230.536 0,-230.536 5.012,0 5.012,-10.023 0,-10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.352279" stroke-miterlimit="10" stroke-linejoin="round" id="path62" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;fill-opacity:0.8;stroke-width:1;stroke-dasharray:none"/>
+<g id="g5" inkscape:label="FX{35,36,59,60}" style="fill:var(--ink);fill-opacity:0.8;stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none">
+  <path d="m 288.932,421.5 c 80.186,0 80.186,250.582 0,250.582 -5.012,0 -5.012,-10.023 0,-10.023 75.174,0 75.174,-230.536 0,-230.536 -5.012,0 -5.012,-10.023 0,-10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path26" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;fill-opacity:0.8;stroke-width:1.0;stroke-dasharray:none"/>
+  <path d="m 278.908,421.5 c -80.186,0 -80.186,250.582 0,250.582 5.012,0 5.012,-10.023 0,-10.023 -75.174,0 -75.174,-230.536 0,-230.536 5.012,0 5.012,-10.023 0,-10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path62" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;fill-opacity:0.8;stroke-width:1.0;stroke-dasharray:none"/>
 </g>
-<g id="g4" inkscape:label="FX{29,30,57,58}" style="fill:var(--ink-faint);fill-opacity:0.8;stroke:var(--ink-faint);stroke-opacity:1;stroke-width:1;stroke-dasharray:none">
-  <path d="m 288.932,361.36 c 100.233,0 100.233,280.652 0,280.652 -5.012,0 -5.012,10.024 0,10.024 100.233,0 100.233,-280.652 0,-280.652 -5.012,0 -5.012,-10.024 0,-10.024" stroke="var(--ink-faint)" fill="var(--ink-faint)" stroke-width="0.352279" stroke-miterlimit="10" stroke-linejoin="round" id="path28" style="fill:var(--ink-faint);stroke:var(--ink-faint);stroke-opacity:1;fill-opacity:0.8;stroke-width:1;stroke-dasharray:none"/>
-  <path d="m 278.908,361.36 c -100.233,0 -100.233,280.652 0,280.652 5.012,0 5.012,10.024 0,10.024 -100.233,0 -100.233,-280.652 0,-280.652 5.012,0 5.012,-10.024 0,-10.024" stroke="var(--ink-faint)" fill="var(--ink-faint)" stroke-width="0.352279" stroke-miterlimit="10" stroke-linejoin="round" id="path64" style="fill:var(--ink-faint);stroke:var(--ink-faint);stroke-opacity:1;fill-opacity:0.8;stroke-width:1;stroke-dasharray:none"/>
+<g id="g4" inkscape:label="FX{29,30,57,58}" style="fill:var(--ink-faint);fill-opacity:0.8;stroke:var(--ink-faint);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none">
+  <path d="m 288.932,361.36 c 100.233,0 100.233,280.652 0,280.652 -5.012,0 -5.012,10.024 0,10.024 100.233,0 100.233,-280.652 0,-280.652 -5.012,0 -5.012,-10.024 0,-10.024" stroke="var(--ink-faint)" fill="var(--ink-faint)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path28" style="fill:var(--ink-faint);stroke:var(--ink-faint);stroke-opacity:1;fill-opacity:0.8;stroke-width:1.0;stroke-dasharray:none"/>
+  <path d="m 278.908,361.36 c -100.233,0 -100.233,280.652 0,280.652 5.012,0 5.012,10.024 0,10.024 -100.233,0 -100.233,-280.652 0,-280.652 5.012,0 5.012,-10.024 0,-10.024" stroke="var(--ink-faint)" fill="var(--ink-faint)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path64" style="fill:var(--ink-faint);stroke:var(--ink-faint);stroke-opacity:1;fill-opacity:0.8;stroke-width:1.0;stroke-dasharray:none"/>
 </g>
-<g id="FX_19_20_55_56" inkscape:label="FX{19,20,55,56}" style="fill:var(--ink);fill-opacity:0.8;stroke:var(--ink);stroke-opacity:1;stroke-width:1;stroke-dasharray:none">
-  <path d="m 288.932,261.127 c 120.279,0 120.279,370.862 0,370.862 -5.012,0 -5.012,-10.023 0,-10.023 115.268,0 115.268,-350.816 0,-350.816 -5.012,0 -5.012,-10.023 0,-10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.352279" stroke-miterlimit="10" stroke-linejoin="round" id="path46" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;fill-opacity:0.8;stroke-width:1;stroke-dasharray:none"/>
-  <path d="m 278.908,261.127 c -120.279,0 -120.279,370.862 0,370.862 5.012,0 5.012,-10.023 0,-10.023 -115.268,0 -115.268,-350.816 0,-350.816 5.012,0 5.012,-10.023 0,-10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.352279" stroke-miterlimit="10" stroke-linejoin="round" id="path66" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;fill-opacity:0.8;stroke-width:1;stroke-dasharray:none"/>
+<g id="FX_19_20_55_56" inkscape:label="FX{19,20,55,56}" style="fill:var(--ink);fill-opacity:0.8;stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none">
+  <path d="m 288.932,261.127 c 120.279,0 120.279,370.862 0,370.862 -5.012,0 -5.012,-10.023 0,-10.023 115.268,0 115.268,-350.816 0,-350.816 -5.012,0 -5.012,-10.023 0,-10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path46" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;fill-opacity:0.8;stroke-width:1.0;stroke-dasharray:none"/>
+  <path d="m 278.908,261.127 c -120.279,0 -120.279,370.862 0,370.862 5.012,0 5.012,-10.023 0,-10.023 -115.268,0 -115.268,-350.816 0,-350.816 5.012,0 5.012,-10.023 0,-10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path66" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;fill-opacity:0.8;stroke-width:1.0;stroke-dasharray:none"/>
 </g>
-<g id="FX_13_14_49_50" inkscape:label="FX{13,14,49,50}" style="fill:var(--ink-faint);fill-opacity:0.8;stroke:var(--ink-faint);stroke-opacity:1;stroke-width:1;stroke-dasharray:none">
-  <path d="m 288.932,200.987 c 130.303,0 130.303,360.839 0,360.839 -5.012,0 -5.012,10.024 0,10.024 130.303,0 130.303,-360.839 0,-360.839 -5.012,0 -5.012,-10.024 0,-10.024" stroke="var(--ink-faint)" fill="var(--ink-faint)" stroke-width="0.352279" stroke-miterlimit="10" stroke-linejoin="round" id="path40" style="fill:var(--ink-faint);stroke:var(--ink-faint);stroke-opacity:1;fill-opacity:0.8;stroke-width:1;stroke-dasharray:none"/>
-  <path d="m 278.908,200.987 c -130.303,0 -130.303,360.839 0,360.839 5.012,0 5.012,10.024 0,10.024 -130.303,0 -130.303,-360.839 0,-360.839 5.012,0 5.012,-10.024 0,-10.024" stroke="var(--ink-faint)" fill="var(--ink-faint)" stroke-width="0.352279" stroke-miterlimit="10" stroke-linejoin="round" id="path68" style="fill:var(--ink-faint);stroke:var(--ink-faint);stroke-opacity:1;fill-opacity:0.8;stroke-width:1;stroke-dasharray:none"/>
+<g id="FX_13_14_49_50" inkscape:label="FX{13,14,49,50}" style="fill:var(--ink-faint);fill-opacity:0.8;stroke:var(--ink-faint);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none">
+  <path d="m 288.932,200.987 c 130.303,0 130.303,360.839 0,360.839 -5.012,0 -5.012,10.024 0,10.024 130.303,0 130.303,-360.839 0,-360.839 -5.012,0 -5.012,-10.024 0,-10.024" stroke="var(--ink-faint)" fill="var(--ink-faint)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path40" style="fill:var(--ink-faint);stroke:var(--ink-faint);stroke-opacity:1;fill-opacity:0.8;stroke-width:1.0;stroke-dasharray:none"/>
+  <path d="m 278.908,200.987 c -130.303,0 -130.303,360.839 0,360.839 5.012,0 5.012,10.024 0,10.024 -130.303,0 -130.303,-360.839 0,-360.839 5.012,0 5.012,-10.024 0,-10.024" stroke="var(--ink-faint)" fill="var(--ink-faint)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path68" style="fill:var(--ink-faint);stroke:var(--ink-faint);stroke-opacity:1;fill-opacity:0.8;stroke-width:1.0;stroke-dasharray:none"/>
 </g>
-<g id="FX_11_12_47_48" inkscape:label="FX{11,12,47,48}" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;stroke-width:1;stroke-dasharray:none;fill-opacity:0.8">
-  <path d="m 288.932,180.941 c 120.279,0 120.279,370.862 0,370.862 -5.012,0 -5.012,-10.023 0,-10.023 115.268,0 115.268,-350.816 0,-350.816 -5.012,0 -5.012,-10.023 0,-10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.352279" stroke-miterlimit="10" stroke-linejoin="round" id="path42" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;stroke-width:1;stroke-dasharray:none;fill-opacity:0.8"/>
-  <path d="m 278.908,180.941 c -120.279,0 -120.279,370.862 0,370.862 5.012,0 5.012,-10.023 0,-10.023 -115.268,0 -115.268,-350.816 0,-350.816 5.012,0 5.012,-10.023 0,-10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.352279" stroke-miterlimit="10" stroke-linejoin="round" id="path70" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;stroke-width:1;stroke-dasharray:none;fill-opacity:0.8"/>
+<g id="FX_11_12_47_48" inkscape:label="FX{11,12,47,48}" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none;fill-opacity:0.8">
+  <path d="m 288.932,180.941 c 120.279,0 120.279,370.862 0,370.862 -5.012,0 -5.012,-10.023 0,-10.023 115.268,0 115.268,-350.816 0,-350.816 -5.012,0 -5.012,-10.023 0,-10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path42" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none;fill-opacity:0.8"/>
+  <path d="m 278.908,180.941 c -120.279,0 -120.279,370.862 0,370.862 5.012,0 5.012,-10.023 0,-10.023 -115.268,0 -115.268,-350.816 0,-350.816 5.012,0 5.012,-10.023 0,-10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path70" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none;fill-opacity:0.8"/>
 </g>
-<g id="g7" inkscape:label="FX{45,46,53,54}" style="fill:var(--ink-faint);fill-opacity:0.8;stroke:var(--ink-faint);stroke-opacity:1;stroke-width:1;stroke-dasharray:none">
-  <path d="m 288.932,521.733 c 33.077,0 33.077,80.187 0,80.187 -5.012,0 -5.012,10.023 0,10.023 33.077,0 33.077,-80.187 0,-80.187 -5.012,0 -5.012,-10.023 0,-10.023" stroke="var(--ink-faint)" fill="var(--ink-faint)" stroke-width="0.352279" stroke-miterlimit="10" stroke-linejoin="round" id="path44" style="fill:var(--ink-faint);stroke:var(--ink-faint);stroke-opacity:1;fill-opacity:0.8;stroke-width:1;stroke-dasharray:none"/>
-  <path d="m 278.908,521.733 c -33.077,0 -33.077,80.187 0,80.187 5.012,0 5.012,10.023 0,10.023 -33.077,0 -33.077,-80.187 0,-80.187 5.012,0 5.012,-10.023 0,-10.023" stroke="var(--ink-faint)" fill="var(--ink-faint)" stroke-width="0.352279" stroke-miterlimit="10" stroke-linejoin="round" id="path72" style="fill:var(--ink-faint);stroke:var(--ink-faint);stroke-opacity:1;fill-opacity:0.8;stroke-width:1;stroke-dasharray:none"/>
+<g id="g7" inkscape:label="FX{45,46,53,54}" style="fill:var(--ink-faint);fill-opacity:0.8;stroke:var(--ink-faint);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none">
+  <path d="m 288.932,521.733 c 33.077,0 33.077,80.187 0,80.187 -5.012,0 -5.012,10.023 0,10.023 33.077,0 33.077,-80.187 0,-80.187 -5.012,0 -5.012,-10.023 0,-10.023" stroke="var(--ink-faint)" fill="var(--ink-faint)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path44" style="fill:var(--ink-faint);stroke:var(--ink-faint);stroke-opacity:1;fill-opacity:0.8;stroke-width:1.0;stroke-dasharray:none"/>
+  <path d="m 278.908,521.733 c -33.077,0 -33.077,80.187 0,80.187 5.012,0 5.012,10.023 0,10.023 -33.077,0 -33.077,-80.187 0,-80.187 5.012,0 5.012,-10.023 0,-10.023" stroke="var(--ink-faint)" fill="var(--ink-faint)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path72" style="fill:var(--ink-faint);stroke:var(--ink-faint);stroke-opacity:1;fill-opacity:0.8;stroke-width:1.0;stroke-dasharray:none"/>
 </g>
-<g id="FX_9_10_17_18" inkscape:label="FX{9,10,17,18}" style="fill:var(--ink-faint);stroke:var(--ink-faint);stroke-opacity:1;stroke-width:1;stroke-dasharray:none;fill-opacity:0.8">
-  <path d="m 288.932,160.894 c 33.077,0 33.077,80.186 0,80.186 -5.012,0 -5.012,10.024 0,10.024 33.077,0 33.077,-80.187 0,-80.187 -5.012,0 -5.012,-10.023 0,-10.023" stroke="var(--ink-faint)" fill="var(--ink-faint)" stroke-width="0.352279" stroke-miterlimit="10" stroke-linejoin="round" id="path48" style="fill:var(--ink-faint);stroke:var(--ink-faint);stroke-opacity:1;stroke-width:1;stroke-dasharray:none;fill-opacity:0.8"/>
-  <path d="m 278.908,160.894 c -33.077,0 -33.077,80.186 0,80.186 5.012,0 5.012,10.024 0,10.024 -33.077,0 -33.077,-80.187 0,-80.187 5.012,0 5.012,-10.023 0,-10.023" stroke="var(--ink-faint)" fill="var(--ink-faint)" stroke-width="0.352279" stroke-miterlimit="10" stroke-linejoin="round" id="path74" style="fill:var(--ink-faint);stroke:var(--ink-faint);stroke-opacity:1;stroke-width:1;stroke-dasharray:none;fill-opacity:0.8"/>
+<g id="FX_9_10_17_18" inkscape:label="FX{9,10,17,18}" style="fill:var(--ink-faint);stroke:var(--ink-faint);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none;fill-opacity:0.8">
+  <path d="m 288.932,160.894 c 33.077,0 33.077,80.186 0,80.186 -5.012,0 -5.012,10.024 0,10.024 33.077,0 33.077,-80.187 0,-80.187 -5.012,0 -5.012,-10.023 0,-10.023" stroke="var(--ink-faint)" fill="var(--ink-faint)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path48" style="fill:var(--ink-faint);stroke:var(--ink-faint);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none;fill-opacity:0.8"/>
+  <path d="m 278.908,160.894 c -33.077,0 -33.077,80.186 0,80.186 5.012,0 5.012,10.024 0,10.024 -33.077,0 -33.077,-80.187 0,-80.187 5.012,0 5.012,-10.023 0,-10.023" stroke="var(--ink-faint)" fill="var(--ink-faint)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path74" style="fill:var(--ink-faint);stroke:var(--ink-faint);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none;fill-opacity:0.8"/>
 </g>
-<g id="FX_7_8_31_32" inkscape:label="FX{7,8,31,32}" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;stroke-width:1;stroke-dasharray:none;fill-opacity:0.8">
-  <path d="m 288.932,140.848 c 80.186,0 80.186,250.582 0,250.582 -5.012,0 -5.012,-10.023 0,-10.023 75.174,0 75.174,-230.536 0,-230.536 -5.012,0 -5.012,-10.023 0,-10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.352279" stroke-miterlimit="10" stroke-linejoin="round" id="path50" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;stroke-width:1;stroke-dasharray:none;fill-opacity:0.8"/>
-  <path d="m 278.908,140.848 c -80.186,0 -80.186,250.582 0,250.582 5.012,0 5.012,-10.023 0,-10.023 -75.174,0 -75.174,-230.536 0,-230.536 5.012,0 5.012,-10.023 0,-10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.352279" stroke-miterlimit="10" stroke-linejoin="round" id="path76" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;stroke-width:1;stroke-dasharray:none;fill-opacity:0.8"/>
+<g id="FX_7_8_31_32" inkscape:label="FX{7,8,31,32}" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none;fill-opacity:0.8">
+  <path d="m 288.932,140.848 c 80.186,0 80.186,250.582 0,250.582 -5.012,0 -5.012,-10.023 0,-10.023 75.174,0 75.174,-230.536 0,-230.536 -5.012,0 -5.012,-10.023 0,-10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path50" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none;fill-opacity:0.8"/>
+  <path d="m 278.908,140.848 c -80.186,0 -80.186,250.582 0,250.582 5.012,0 5.012,-10.023 0,-10.023 -75.174,0 -75.174,-230.536 0,-230.536 5.012,0 5.012,-10.023 0,-10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path76" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none;fill-opacity:0.8"/>
 </g>
-<g id="FX_5_6_33_34" inkscape:label="FX{5,6,33,34}" style="stroke-width:1;stroke-dasharray:none;fill:var(--ink-faint);fill-opacity:0.8">
-  <path d="m 288.932,120.801 c 100.233,0 100.233,290.676 0,290.676 -5.012,0 -5.012,-10.023 0,-10.023 100.233,0 100.233,-270.63 0,-270.63 -5.012,0 -5.012,-10.023 0,-10.023" stroke="var(--ink-faint)" fill="var(--ink-faint)" stroke-width="0.352279" stroke-miterlimit="10" stroke-linejoin="round" id="path52" style="fill:var(--ink-faint);stroke:var(--ink-faint);stroke-opacity:1;stroke-width:1;stroke-dasharray:none;fill-opacity:0.8"/>
-  <path d="m 278.908,120.801 c -100.233,0 -100.233,290.676 0,290.676 5.012,0 5.012,-10.023 0,-10.023 -100.233,0 -100.233,-270.63 0,-270.63 5.012,0 5.012,-10.023 0,-10.023" stroke="var(--ink-faint)" fill="var(--ink-faint)" stroke-width="0.352279" stroke-miterlimit="10" stroke-linejoin="round" id="path78" style="fill:var(--ink-faint);stroke:var(--ink-faint);stroke-opacity:1;stroke-width:1;stroke-dasharray:none;fill-opacity:0.8"/>
+<g id="FX_5_6_33_34" inkscape:label="FX{5,6,33,34}" style="stroke-width:1.0;stroke-dasharray:none;fill:var(--ink-faint);fill-opacity:0.8">
+  <path d="m 288.932,120.801 c 100.233,0 100.233,290.676 0,290.676 -5.012,0 -5.012,-10.023 0,-10.023 100.233,0 100.233,-270.63 0,-270.63 -5.012,0 -5.012,-10.023 0,-10.023" stroke="var(--ink-faint)" fill="var(--ink-faint)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path52" style="fill:var(--ink-faint);stroke:var(--ink-faint);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none;fill-opacity:0.8"/>
+  <path d="m 278.908,120.801 c -100.233,0 -100.233,290.676 0,290.676 5.012,0 5.012,-10.023 0,-10.023 -100.233,0 -100.233,-270.63 0,-270.63 5.012,0 5.012,-10.023 0,-10.023" stroke="var(--ink-faint)" fill="var(--ink-faint)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path78" style="fill:var(--ink-faint);stroke:var(--ink-faint);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none;fill-opacity:0.8"/>
 </g>
-<g id="FX_3_4_63_64" inkscape:label="FX{3,4,63,64}" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;stroke-width:1;stroke-dasharray:none;fill-opacity:0.8">
-  <path d="m 288.932,712.176 c 210.489,0 210.489,-611.422 0,-611.422 -5.012,0 -5.012,10.024 0,10.024 205.477,0 205.477,591.374 0,591.374 -5.012,0 -5.012,10.024 0,10.024" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.352279" stroke-miterlimit="10" stroke-linejoin="round" id="path54" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;stroke-width:1;stroke-dasharray:none;fill-opacity:0.8"/>
-  <path d="m 278.908,712.176 c -210.4889,0 -210.4889,-611.422 0,-611.422 5.012,0 5.012,10.024 0,10.024 -205.4775,0 -205.4775,591.374 0,591.374 5.012,0 5.012,10.024 0,10.024" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.352279" stroke-miterlimit="10" stroke-linejoin="round" id="path80" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;stroke-width:1;stroke-dasharray:none;fill-opacity:0.8"/>
+<g id="FX_3_4_63_64" inkscape:label="FX{3,4,63,64}" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none;fill-opacity:0.8">
+  <path d="m 288.932,712.176 c 210.489,0 210.489,-611.422 0,-611.422 -5.012,0 -5.012,10.024 0,10.024 205.477,0 205.477,591.374 0,591.374 -5.012,0 -5.012,10.024 0,10.024" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path54" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none;fill-opacity:0.8"/>
+  <path d="m 278.908,712.176 c -210.4889,0 -210.4889,-611.422 0,-611.422 5.012,0 5.012,10.024 0,10.024 -205.4775,0 -205.4775,591.374 0,591.374 5.012,0 5.012,10.024 0,10.024" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path80" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none;fill-opacity:0.8"/>
 </g>
-<g id="FX_21_22_41_42" inkscape:label="FX{21,22,41,42}" style="fill:var(--ink-faint);fill-opacity:0.8;stroke:var(--ink-faint);stroke-opacity:1;stroke-width:1;stroke-dasharray:none">
-  <path d="m 288.932,281.174 c 80.186,0 80.186,200.466 0,200.466 -5.012,0 -5.012,10.023 0,10.023 80.186,0 80.186,-200.466 0,-200.466 -5.012,0 -5.012,-10.023 0,-10.023" fill="var(--ink-faint)" id="path57" style="fill:var(--ink-faint);stroke:var(--ink-faint);stroke-opacity:1;fill-opacity:0.8;stroke-width:1;stroke-dasharray:none"/>
-  <path d="m 278.908,281.174 c -80.186,0 -80.186,200.466 0,200.466 5.012,0 5.012,10.023 0,10.023 -80.186,0 -80.186,-200.466 0,-200.466 5.012,0 5.012,-10.023 0,-10.023" fill="var(--ink-faint)" id="path81" style="fill:var(--ink-faint);stroke:var(--ink-faint);stroke-opacity:1;fill-opacity:0.8;stroke-width:1;stroke-dasharray:none"/>
+<g id="FX_21_22_41_42" inkscape:label="FX{21,22,41,42}" style="fill:var(--ink-faint);fill-opacity:0.8;stroke:var(--ink-faint);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none">
+  <path d="m 288.932,281.174 c 80.186,0 80.186,200.466 0,200.466 -5.012,0 -5.012,10.023 0,10.023 80.186,0 80.186,-200.466 0,-200.466 -5.012,0 -5.012,-10.023 0,-10.023" fill="var(--ink-faint)" id="path57" style="fill:var(--ink-faint);stroke:var(--ink-faint);stroke-opacity:1;fill-opacity:0.8;stroke-width:1.0;stroke-dasharray:none"/>
+  <path d="m 278.908,281.174 c -80.186,0 -80.186,200.466 0,200.466 5.012,0 5.012,10.023 0,10.023 -80.186,0 -80.186,-200.466 0,-200.466 5.012,0 5.012,-10.023 0,-10.023" fill="var(--ink-faint)" id="path81" style="fill:var(--ink-faint);stroke:var(--ink-faint);stroke-opacity:1;fill-opacity:0.8;stroke-width:1.0;stroke-dasharray:none"/>
 </g>
-<g id="g3" inkscape:label="FX{27,28,39,40}" style="fill:var(--ink);fill-opacity:0.8;stroke:var(--ink);stroke-opacity:1;stroke-width:1;stroke-dasharray:none">
-  <path d="m 288.932,471.616 c 46.107,0 46.107,-130.302 0,-130.302 -5.012,0 -5.012,10.023 0,10.023 41.095,0 41.095,110.256 0,110.256 -5.012,0 -5.012,10.023 0,10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.352279" stroke-miterlimit="10" stroke-linejoin="round" id="path60" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;fill-opacity:0.8;stroke-width:1;stroke-dasharray:none"/>
-  <path d="m 278.908,471.616 c -46.107,0 -46.107,-130.302 0,-130.302 5.012,0 5.012,10.023 0,10.023 -41.095,0 -41.095,110.256 0,110.256 5.012,0 5.012,10.023 0,10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.352279" stroke-miterlimit="10" stroke-linejoin="round" id="path84" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;fill-opacity:0.8;stroke-width:1;stroke-dasharray:none"/>
+<g id="g3" inkscape:label="FX{27,28,39,40}" style="fill:var(--ink);fill-opacity:0.8;stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none">
+  <path d="m 288.932,471.616 c 46.107,0 46.107,-130.302 0,-130.302 -5.012,0 -5.012,10.023 0,10.023 41.095,0 41.095,110.256 0,110.256 -5.012,0 -5.012,10.023 0,10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path60" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;fill-opacity:0.8;stroke-width:1.0;stroke-dasharray:none"/>
+  <path d="m 278.908,471.616 c -46.107,0 -46.107,-130.302 0,-130.302 5.012,0 5.012,10.023 0,10.023 -41.095,0 -41.095,110.256 0,110.256 5.012,0 5.012,10.023 0,10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path84" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;fill-opacity:0.8;stroke-width:1.0;stroke-dasharray:none"/>
 </g>
 <g id="FX_rightNumCirc_01" inkscape:label="FX_rightNumCirc_01">
-  <path d="m 294.29614,80.076443 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path43"/>
+  <path d="m 294.29614,80.076443 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path43"/>
   <path d="m 294.29614,80.076443 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path44-9"/>
   <text class="f0" x="288.87717" y="82.104202" id="text44" style="stroke-width:1.00028">1</text>
 </g>
 <g id="FX_leftNumCirc_01" inkscape:label="FX_leftNumCirc_01">
-  <path d="m 282.26814,80.076443 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path45"/>
+  <path d="m 282.26814,80.076443 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path45"/>
   <path d="m 282.26814,80.076443 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path46-3"/>
   <text class="f0" x="276.84918" y="82.104202" id="text46" style="stroke-width:1.00028">1</text>
 </g>
 <g id="FX_rightNumCirc_02" inkscape:label="FX_rightNumCirc_02">
-  <path d="m 294.29614,90.099443 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path47"/>
+  <path d="m 294.29614,90.099443 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path47"/>
   <path d="m 294.29614,90.099443 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path48-1"/>
   <text class="f0" x="288.52502" y="92.155602" id="text48" style="stroke-width:1.00028">2</text>
 </g>
 <g id="FX_leftNumCirc_02" inkscape:label="FX_leftNumCirc_02">
-  <path d="m 282.26814,90.099443 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path49"/>
+  <path d="m 282.26814,90.099443 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path49"/>
   <path d="m 282.26814,90.099443 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path50-9"/>
   <text class="f0" x="276.49701" y="92.155602" id="text50" style="stroke-width:1.00028">2</text>
 </g>
 <g id="FX_rightNumCirc_03" inkscape:label="FX_rightNumCirc_03">
-  <path d="m 294.29614,100.12344 c 0,-2.296997 -1.861,-4.157997 -4.158,-4.157997 -2.296,0 -4.158,1.861 -4.158,4.157997 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path51"/>
+  <path d="m 294.29614,100.12344 c 0,-2.296997 -1.861,-4.157997 -4.158,-4.157997 -2.296,0 -4.158,1.861 -4.158,4.157997 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path51"/>
   <path d="m 294.29614,100.12344 c 0,-2.296997 -1.861,-4.157997 -4.158,-4.157997 -2.296,0 -4.158,1.861 -4.158,4.157997 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path52-4"/>
   <text class="f0" x="288.54773" y="102.1512" id="text52" style="stroke-width:1.00028">3</text>
 </g>
 <g id="FX_leftNumCirc_64" inkscape:label="FX_leftNumCirc_64">
-  <path d="m 282.26814,100.12344 c 0,-2.296997 -1.862,-4.157997 -4.158,-4.157997 -2.297,0 -4.158,1.861 -4.158,4.157997 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path53"/>
+  <path d="m 282.26814,100.12344 c 0,-2.296997 -1.862,-4.157997 -4.158,-4.157997 -2.297,0 -4.158,1.861 -4.158,4.157997 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path53"/>
   <path d="m 282.26814,100.12344 c 0,-2.296997 -1.862,-4.157997 -4.158,-4.157997 -2.297,0 -4.158,1.861 -4.158,4.157997 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path54-7"/>
   <text class="f0" x="274.76178" y="102.1512" id="text54" style="stroke-width:1.00028">64</text>
 </g>
 <g id="FX_rightNumCirc_04" inkscape:label="FX_rightNumCirc_04">
-  <path d="m 294.29614,110.14644 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path55-8"/>
+  <path d="m 294.29614,110.14644 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path55-8"/>
   <path d="m 294.29614,110.14644 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path56"/>
   <text class="f0" x="288.51083" y="112.18556" id="text56" style="stroke-width:1.00028">4</text>
 </g>
 <g id="FX_leftNumCirc_63" inkscape:label="FX_leftNumCirc_63">
-  <path d="m 282.26814,110.14644 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path57-4"/>
+  <path d="m 282.26814,110.14644 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path57-4"/>
   <path d="m 282.26814,110.14644 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path58"/>
   <text class="f0" x="274.86685" y="112.17421" id="text58" style="stroke-width:1.00028">63</text>
 </g>
 <g id="FX_rightNumCirc_05" inkscape:label="FX_rightNumCirc_05">
-  <path d="m 294.29614,120.16944 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path59"/>
+  <path d="m 294.29614,120.16944 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path59"/>
   <path d="m 294.29614,120.16944 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path60-5"/>
   <text class="f0" x="288.49661" y="122.16881" id="text60" style="stroke-width:1.00028">5</text>
 </g>
 <g id="FX_leftNumCirc_33" inkscape:label="FX_leftNumCirc_33">
-  <path d="m 282.26814,120.16944 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path61"/>
+  <path d="m 282.26814,120.16944 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path61"/>
   <path d="m 282.26814,120.16944 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path62-0"/>
   <text class="f0" x="274.89526" y="122.1972" id="text62" style="stroke-width:1.00028">33</text>
 </g>
 <g id="FX_rightNumCirc_06" inkscape:label="FX_rightNumCirc_06">
-  <path d="m 294.29614,130.19344 c 0,-2.297 -1.861,-4.159 -4.158,-4.159 -2.296,0 -4.158,1.862 -4.158,4.159 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path63"/>
+  <path d="m 294.29614,130.19344 c 0,-2.297 -1.861,-4.159 -4.158,-4.159 -2.296,0 -4.158,1.862 -4.158,4.159 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path63"/>
   <path d="m 294.29614,130.19344 c 0,-2.297 -1.861,-4.159 -4.158,-4.159 -2.296,0 -4.158,1.862 -4.158,4.159 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path64-3"/>
   <text class="f0" x="288.49094" y="132.2207" id="text64" style="stroke-width:1.00028">6</text>
 </g>
 <g id="FX_leftNumCirc_34" inkscape:label="FX_leftNumCirc_34">
-  <path d="m 282.26814,130.19344 c 0,-2.297 -1.862,-4.159 -4.158,-4.159 -2.297,0 -4.158,1.862 -4.158,4.159 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path65"/>
+  <path d="m 282.26814,130.19344 c 0,-2.297 -1.862,-4.159 -4.158,-4.159 -2.297,0 -4.158,1.862 -4.158,4.159 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path65"/>
   <path d="m 282.26814,130.19344 c 0,-2.297 -1.862,-4.159 -4.158,-4.159 -2.297,0 -4.158,1.862 -4.158,4.159 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path66-6"/>
   <text class="f0" x="274.79019" y="132.2207" id="text66" style="stroke-width:1.00028">34</text>
 </g>
 <g id="FX_rightNumCirc_07" inkscape:label="FX_rightNumCirc_07">
-  <path d="m 294.29614,140.21644 c 0,-2.297 -1.861,-4.159 -4.158,-4.159 -2.296,0 -4.158,1.862 -4.158,4.159 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path67"/>
+  <path d="m 294.29614,140.21644 c 0,-2.297 -1.861,-4.159 -4.158,-4.159 -2.296,0 -4.158,1.862 -4.158,4.159 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path67"/>
   <path d="m 294.29614,140.21644 c 0,-2.297 -1.861,-4.159 -4.158,-4.159 -2.296,0 -4.158,1.862 -4.158,4.159 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path68-1"/>
   <text class="f0" x="288.52786" y="142.2437" id="text68" style="stroke-width:1.00028">7</text>
 </g>
 <g id="FX_leftNumCirc_32" inkscape:label="FX_leftNumCirc_32">
-  <path d="m 282.26814,140.21644 c 0,-2.297 -1.862,-4.159 -4.158,-4.159 -2.297,0 -4.158,1.862 -4.158,4.159 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path69"/>
+  <path d="m 282.26814,140.21644 c 0,-2.297 -1.862,-4.159 -4.158,-4.159 -2.297,0 -4.158,1.862 -4.158,4.159 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path69"/>
   <path d="m 282.26814,140.21644 c 0,-2.297 -1.862,-4.159 -4.158,-4.159 -2.297,0 -4.158,1.862 -4.158,4.159 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path70-0"/>
   <text class="f0" x="274.88104" y="142.2437" id="text70" style="stroke-width:1.00028">32</text>
 </g>
 <g id="FX_rightNumCirc_08" inkscape:label="FX_rightNumCirc_08">
-  <path d="m 294.29614,150.23944 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path71"/>
+  <path d="m 294.29614,150.23944 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path71"/>
   <path d="m 294.29614,150.23944 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path72-6"/>
   <text class="f0" x="288.51651" y="152.2672" id="text72" style="stroke-width:1.00028">8</text>
 </g>
 <g id="FX_leftNumCirc_31" inkscape:label="FX_leftNumCirc_31">
-  <path d="m 282.26814,150.23944 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path73"/>
+  <path d="m 282.26814,150.23944 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path73"/>
   <path d="m 282.26814,150.23944 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path74-3"/>
   <text class="f0" x="275.34967" y="152.2672" id="text74" style="stroke-width:1.00028">31</text>
 </g>
 <g id="FX_rightNumCirc_09" inkscape:label="FX_rightNumCirc_09">
-  <path d="m 294.29614,160.26344 c 0,-2.297 -1.861,-4.159 -4.158,-4.159 -2.296,0 -4.158,1.862 -4.158,4.159 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path75"/>
+  <path d="m 294.29614,160.26344 c 0,-2.297 -1.861,-4.159 -4.158,-4.159 -2.296,0 -4.158,1.862 -4.158,4.159 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path75"/>
   <path d="m 294.29614,160.26344 c 0,-2.297 -1.861,-4.159 -4.158,-4.159 -2.296,0 -4.158,1.862 -4.158,4.159 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path76-2"/>
   <text class="f0" x="288.51935" y="162.29071" id="text76" style="stroke-width:1.00028">9</text>
 </g>
 <g id="FX_leftNumCirc_17" inkscape:label="FX_leftNumCirc_17">
-  <path d="m 282.26814,160.26344 c 0,-2.297 -1.862,-4.159 -4.158,-4.159 -2.297,0 -4.158,1.862 -4.158,4.159 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path77"/>
+  <path d="m 282.26814,160.26344 c 0,-2.297 -1.862,-4.159 -4.158,-4.159 -2.297,0 -4.158,1.862 -4.158,4.159 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path77"/>
   <path d="m 282.26814,160.26344 c 0,-2.297 -1.862,-4.159 -4.158,-4.159 -2.297,0 -4.158,1.862 -4.158,4.159 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path78-0"/>
   <text class="f0" x="274.74759" y="162.29071" id="text78" style="stroke-width:1.00028">17</text>
 </g>
 <g id="FX_rightNumCirc_10" inkscape:label="FX_rightNumCirc_10">
-  <path d="m 294.29614,170.28644 c 0,-2.297 -1.861,-4.159 -4.158,-4.159 -2.296,0 -4.158,1.862 -4.158,4.159 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path79"/>
+  <path d="m 294.29614,170.28644 c 0,-2.297 -1.861,-4.159 -4.158,-4.159 -2.296,0 -4.158,1.862 -4.158,4.159 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path79"/>
   <path d="m 294.29614,170.28644 c 0,-2.297 -1.861,-4.159 -4.158,-4.159 -2.296,0 -4.158,1.862 -4.158,4.159 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path80-6"/>
   <text class="f0" x="286.77557" y="172.31654" id="text80" style="stroke-width:1.00028">10</text>
 </g>
 <g id="FX_leftNumCirc_18" inkscape:label="FX_leftNumCirc_18">
-  <path d="m 282.26814,170.28644 c 0,-2.297 -1.862,-4.159 -4.158,-4.159 -2.297,0 -4.158,1.862 -4.158,4.159 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path81-1"/>
+  <path d="m 282.26814,170.28644 c 0,-2.297 -1.862,-4.159 -4.158,-4.159 -2.297,0 -4.158,1.862 -4.158,4.159 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path81-1"/>
   <path d="m 282.26814,170.28644 c 0,-2.297 -1.862,-4.159 -4.158,-4.159 -2.297,0 -4.158,1.862 -4.158,4.159 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path82"/>
   <text class="f0" x="274.75043" y="172.31371" id="text82" style="stroke-width:1.00028">18</text>
 </g>
 <g id="FX_rightNumCirc_11" inkscape:label="FX_rightNumCirc_11">
-  <path d="m 294.29614,180.30944 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path83"/>
+  <path d="m 294.29614,180.30944 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path83"/>
   <path d="m 294.29614,180.30944 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path84-5"/>
   <text class="f0" x="287.25269" y="182.3372" id="text84" style="stroke-width:1.00028">11</text>
 </g>
 <g id="FX_leftNumCirc_48" inkscape:label="FX_leftNumCirc_48">
-  <path d="m 282.26814,180.30944 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path85"/>
+  <path d="m 282.26814,180.30944 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path85"/>
   <path d="m 282.26814,180.30944 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path86"/>
   <text class="f0" x="274.94354" y="182.3372" id="text86" style="stroke-width:1.00028">48</text>
 </g>
 <g id="FX_rightNumCirc_12" inkscape:label="FX_rightNumCirc_12">
-  <path d="m 294.29614,190.33244 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159" fill="#ffffff" id="path87"/>
+  <path d="m 294.29614,190.33244 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159" fill="var(--paper)" id="path87"/>
   <path d="m 294.29614,190.33244 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path88"/>
   <text class="f0" x="286.78409" y="192.3891" id="text88" style="stroke-width:1.00028">12</text>
 </g>
 <g id="FX_leftNumCirc_47" inkscape:label="FX_leftNumCirc_47">
-  <path d="m 282.26814,190.33244 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159" fill="#ffffff" id="path89"/>
+  <path d="m 282.26814,190.33244 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159" fill="var(--paper)" id="path89"/>
   <path d="m 282.26814,190.33244 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path90"/>
   <text class="f0" x="274.9407" y="192.37206" id="text90" style="stroke-width:1.00028">47</text>
 </g>
 <g id="FX_rightNumCirc_13" inkscape:label="FX_rightNumCirc_13">
-  <path d="m 294.29614,200.35644 c 0,-2.297 -1.861,-4.159 -4.158,-4.159 -2.296,0 -4.158,1.862 -4.158,4.159 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path91"/>
+  <path d="m 294.29614,200.35644 c 0,-2.297 -1.861,-4.159 -4.158,-4.159 -2.296,0 -4.158,1.862 -4.158,4.159 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path91"/>
   <path d="m 294.29614,200.35644 c 0,-2.297 -1.861,-4.159 -4.158,-4.159 -2.296,0 -4.158,1.862 -4.158,4.159 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path92"/>
   <text class="f0" x="286.79831" y="202.3837" id="text92" style="stroke-width:1.00028">13</text>
 </g>
 <g id="FX_leftNumCirc_49" inkscape:label="FX_leftNumCirc_49">
-  <path d="m 282.26814,200.35644 c 0,-2.297 -1.862,-4.159 -4.158,-4.159 -2.297,0 -4.158,1.862 -4.158,4.159 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path93"/>
+  <path d="m 282.26814,200.35644 c 0,-2.297 -1.862,-4.159 -4.158,-4.159 -2.297,0 -4.158,1.862 -4.158,4.159 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path93"/>
   <path d="m 282.26814,200.35644 c 0,-2.297 -1.862,-4.159 -4.158,-4.159 -2.297,0 -4.158,1.862 -4.158,4.159 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path94"/>
   <text class="f0" x="274.94922" y="202.3837" id="text94" style="stroke-width:1.00028">49</text>
 </g>
 <g id="FX_rightNumCirc_14" inkscape:label="FX_rightNumCirc_14">
-  <path d="m 294.29614,210.37944 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path95"/>
+  <path d="m 294.29614,210.37944 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path95"/>
   <path d="m 294.29614,210.37944 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path96-5"/>
   <text class="f0" x="286.69321" y="212.41856" id="text96" style="stroke-width:1.00028">14</text>
 </g>
 <g id="FX_leftNumCirc_50" inkscape:label="FX_leftNumCirc_50">
-  <path d="m 282.26814,210.37944 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path97"/>
+  <path d="m 282.26814,210.37944 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path97"/>
   <path d="m 282.26814,210.37944 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path98"/>
   <text class="f0" x="274.82141" y="212.41003" id="text98" style="stroke-width:1.00028">50</text>
 </g>
 <g id="FX_rightNumCirc_15" inkscape:label="FX_rightNumCirc_15">
-  <path d="m 294.29614,220.40244 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path99"/>
+  <path d="m 294.29614,220.40244 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path99"/>
   <path d="m 294.29614,220.40244 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path100"/>
   <text class="f0" x="286.79831" y="222.40181" id="text100" style="stroke-width:1.00028">15</text>
 </g>
 <g id="FX_leftNumCirc_16" inkscape:label="FX_leftNumCirc_16">
-  <path d="m 282.26814,220.40244 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path101"/>
+  <path d="m 282.26814,220.40244 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path101"/>
   <path d="m 282.26814,220.40244 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path102"/>
   <text class="f0" x="274.74188" y="222.43021" id="text102" style="stroke-width:1.00028">16</text>
 </g>
 <g id="FX_rightNumCirc_16" inkscape:label="FX_rightNumCirc_16">
-  <path d="m 294.29614,230.42544 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159" fill="#ffffff" id="path103"/>
+  <path d="m 294.29614,230.42544 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159" fill="var(--paper)" id="path103"/>
   <path d="m 294.29614,230.42544 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path104"/>
   <text class="f0" x="286.7699" y="232.4537" id="text104" style="stroke-width:1.00028">16</text>
 </g>
 <g id="FX_leftNumCirc_15" inkscape:label="FX_leftNumCirc_15">
-  <path d="m 282.26814,230.42544 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159" fill="#ffffff" id="path105"/>
+  <path d="m 282.26814,230.42544 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159" fill="var(--paper)" id="path105"/>
   <path d="m 282.26814,230.42544 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path106"/>
   <text class="f0" x="274.77029" y="232.42531" id="text106" style="stroke-width:1.00028">15</text>
 </g>
 <g id="FX_rightNumCirc_17" inkscape:label="FX_rightNumCirc_17">
-  <path d="m 294.29614,240.44944 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path107"/>
+  <path d="m 294.29614,240.44944 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path107"/>
   <path d="m 294.29614,240.44944 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path108"/>
   <text class="f0" x="286.77557" y="242.4772" id="text108" style="stroke-width:1.00028">17</text>
 </g>
 <g id="FX_leftNumCirc_09" inkscape:label="FX_leftNumCirc_09">
-  <path d="m 282.26814,240.44944 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path109"/>
+  <path d="m 282.26814,240.44944 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path109"/>
   <path d="m 282.26814,240.44944 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path110"/>
   <text class="f0" x="276.49133" y="242.4772" id="text110" style="stroke-width:1.00028">9</text>
 </g>
 <g id="FX_rightNumCirc_18" inkscape:label="FX_rightNumCirc_18">
-  <path d="m 294.29614,250.47244 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path111"/>
+  <path d="m 294.29614,250.47244 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path111"/>
   <path d="m 294.29614,250.47244 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path112"/>
   <text class="f0" x="286.77841" y="252.5002" id="text112" style="stroke-width:1.00028">18</text>
 </g>
 <g id="FX_leftNumCirc_10" inkscape:label="FX_leftNumCirc_10">
-  <path d="m 282.26814,250.47244 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path113"/>
+  <path d="m 282.26814,250.47244 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path113"/>
   <path d="m 282.26814,250.47244 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path114"/>
   <text class="f0" x="274.74759" y="252.50304" id="text114" style="stroke-width:1.00028">10</text>
 </g>
 <g id="FX_rightNumCirc_19" inkscape:label="FX_rightNumCirc_19">
-  <path d="m 294.29614,260.49544 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159" fill="#ffffff" id="path115"/>
+  <path d="m 294.29614,260.49544 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159" fill="var(--paper)" id="path115"/>
   <path d="m 294.29614,260.49544 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path116"/>
   <text class="f0" x="286.78409" y="262.52368" id="text116" style="stroke-width:1.00028">19</text>
 </g>
 <g id="FX_leftNumCirc_56" inkscape:label="FX_leftNumCirc_56">
-  <path d="m 282.26814,260.49544 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159" fill="#ffffff" id="path117"/>
+  <path d="m 282.26814,260.49544 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159" fill="var(--paper)" id="path117"/>
   <path d="m 282.26814,260.49544 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path118"/>
   <text class="f0" x="274.81573" y="262.52368" id="text118" style="stroke-width:1.00028">56</text>
 </g>
 <g id="FX_rightNumCirc_20" inkscape:label="FX_rightNumCirc_20">
-  <path d="m 294.29614,270.51944 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path119"/>
+  <path d="m 294.29614,270.51944 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path119"/>
   <path d="m 294.29614,270.51944 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path120"/>
   <text class="f0" x="286.89203" y="272.55002" id="text120" style="stroke-width:1.00028">20</text>
 </g>
 <g id="FX_leftNumCirc_55" inkscape:label="FX_leftNumCirc_55">
-  <path d="m 282.26814,270.51944 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path121"/>
+  <path d="m 282.26814,270.51944 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path121"/>
   <path d="m 282.26814,270.51944 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path122"/>
   <text class="f0" x="274.84415" y="272.5188" id="text122" style="stroke-width:1.00028">55</text>
 </g>
 <g id="FX_rightNumCirc_21" inkscape:label="FX_rightNumCirc_21">
-  <path d="m 294.29614,280.54244 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path123"/>
+  <path d="m 294.29614,280.54244 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path123"/>
   <path d="m 294.29614,280.54244 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path124"/>
   <text class="f0" x="287.36914" y="282.5986" id="text124" style="stroke-width:1.00028">21</text>
 </g>
 <g id="FX_leftNumCirc_41" inkscape:label="FX_leftNumCirc_41">
-  <path d="m 282.26814,280.54244 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path125"/>
+  <path d="m 282.26814,280.54244 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path125"/>
   <path d="m 282.26814,280.54244 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path126"/>
   <text class="f0" x="275.41782" y="282.58154" id="text126" style="stroke-width:1.00028">41</text>
 </g>
 <g id="FX_rightNumCirc_22" inkscape:label="FX_rightNumCirc_22">
-  <path d="m 294.29614,290.56544 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path127"/>
+  <path d="m 294.29614,290.56544 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path127"/>
   <path d="m 294.29614,290.56544 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path128"/>
   <text class="f0" x="286.90054" y="292.62158" id="text128" style="stroke-width:1.00028">22</text>
 </g>
 <g id="FX_leftNumCirc_42" inkscape:label="FX_leftNumCirc_42">
-  <path d="m 282.26814,290.56544 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path129"/>
+  <path d="m 282.26814,290.56544 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path129"/>
   <path d="m 282.26814,290.56544 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path130"/>
   <text class="f0" x="274.94922" y="292.62158" id="text130" style="stroke-width:1.00028">42</text>
 </g>
 <g id="FX_rightNumCirc_23" inkscape:label="FX_rightNumCirc_23">
-  <path d="m 294.29614,300.58944 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path131"/>
+  <path d="m 294.29614,300.58944 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path131"/>
   <path d="m 294.29614,300.58944 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path132"/>
   <text class="f0" x="286.91473" y="302.61719" id="text132" style="stroke-width:1.00028">23</text>
 </g>
 <g id="FX_leftNumCirc_24" inkscape:label="FX_leftNumCirc_24">
-  <path d="m 282.26814,300.58944 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path133"/>
+  <path d="m 282.26814,300.58944 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path133"/>
   <path d="m 282.26814,300.58944 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path134"/>
   <text class="f0" x="274.78165" y="302.6456" id="text134" style="stroke-width:1.00028">24</text>
 </g>
 <g id="FX_rightNumCirc_24" inkscape:label="FX_rightNumCirc_24">
-  <path d="m 294.29614,310.61244 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path135"/>
+  <path d="m 294.29614,310.61244 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path135"/>
   <path d="m 294.29614,310.61244 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path136"/>
   <text class="f0" x="286.80966" y="312.66858" id="text136" style="stroke-width:1.00028">24</text>
 </g>
 <g id="FX_leftNumCirc_23" inkscape:label="FX_leftNumCirc_23">
-  <path d="m 282.26814,310.61244 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path137"/>
+  <path d="m 282.26814,310.61244 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path137"/>
   <path d="m 282.26814,310.61244 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path138"/>
   <text class="f0" x="274.88675" y="312.6402" id="text138" style="stroke-width:1.00028">23</text>
 </g>
 <g id="FX_rightNumCirc_25" inkscape:label="FX_rightNumCirc_25">
-  <path d="m 294.29614,320.63544 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path139"/>
+  <path d="m 294.29614,320.63544 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path139"/>
   <path d="m 294.29614,320.63544 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path140"/>
   <text class="f0" x="286.91473" y="322.66318" id="text140" style="stroke-width:1.00028">25</text>
 </g>
 <g id="FX_leftNumCirc_25" inkscape:label="FX_leftNumCirc_25">
-  <path d="m 282.26814,320.63544 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path141"/>
+  <path d="m 282.26814,320.63544 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path141"/>
   <path d="m 282.26814,320.63544 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path142"/>
   <text class="f0" x="274.88675" y="322.66318" id="text142" style="stroke-width:1.00028">25</text>
 </g>
 <g id="FX_rightNumCirc_26" inkscape:label="FX_rightNumCirc_26">
-  <path d="m 294.29614,330.65944 c 0,-2.297 -1.861,-4.159 -4.158,-4.159 -2.296,0 -4.158,1.862 -4.158,4.159 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path143"/>
+  <path d="m 294.29614,330.65944 c 0,-2.297 -1.861,-4.159 -4.158,-4.159 -2.296,0 -4.158,1.862 -4.158,4.159 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path143"/>
   <path d="m 294.29614,330.65944 c 0,-2.297 -1.861,-4.159 -4.158,-4.159 -2.296,0 -4.158,1.862 -4.158,4.159 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path144"/>
   <text class="f0" x="286.88635" y="332.68668" id="text144" style="stroke-width:1.00028">26</text>
 </g>
 <g id="FX_leftNumCirc_26" inkscape:label="FX_leftNumCirc_26">
-  <path d="m 282.26814,330.65944 c 0,-2.297 -1.862,-4.159 -4.158,-4.159 -2.297,0 -4.158,1.862 -4.158,4.159 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path145"/>
+  <path d="m 282.26814,330.65944 c 0,-2.297 -1.862,-4.159 -4.158,-4.159 -2.297,0 -4.158,1.862 -4.158,4.159 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path145"/>
   <path d="m 282.26814,330.65944 c 0,-2.297 -1.862,-4.159 -4.158,-4.159 -2.297,0 -4.158,1.862 -4.158,4.159 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path146"/>
   <text class="f0" x="274.85834" y="332.68668" id="text146" style="stroke-width:1.00028">26</text>
 </g>
 <g id="FX_rightNumCirc_27" inkscape:label="FX_rightNumCirc_27">
-  <path d="m 294.29614,340.68244 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path147"/>
+  <path d="m 294.29614,340.68244 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path147"/>
   <path d="m 294.29614,340.68244 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path148"/>
   <text class="f0" x="286.89203" y="342.73859" id="text148" style="stroke-width:1.00028">27</text>
 </g>
 <g id="FX_leftNumCirc_40" inkscape:label="FX_leftNumCirc_40">
-  <path d="m 282.26814,340.68244 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path149"/>
+  <path d="m 282.26814,340.68244 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path149"/>
   <path d="m 282.26814,340.68244 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path150"/>
   <text class="f0" x="274.9407" y="342.71301" id="text150" style="stroke-width:1.00028">40</text>
 </g>
 <g id="FX_rightNumCirc_28" inkscape:label="FX_rightNumCirc_28">
-  <path d="m 294.29614,350.70544 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path151"/>
+  <path d="m 294.29614,350.70544 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path151"/>
   <path d="m 294.29614,350.70544 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path152"/>
   <text class="f0" x="286.89487" y="352.73318" id="text152" style="stroke-width:1.00028">28</text>
 </g>
 <g id="FX_leftNumCirc_39" inkscape:label="FX_leftNumCirc_39">
-  <path d="m 282.26814,350.70544 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path153"/>
+  <path d="m 282.26814,350.70544 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path153"/>
   <path d="m 282.26814,350.70544 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path154"/>
   <text class="f0" x="274.88104" y="352.73318" id="text154" style="stroke-width:1.00028">39</text>
 </g>
 <g id="FX_rightNumCirc_29" inkscape:label="FX_rightNumCirc_29">
-  <path d="m 294.29614,360.72944 c 0,-2.297 -1.861,-4.159 -4.158,-4.159 -2.296,0 -4.158,1.862 -4.158,4.159 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path155"/>
+  <path d="m 294.29614,360.72944 c 0,-2.297 -1.861,-4.159 -4.158,-4.159 -2.296,0 -4.158,1.862 -4.158,4.159 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path155"/>
   <path d="m 294.29614,360.72944 c 0,-2.297 -1.861,-4.159 -4.158,-4.159 -2.296,0 -4.158,1.862 -4.158,4.159 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path156"/>
   <text class="f0" x="286.90054" y="362.75668" id="text156" style="stroke-width:1.00028">29</text>
 </g>
 <g id="FX_leftNumCirc_57" inkscape:label="FX_leftNumCirc_57">
-  <path d="m 282.26814,360.72944 c 0,-2.297 -1.862,-4.159 -4.158,-4.159 -2.297,0 -4.158,1.862 -4.158,4.159 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path157"/>
+  <path d="m 282.26814,360.72944 c 0,-2.297 -1.862,-4.159 -4.158,-4.159 -2.297,0 -4.158,1.862 -4.158,4.159 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path157"/>
   <path d="m 282.26814,360.72944 c 0,-2.297 -1.862,-4.159 -4.158,-4.159 -2.297,0 -4.158,1.862 -4.158,4.159 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path158"/>
   <text class="f0" x="274.82141" y="362.7283" id="text158" style="stroke-width:1.00028">57</text>
 </g>
 <g id="FX_rightNumCirc_30" inkscape:label="FX_rightNumCirc_30">
-  <path d="m 294.29614,370.75244 c 0,-2.297 -1.861,-4.159 -4.158,-4.159 -2.296,0 -4.158,1.862 -4.158,4.159 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path159"/>
+  <path d="m 294.29614,370.75244 c 0,-2.297 -1.861,-4.159 -4.158,-4.159 -2.296,0 -4.158,1.862 -4.158,4.159 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path159"/>
   <path d="m 294.29614,370.75244 c 0,-2.297 -1.861,-4.159 -4.158,-4.159 -2.296,0 -4.158,1.862 -4.158,4.159 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path160"/>
   <text class="f0" x="286.90054" y="372.78253" id="text160" style="stroke-width:1.00028">30</text>
 </g>
 <g id="FX_leftNumCirc_58" inkscape:label="FX_leftNumCirc_58">
-  <path d="m 282.26814,370.75244 c 0,-2.297 -1.862,-4.159 -4.158,-4.159 -2.297,0 -4.158,1.862 -4.158,4.159 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path161"/>
+  <path d="m 282.26814,370.75244 c 0,-2.297 -1.862,-4.159 -4.158,-4.159 -2.297,0 -4.158,1.862 -4.158,4.159 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path161"/>
   <path d="m 282.26814,370.75244 c 0,-2.297 -1.862,-4.159 -4.158,-4.159 -2.297,0 -4.158,1.862 -4.158,4.159 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path162"/>
   <text class="f0" x="274.82425" y="372.77969" id="text162" style="stroke-width:1.00028">58</text>
 </g>
 <g id="FX_rightNumCirc_31" inkscape:label="FX_rightNumCirc_31">
-  <path d="m 294.29614,380.77544 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path163"/>
+  <path d="m 294.29614,380.77544 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path163"/>
   <path d="m 294.29614,380.77544 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path164"/>
   <text class="f0" x="287.37766" y="382.80319" id="text164" style="stroke-width:1.00028">31</text>
 </g>
 <g id="FX_leftNumCirc_08" inkscape:label="FX_leftNumCirc_08">
-  <path d="m 282.26814,380.77544 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path165"/>
+  <path d="m 282.26814,380.77544 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path165"/>
   <path d="m 282.26814,380.77544 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path166"/>
   <text class="f0" x="276.48849" y="382.80319" id="text166" style="stroke-width:1.00028">8</text>
 </g>
 <g id="FX_rightNumCirc_32" inkscape:label="FX_rightNumCirc_32">
-  <path d="m 294.29614,390.79844 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159" fill="#ffffff" id="path167"/>
+  <path d="m 294.29614,390.79844 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159" fill="var(--paper)" id="path167"/>
   <path d="m 294.29614,390.79844 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path168"/>
   <text class="f0" x="286.90906" y="392.82669" id="text168" style="stroke-width:1.00028">32</text>
 </g>
 <g id="FX_leftNumCirc_07" inkscape:label="FX_leftNumCirc_07">
-  <path d="m 282.26814,390.79844 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159" fill="#ffffff" id="path169"/>
+  <path d="m 282.26814,390.79844 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159" fill="var(--paper)" id="path169"/>
   <path d="m 282.26814,390.79844 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path170"/>
   <text class="f0" x="276.49985" y="392.82669" id="text170" style="stroke-width:1.00028">7</text>
 </g>
 <g id="FX_rightNumCirc_33" inkscape:label="FX_rightNumCirc_33">
-  <path d="m 294.29614,400.82244 c 0,-2.297 -1.861,-4.159 -4.158,-4.159 -2.296,0 -4.158,1.862 -4.158,4.159 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path171"/>
+  <path d="m 294.29614,400.82244 c 0,-2.297 -1.861,-4.159 -4.158,-4.159 -2.296,0 -4.158,1.862 -4.158,4.159 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path171"/>
   <path d="m 294.29614,400.82244 c 0,-2.297 -1.861,-4.159 -4.158,-4.159 -2.296,0 -4.158,1.862 -4.158,4.159 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.704558" stroke-miterlimit="10" stroke-linejoin="round" id="path172"/>
   <text class="f0" x="286.92325" y="402.8497" id="text172" style="stroke-width:1.00028">33</text>
 </g>
 <g id="FX_leftNumCirc_05" inkscape:label="FX_leftNumCirc_05">
-  <path d="m 282.26814,400.82244 c 0,-2.297 -1.862,-4.159 -4.158,-4.159 -2.297,0 -4.158,1.862 -4.158,4.159 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path173"/>
+  <path d="m 282.26814,400.82244 c 0,-2.297 -1.862,-4.159 -4.158,-4.159 -2.297,0 -4.158,1.862 -4.158,4.159 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path173"/>
   <path d="m 282.26814,400.82244 c 0,-2.297 -1.862,-4.159 -4.158,-4.159 -2.297,0 -4.158,1.862 -4.158,4.159 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path174"/>
   <text class="f0" x="276.46863" y="402.82129" id="text174" style="stroke-width:1.00028">5</text>
 </g>
 <g id="FX_rightNumCirc_34" inkscape:label="FX_rightNumCirc_34">
-  <path d="m 294.29614,410.84544 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path175"/>
+  <path d="m 294.29614,410.84544 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path175"/>
   <path d="m 294.29614,410.84544 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.704558" stroke-miterlimit="10" stroke-linejoin="round" id="path176"/>
   <text class="f0" x="286.81818" y="412.8732" id="text176" style="stroke-width:1.00028">34</text>
 </g>
 <g id="FX_leftNumCirc_06" inkscape:label="FX_leftNumCirc_06">
-  <path d="m 282.26814,410.84544 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path177"/>
+  <path d="m 282.26814,410.84544 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path177"/>
   <path d="m 282.26814,410.84544 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path178"/>
   <text class="f0" x="276.46295" y="412.8732" id="text178" style="stroke-width:1.00028">6</text>
 </g>
 <g id="FX_rightNumCirc_35" inkscape:label="FX_rightNumCirc_35">
-  <path d="m 294.29614,420.86844 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159" fill="#ffffff" id="path179"/>
+  <path d="m 294.29614,420.86844 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159" fill="var(--paper)" id="path179"/>
   <path d="m 294.29614,420.86844 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159 z" stroke="#000000" fill="none" stroke-width="0.352279" stroke-miterlimit="10" stroke-linejoin="round" id="path180"/>
   <text class="f0" x="286.92325" y="422.8967" id="text180" style="stroke-width:1.00028">35</text>
 </g>
 <g id="FX_leftNumCirc_60" inkscape:label="FX_leftNumCirc_60">
-  <path d="m 282.26814,420.86844 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159" fill="#ffffff" id="path181"/>
+  <path d="m 282.26814,420.86844 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159" fill="var(--paper)" id="path181"/>
   <path d="m 282.26814,420.86844 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path182"/>
   <text class="f0" x="274.84415" y="422.89954" id="text182" style="stroke-width:1.00028">60</text>
 </g>
 <g id="FX_rightNumCirc_36" inkscape:label="FX_rightNumCirc_36">
-  <path d="m 294.29614,430.89144 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159" fill="#ffffff" id="path183"/>
+  <path d="m 294.29614,430.89144 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159" fill="var(--paper)" id="path183"/>
   <path d="m 294.29614,430.89144 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159 z" stroke="#000000" fill="none" stroke-width="0.352279" stroke-miterlimit="10" stroke-linejoin="round" id="path184"/>
   <text class="f0" x="286.89487" y="432.91968" id="text184" style="stroke-width:1.00028">36</text>
 </g>
 <g id="FX_leftNumCirc_59" inkscape:label="FX_leftNumCirc_59">
-  <path d="m 282.26814,430.89144 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159" fill="#ffffff" id="path185"/>
+  <path d="m 282.26814,430.89144 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159" fill="var(--paper)" id="path185"/>
   <path d="m 282.26814,430.89144 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path186"/>
   <text class="f0" x="274.82993" y="432.91968" id="text186" style="stroke-width:1.00028">59</text>
 </g>
 <g id="FX_rightNumCirc_37" inkscape:label="FX_rightNumCirc_37">
-  <path d="m 294.29614,440.91544 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path187"/>
+  <path d="m 294.29614,440.91544 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path187"/>
   <path d="m 294.29614,440.91544 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path188"/>
   <text class="f0" x="286.90054" y="442.94318" id="text188" style="stroke-width:1.00028">37</text>
 </g>
 <g id="FX_leftNumCirc_37" inkscape:label="FX_leftNumCirc_37">
-  <path d="m 282.26814,440.91544 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path189"/>
+  <path d="m 282.26814,440.91544 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path189"/>
   <path d="m 282.26814,440.91544 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path190"/>
   <text class="f0" x="274.87253" y="442.94318" id="text190" style="stroke-width:1.00028">37</text>
 </g>
 <g id="FX_rightNumCirc_38" inkscape:label="FX_rightNumCirc_38">
-  <path d="m 294.29614,450.93844 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159" fill="#ffffff" id="path191"/>
+  <path d="m 294.29614,450.93844 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159" fill="var(--paper)" id="path191"/>
   <path d="m 294.29614,450.93844 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path192"/>
   <text class="f0" x="286.90338" y="452.96667" id="text192" style="stroke-width:1.00028">38</text>
 </g>
 <g id="FX_leftNumCirc_38" inkscape:label="FX_leftNumCirc_38">
-  <path d="m 282.26814,450.93844 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159" fill="#ffffff" id="path193"/>
+  <path d="m 282.26814,450.93844 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159" fill="var(--paper)" id="path193"/>
   <path d="m 282.26814,450.93844 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path194"/>
   <text class="f0" x="274.87537" y="452.96667" id="text194" style="stroke-width:1.00028">38</text>
 </g>
 <g id="FX_rightNumCirc_39" inkscape:label="FX_rightNumCirc_39">
-  <path d="m 294.29614,460.96144 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159" fill="#ffffff" id="path195"/>
+  <path d="m 294.29614,460.96144 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159" fill="var(--paper)" id="path195"/>
   <path d="m 294.29614,460.96144 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path196"/>
   <text class="f0" x="286.90906" y="462.98969" id="text196" style="stroke-width:1.00028">39</text>
 </g>
 <g id="FX_leftNumCirc_28" inkscape:label="FX_leftNumCirc_28">
-  <path d="m 282.26814,460.96144 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159" fill="#ffffff" id="path197"/>
+  <path d="m 282.26814,460.96144 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159" fill="var(--paper)" id="path197"/>
   <path d="m 282.26814,460.96144 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path198"/>
   <text class="f0" x="274.86685" y="462.98969" id="text198" style="stroke-width:1.00028">28</text>
 </g>
 <g id="FX_rightNumCirc_40" inkscape:label="FX_rightNumCirc_40">
-  <path d="m 294.29614,470.98544 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path199"/>
+  <path d="m 294.29614,470.98544 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path199"/>
   <path d="m 294.29614,470.98544 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path200"/>
   <text class="f0" x="286.96869" y="473.01602" id="text200" style="stroke-width:1.00028">40</text>
 </g>
 <g id="FX_leftNumCirc_27" inkscape:label="FX_leftNumCirc_27">
-  <path d="m 282.26814,470.98544 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path201"/>
+  <path d="m 282.26814,470.98544 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path201"/>
   <path d="m 282.26814,470.98544 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path202"/>
   <text class="f0" x="274.86401" y="473.0416" id="text202" style="stroke-width:1.00028">27</text>
 </g>
 <g id="FX_rightNumCirc_41" inkscape:label="FX_rightNumCirc_41">
-  <path d="m 294.29614,481.00844 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path203"/>
+  <path d="m 294.29614,481.00844 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path203"/>
   <path d="m 294.29614,481.00844 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path204"/>
   <text class="f0" x="287.44583" y="483.04755" id="text204" style="stroke-width:1.00028">41</text>
 </g>
 <g id="FX_leftNumCirc_21" inkscape:label="FX_leftNumCirc_21">
-  <path d="m 282.26814,481.00844 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path205"/>
+  <path d="m 282.26814,481.00844 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path205"/>
   <path d="m 282.26814,481.00844 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path206"/>
   <text class="f0" x="275.34113" y="483.06458" id="text206" style="stroke-width:1.00028">21</text>
 </g>
 <g id="FX_rightNumCirc_42" inkscape:label="FX_rightNumCirc_42">
-  <path d="m 294.29614,491.03144 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159" fill="#ffffff" id="path207"/>
+  <path d="m 294.29614,491.03144 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159" fill="var(--paper)" id="path207"/>
   <path d="m 294.29614,491.03144 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path208"/>
   <text class="f0" x="286.9772" y="493.08807" id="text208" style="stroke-width:1.00028">42</text>
 </g>
 <g id="FX_leftNumCirc_22" inkscape:label="FX_leftNumCirc_22">
-  <path d="m 282.26814,491.03144 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159" fill="#ffffff" id="path209"/>
+  <path d="m 282.26814,491.03144 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159" fill="var(--paper)" id="path209"/>
   <path d="m 282.26814,491.03144 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path210"/>
   <text class="f0" x="274.87253" y="493.08807" id="text210" style="stroke-width:1.00028">22</text>
 </g>
 <g id="FX_rightNumCirc_43" inkscape:label="FX_rightNumCirc_43">
-  <path d="m 294.29614,501.05544 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path211"/>
+  <path d="m 294.29614,501.05544 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path211"/>
   <path d="m 294.29614,501.05544 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path212"/>
   <text class="f0" x="286.99142" y="503.08319" id="text212" style="stroke-width:1.00028">43</text>
 </g>
 <g id="FX_leftNumCirc_44" inkscape:label="FX_leftNumCirc_44">
-  <path d="m 282.26814,501.05544 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path213"/>
+  <path d="m 282.26814,501.05544 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path213"/>
   <path d="m 282.26814,501.05544 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path214"/>
   <text class="f0" x="274.85834" y="503.09454" id="text214" style="stroke-width:1.00028">44</text>
 </g>
 <g id="FX_rightNumCirc_44" inkscape:label="FX_rightNumCirc_44">
-  <path d="m 294.29614,511.07844 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path215"/>
+  <path d="m 294.29614,511.07844 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path215"/>
   <path d="m 294.29614,511.07844 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path216"/>
   <text class="f0" x="286.88635" y="513.11755" id="text216" style="stroke-width:1.00028">44</text>
 </g>
 <g id="FX_leftNumCirc_43" inkscape:label="FX_leftNumCirc_43">
-  <path d="m 282.26814,511.07844 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path217"/>
+  <path d="m 282.26814,511.07844 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path217"/>
   <path d="m 282.26814,511.07844 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path218"/>
   <text class="f0" x="274.96341" y="513.1062" id="text218" style="stroke-width:1.00028">43</text>
 </g>
 <g id="FX_rightNumCirc_45" inkscape:label="FX_rightNumCirc_45">
-  <path d="m 294.29614,521.10144 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path219"/>
+  <path d="m 294.29614,521.10144 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path219"/>
   <path d="m 294.29614,521.10144 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path220"/>
   <text class="f0" x="286.99142" y="523.11212" id="text220" style="stroke-width:1.00028">45</text>
 </g>
 <g id="FX_leftNumCirc_53" inkscape:label="FX_leftNumCirc_53">
-  <path d="m 282.26814,521.10144 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path221"/>
+  <path d="m 282.26814,521.10144 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path221"/>
   <path d="m 282.26814,521.10144 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path222"/>
   <text class="f0" x="274.84415" y="523.12921" id="text222" style="stroke-width:1.00028">53</text>
 </g>
 <g id="FX_rightNumCirc_46" inkscape:label="FX_rightNumCirc_46">
-  <path d="m 294.29614,531.12544 c 0,-2.297 -1.861,-4.159 -4.158,-4.159 -2.296,0 -4.158,1.862 -4.158,4.159 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path223"/>
+  <path d="m 294.29614,531.12544 c 0,-2.297 -1.861,-4.159 -4.158,-4.159 -2.296,0 -4.158,1.862 -4.158,4.159 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path223"/>
   <path d="m 294.29614,531.12544 c 0,-2.297 -1.861,-4.159 -4.158,-4.159 -2.296,0 -4.158,1.862 -4.158,4.159 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path224"/>
   <text class="f0" x="286.96301" y="533.15271" id="text224" style="stroke-width:1.00028">46</text>
 </g>
 <g id="FX_leftNumCirc_54" inkscape:label="FX_leftNumCirc_54">
-  <path d="m 282.26814,531.12544 c 0,-2.297 -1.862,-4.159 -4.158,-4.159 -2.297,0 -4.158,1.862 -4.158,4.159 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path225"/>
+  <path d="m 282.26814,531.12544 c 0,-2.297 -1.862,-4.159 -4.158,-4.159 -2.297,0 -4.158,1.862 -4.158,4.159 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path225"/>
   <path d="m 282.26814,531.12544 c 0,-2.297 -1.862,-4.159 -4.158,-4.159 -2.297,0 -4.158,1.862 -4.158,4.159 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path226"/>
   <text class="f0" x="274.73904" y="533.13562" id="text226" style="stroke-width:1.00028">54</text>
 </g>
 <g id="FX_rightNumCirc_47" inkscape:label="FX_rightNumCirc_47">
-  <path d="m 294.29614,541.14844 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path227"/>
+  <path d="m 294.29614,541.14844 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path227"/>
   <path d="m 294.29614,541.14844 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path228"/>
   <text class="f0" x="286.96869" y="543.18756" id="text228" style="stroke-width:1.00028">47</text>
 </g>
 <g id="FX_leftNumCirc_12" inkscape:label="FX_leftNumCirc_12">
-  <path d="m 282.26814,541.14844 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path229"/>
+  <path d="m 282.26814,541.14844 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path229"/>
   <path d="m 282.26814,541.14844 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path230"/>
   <text class="f0" x="274.7561" y="543.20459" id="text230" style="stroke-width:1.00028">12</text>
 </g>
 <g id="FX_rightNumCirc_48" inkscape:label="FX_rightNumCirc_48">
-  <path d="m 294.29614,551.17144 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path231"/>
+  <path d="m 294.29614,551.17144 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path231"/>
   <path d="m 294.29614,551.17144 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path232"/>
   <text class="f0" x="286.97153" y="553.19916" id="text232" style="stroke-width:1.00028">48</text>
 </g>
 <g id="FX_leftNumCirc_11" inkscape:label="FX_leftNumCirc_11">
-  <path d="m 282.26814,551.17144 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path233"/>
+  <path d="m 282.26814,551.17144 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path233"/>
   <path d="m 282.26814,551.17144 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path234"/>
   <text class="f0" x="275.2247" y="553.19916" id="text234" style="stroke-width:1.00028">11</text>
 </g>
 <g id="FX_rightNumCirc_49" inkscape:label="FX_rightNumCirc_49">
-  <path d="m 294.29614,561.19544 c 0,-2.297 -1.861,-4.159 -4.158,-4.159 -2.296,0 -4.158,1.862 -4.158,4.159 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path235"/>
+  <path d="m 294.29614,561.19544 c 0,-2.297 -1.861,-4.159 -4.158,-4.159 -2.296,0 -4.158,1.862 -4.158,4.159 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path235"/>
   <path d="m 294.29614,561.19544 c 0,-2.297 -1.861,-4.159 -4.158,-4.159 -2.296,0 -4.158,1.862 -4.158,4.159 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path236"/>
   <text class="f0" x="286.9772" y="563.22272" id="text236" style="stroke-width:1.00028">49</text>
 </g>
 <g id="FX_leftNumCirc_13" inkscape:label="FX_leftNumCirc_13">
-  <path d="m 282.26814,561.19544 c 0,-2.297 -1.862,-4.159 -4.158,-4.159 -2.297,0 -4.158,1.862 -4.158,4.159 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path237"/>
+  <path d="m 282.26814,561.19544 c 0,-2.297 -1.862,-4.159 -4.158,-4.159 -2.297,0 -4.158,1.862 -4.158,4.159 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path237"/>
   <path d="m 282.26814,561.19544 c 0,-2.297 -1.862,-4.159 -4.158,-4.159 -2.297,0 -4.158,1.862 -4.158,4.159 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path238"/>
   <text class="f0" x="274.77029" y="563.22272" id="text238" style="stroke-width:1.00028">13</text>
 </g>
 <g id="FX_rightNumCirc_50" inkscape:label="FX_rightNumCirc_50">
-  <path d="m 294.29614,571.21844 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path239"/>
+  <path d="m 294.29614,571.21844 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path239"/>
   <path d="m 294.29614,571.21844 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path240"/>
   <text class="f0" x="286.84943" y="573.24902" id="text240" style="stroke-width:1.00028">50</text>
 </g>
 <g id="FX_leftNumCirc_14" inkscape:label="FX_leftNumCirc_14">
-  <path d="m 282.26814,571.21844 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path241"/>
+  <path d="m 282.26814,571.21844 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path241"/>
   <path d="m 282.26814,571.21844 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path242"/>
   <text class="f0" x="274.66522" y="573.25757" id="text242" style="stroke-width:1.00028">14</text>
 </g>
 <g id="FX_rightNumCirc_51" inkscape:label="FX_rightNumCirc_51">
-  <path d="m 294.29614,581.24144 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path243"/>
+  <path d="m 294.29614,581.24144 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path243"/>
   <path d="m 294.29614,581.24144 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path244"/>
   <text class="f0" x="287.32654" y="583.24078" id="text244" style="stroke-width:1.00028">51</text>
 </g>
 <g id="FX_leftNumCirc_52" inkscape:label="FX_leftNumCirc_52">
-  <path d="m 282.26814,581.24144 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path245"/>
+  <path d="m 282.26814,581.24144 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path245"/>
   <path d="m 282.26814,581.24144 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path246"/>
   <text class="f0" x="274.82993" y="583.26917" id="text246" style="stroke-width:1.00028">52</text>
 </g>
 <g id="FX_rightNumCirc_52" inkscape:label="FX_rightNumCirc_52">
-  <path d="m 294.29614,591.26544 c 0,-2.297 -1.861,-4.159 -4.158,-4.159 -2.296,0 -4.158,1.862 -4.158,4.159 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path247"/>
+  <path d="m 294.29614,591.26544 c 0,-2.297 -1.861,-4.159 -4.158,-4.159 -2.296,0 -4.158,1.862 -4.158,4.159 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path247"/>
   <path d="m 294.29614,591.26544 c 0,-2.297 -1.861,-4.159 -4.158,-4.159 -2.296,0 -4.158,1.862 -4.158,4.159 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path248"/>
   <text class="f0" x="286.85794" y="593.29266" id="text248" style="stroke-width:1.00028">52</text>
 </g>
 <g id="FX_leftNumCirc_51" inkscape:label="FX_leftNumCirc_51">
-  <path d="m 282.26814,591.26544 c 0,-2.297 -1.862,-4.159 -4.158,-4.159 -2.297,0 -4.158,1.862 -4.158,4.159 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path249"/>
+  <path d="m 282.26814,591.26544 c 0,-2.297 -1.862,-4.159 -4.158,-4.159 -2.297,0 -4.158,1.862 -4.158,4.159 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path249"/>
   <path d="m 282.26814,591.26544 c 0,-2.297 -1.862,-4.159 -4.158,-4.159 -2.297,0 -4.158,1.862 -4.158,4.159 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path250"/>
   <text class="f0" x="275.29855" y="593.26428" id="text250" style="stroke-width:1.00028">51</text>
 </g>
 <g id="FX_rightNumCirc_53" inkscape:label="FX_rightNumCirc_53">
-  <path d="m 294.29614,601.28844 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path251"/>
+  <path d="m 294.29614,601.28844 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path251"/>
   <path d="m 294.29614,601.28844 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path252"/>
   <text class="f0" x="286.87213" y="603.31616" id="text252" style="stroke-width:1.00028">53</text>
 </g>
 <g id="FX_leftNumCirc_45" inkscape:label="FX_leftNumCirc_45">
-  <path d="m 282.26814,601.28844 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path253"/>
+  <path d="m 282.26814,601.28844 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path253"/>
   <path d="m 282.26814,601.28844 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path254"/>
   <text class="f0" x="274.96341" y="603.29913" id="text254" style="stroke-width:1.00028">45</text>
 </g>
 <g id="FX_rightNumCirc_54" inkscape:label="FX_rightNumCirc_54">
-  <path d="m 294.29614,611.31144 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path255"/>
+  <path d="m 294.29614,611.31144 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path255"/>
   <path d="m 294.29614,611.31144 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path256"/>
   <text class="f0" x="286.76706" y="613.32214" id="text256" style="stroke-width:1.00028">54</text>
 </g>
 <g id="FX_leftNumCirc_46" inkscape:label="FX_leftNumCirc_46">
-  <path d="m 282.26814,611.31144 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path257"/>
+  <path d="m 282.26814,611.31144 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path257"/>
   <path d="m 282.26814,611.31144 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path258"/>
   <text class="f0" x="274.93503" y="613.33917" id="text258" style="stroke-width:1.00028">46</text>
 </g>
 <g id="FX_rightNumCirc_55" inkscape:label="FX_rightNumCirc_55">
-  <path d="m 294.29614,621.33444 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159" fill="#ffffff" id="path259"/>
+  <path d="m 294.29614,621.33444 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159" fill="var(--paper)" id="path259"/>
   <path d="m 294.29614,621.33444 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path260"/>
   <text class="f0" x="286.87213" y="623.33429" id="text260" style="stroke-width:1.00028">55</text>
 </g>
 <g id="FX_leftNumCirc_20" inkscape:label="FX_leftNumCirc_20">
-  <path d="m 282.26814,621.33444 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159" fill="#ffffff" id="path261"/>
+  <path d="m 282.26814,621.33444 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159" fill="var(--paper)" id="path261"/>
   <path d="m 282.26814,621.33444 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path262"/>
   <text class="f0" x="274.86401" y="623.36554" id="text262" style="stroke-width:1.00028">20</text>
 </g>
 <g id="FX_rightNumCirc_56" inkscape:label="FX_rightNumCirc_56">
-  <path d="m 294.29614,631.35744 c 0,-2.296 -1.861,-4.157 -4.158,-4.157 -2.296,0 -4.158,1.861 -4.158,4.157 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159" fill="#ffffff" id="path263"/>
+  <path d="m 294.29614,631.35744 c 0,-2.296 -1.861,-4.157 -4.158,-4.157 -2.296,0 -4.158,1.861 -4.158,4.157 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159" fill="var(--paper)" id="path263"/>
   <path d="m 294.29614,631.35744 c 0,-2.296 -1.861,-4.157 -4.158,-4.157 -2.296,0 -4.158,1.861 -4.158,4.157 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path264"/>
   <text class="f0" x="286.84375" y="633.38617" id="text264" style="stroke-width:1.00028">56</text>
 </g>
 <g id="FX_leftNumCirc_19" inkscape:label="FX_leftNumCirc_19">
-  <path d="m 282.26814,631.35744 c 0,-2.296 -1.862,-4.157 -4.158,-4.157 -2.297,0 -4.158,1.861 -4.158,4.157 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159" fill="#ffffff" id="path265"/>
+  <path d="m 282.26814,631.35744 c 0,-2.296 -1.862,-4.157 -4.158,-4.157 -2.297,0 -4.158,1.861 -4.158,4.157 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159" fill="var(--paper)" id="path265"/>
   <path d="m 282.26814,631.35744 c 0,-2.296 -1.862,-4.157 -4.158,-4.157 -2.297,0 -4.158,1.861 -4.158,4.157 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path266"/>
   <text class="f0" x="274.7561" y="633.38617" id="text266" style="stroke-width:1.00028">19</text>
 </g>
 <g id="FX_rightNumCirc_57" inkscape:label="FX_rightNumCirc_57">
-  <path d="m 294.29614,641.38144 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path267"/>
+  <path d="m 294.29614,641.38144 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path267"/>
   <path d="m 294.29614,641.38144 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path268"/>
   <text class="f0" x="286.84943" y="643.3808" id="text268" style="stroke-width:1.00028">57</text>
 </g>
 <g id="FX_leftNumCirc_29" inkscape:label="FX_leftNumCirc_29">
-  <path d="m 282.26814,641.38144 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path269"/>
+  <path d="m 282.26814,641.38144 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path269"/>
   <path d="m 282.26814,641.38144 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path270"/>
   <text class="f0" x="274.87253" y="643.40918" id="text270" style="stroke-width:1.00028">29</text>
 </g>
 <g id="FX_rightNumCirc_58" inkscape:label="FX_rightNumCirc_58">
-  <path d="m 294.29614,651.40444 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159" fill="#ffffff" id="path271"/>
+  <path d="m 294.29614,651.40444 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159" fill="var(--paper)" id="path271"/>
   <path d="m 294.29614,651.40444 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path272"/>
   <text class="f0" x="286.85226" y="653.43268" id="text272" style="stroke-width:1.00028">58</text>
 </g>
 <g id="FX_leftNumCirc_30" inkscape:label="FX_leftNumCirc_30">
-  <path d="m 282.26814,651.40444 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159" fill="#ffffff" id="path273"/>
+  <path d="m 282.26814,651.40444 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159" fill="var(--paper)" id="path273"/>
   <path d="m 282.26814,651.40444 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path274"/>
   <text class="f0" x="274.87253" y="653.43555" id="text274" style="stroke-width:1.00028">30</text>
 </g>
 <g id="FX_rightNumCirc_59" inkscape:label="FX_rightNumCirc_59">
-  <path d="m 294.29614,661.42744 c 0,-2.296 -1.861,-4.157 -4.158,-4.157 -2.296,0 -4.158,1.861 -4.158,4.157 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159" fill="#ffffff" id="path275"/>
+  <path d="m 294.29614,661.42744 c 0,-2.296 -1.861,-4.157 -4.158,-4.157 -2.296,0 -4.158,1.861 -4.158,4.157 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159" fill="var(--paper)" id="path275"/>
   <path d="m 294.29614,661.42744 c 0,-2.296 -1.861,-4.157 -4.158,-4.157 -2.296,0 -4.158,1.861 -4.158,4.157 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path276"/>
   <text class="f0" x="286.85794" y="663.45618" id="text276" style="stroke-width:1.00028">59</text>
 </g>
 <g id="FX_leftNumCirc_36" inkscape:label="FX_leftNumCirc_36">
-  <path d="m 282.26814,661.42744 c 0,-2.296 -1.862,-4.157 -4.158,-4.157 -2.297,0 -4.158,1.861 -4.158,4.157 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159" fill="#ffffff" id="path277"/>
+  <path d="m 282.26814,661.42744 c 0,-2.296 -1.862,-4.157 -4.158,-4.157 -2.297,0 -4.158,1.861 -4.158,4.157 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159" fill="var(--paper)" id="path277"/>
   <path d="m 282.26814,661.42744 c 0,-2.296 -1.862,-4.157 -4.158,-4.157 -2.297,0 -4.158,1.861 -4.158,4.157 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path278"/>
   <text class="f0" x="274.86685" y="663.45618" id="text278" style="stroke-width:1.00028">36</text>
 </g>
 <g id="FX_rightNumCirc_60" inkscape:label="FX_rightNumCirc_60">
-  <path d="m 294.29614,671.45144 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path279"/>
+  <path d="m 294.29614,671.45144 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path279"/>
   <path d="m 294.29614,671.45144 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path280"/>
   <text class="f0" x="286.87213" y="673.48206" id="text280" style="stroke-width:1.00028">60</text>
 </g>
 <g id="FX_leftNumCirc_35" inkscape:label="FX_leftNumCirc_35">
-  <path d="m 282.26814,671.45144 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path281"/>
+  <path d="m 282.26814,671.45144 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path281"/>
   <path d="m 282.26814,671.45144 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path282"/>
   <text class="f0" x="274.89526" y="673.47919" id="text282" style="stroke-width:1.00028">35</text>
 </g>
 <g id="FX_rightNumCirc_61" inkscape:label="FX_rightNumCirc_61">
-  <path d="m 294.29614,681.47444 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path283"/>
+  <path d="m 294.29614,681.47444 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path283"/>
   <path d="m 294.29614,681.47444 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path284"/>
   <text class="f0" x="287.34927" y="683.5022" id="text284" style="stroke-width:1.00028">61</text>
 </g>
 <g id="FX_leftNumCirc_61" inkscape:label="FX_leftNumCirc_61">
-  <path d="m 282.26814,681.47444 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path285"/>
+  <path d="m 282.26814,681.47444 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path285"/>
   <path d="m 282.26814,681.47444 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path286"/>
   <text class="f0" x="275.32126" y="683.5022" id="text286" style="stroke-width:1.00028">61</text>
 </g>
 <g id="FX_rightNumCirc_62" inkscape:label="FX_rightNumCirc_62">
-  <path d="m 294.29614,691.49744 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159" fill="#ffffff" id="path287"/>
+  <path d="m 294.29614,691.49744 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159" fill="var(--paper)" id="path287"/>
   <path d="m 294.29614,691.49744 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.159 4.158,4.159 2.297,0 4.158,-1.862 4.158,-4.159 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path288"/>
   <text class="f0" x="286.88065" y="693.5257" id="text288" style="stroke-width:1.00028">62</text>
 </g>
 <g id="FX_leftNumCirc_62" inkscape:label="FX_leftNumCirc_62">
-  <path d="m 282.26814,691.49744 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159" fill="#ffffff" id="path289"/>
+  <path d="m 282.26814,691.49744 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159" fill="var(--paper)" id="path289"/>
   <path d="m 282.26814,691.49744 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.159 4.158,4.159 2.296,0 4.158,-1.862 4.158,-4.159 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path290"/>
   <text class="f0" x="274.85266" y="693.5257" id="text290" style="stroke-width:1.00028">62</text>
 </g>
 <g id="FX_rightNumCirc_63" inkscape:label="FX_rightNumCirc_63">
-  <path d="m 294.29614,701.52144 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path291"/>
+  <path d="m 294.29614,701.52144 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path291"/>
   <path d="m 294.29614,701.52144 c 0,-2.297 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.861 -4.158,4.158 0,2.296 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path292"/>
   <text class="f0" x="286.89487" y="703.54919" id="text292" style="stroke-width:1.00028">63</text>
 </g>
 <g id="FX_leftNumCirc_04" inkscape:label="FX_leftNumCirc_04">
-  <path d="m 282.26814,701.52144 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="#ffffff" id="path293"/>
+  <path d="m 282.26814,701.52144 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158" fill="var(--paper)" id="path293"/>
   <path d="m 282.26814,701.52144 c 0,-2.297 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.861 -4.158,4.158 0,2.296 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.862 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path294"/>
   <text class="f0" x="276.48282" y="703.56055" id="text294" style="stroke-width:1.00028">4</text>
 </g>
 <g id="FX_rightNumCirc_64" inkscape:label="FX_rightNumCirc_64">
-  <path d="m 294.29614,711.54444 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path295"/>
+  <path d="m 294.29614,711.54444 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path295"/>
   <path d="m 294.29614,711.54444 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path296"/>
   <text class="f0" x="286.78976" y="713.5722" id="text296" style="stroke-width:1.00028">64</text>
 </g>
 <g id="FX_leftNumCirc_03" inkscape:label="FX_leftNumCirc_03">
-  <path d="m 282.26814,711.54444 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="#ffffff" id="path297"/>
+  <path d="m 282.26814,711.54444 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path297"/>
   <path d="m 282.26814,711.54444 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path298"/>
   <text class="f0" x="276.51974" y="713.5722" id="text298" style="stroke-width:1.00028">3</text>
 </g>

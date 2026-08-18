@@ -32,31 +32,17 @@ body {
   font-family: var(--font-body); padding: 448px 24px 80px;
   display: flex; flex-direction: column; align-items: center;
 }
-h1 { font-family: var(--font-display); font-weight: 400; font-size: 1.9rem; margin: 0; text-wrap: balance; text-align: center; }
+h1 { font-family: var(--font-display); font-weight: 400; font-size: 1.9rem; margin: 0; text-wrap: balance; text-align: center; min-height: 2.4em; display: flex; align-items: center; justify-content: center; }
+
 
 :root { --page-w: min(4056px, 100%); --page-gap: 200px; --page-divider: 1px; }
-.page-columns { display: grid; grid-template-columns: 1fr auto 1fr; gap: var(--page-gap); align-items: start; width: var(--page-w); }
+.page-columns { display: grid; grid-template-columns: 1fr auto 0.825962fr; gap: var(--page-gap); align-items: start; width: var(--page-w); }
 .panel { display: flex; flex-direction: column; align-items: center; gap: 20px; min-width: 0; max-width: 100%; }
 .divider { width: var(--page-divider); align-self: stretch; background: var(--rule); }
-/* Single-panel pages have no grid siblings to size against, so without
-   this a lone FX/KW panel would fall back to the browser's intrinsic SVG
-   size instead of the same per-column width a combined page's panel gets
-   -- making the rendered scale jump between pages as you click "next".
-   This reproduces the exact width one grid column would resolve to. */
-.single-panel-wrap { width: calc((var(--page-w) - 2 * var(--page-gap) - var(--page-divider)) / 2); margin: 0 auto; }
 
 .spine-svg { width: 100%; height: auto; display: block; }
-.ribbon { stroke-width: 1; opacity: 1; }
-.ribbon-3132 { fill: var(--ink-faint); fill-opacity: 0.8; stroke: var(--ink-faint); }
-.ribbon-3334 { fill: var(--ink); fill-opacity: 0.8; stroke: var(--ink); }
-.pair-ellipse-3132 { fill: none; stroke: var(--ink-faint); stroke-width: 6; }
-.pair-ellipse-3334 { fill: none; stroke: var(--ink); stroke-width: 6; }
-.group-circle-3132 { fill: none; stroke: var(--ink-faint); stroke-width: 8; }
-.group-circle-3334 { fill: none; stroke: var(--ink); stroke-width: 8; }
-.num, .num-self { fill: var(--paper); stroke: var(--ink); stroke-width: 1.5; }
-.num-circle-hidden { fill: transparent; stroke: transparent; }
-.num-text, .num-self-text { font-family: var(--font-mono); font-weight: 400; font-size: 18.63px; fill: var(--ink); text-anchor: middle; dominant-baseline: central; }
-.rel-mark { fill: var(--ink-faint); }
+.spine-svg text.f0 { font-family: var(--font-mono); font-size: 5.68px; }
+
 
 .nav-row { width: 100%; display: flex; align-items: center; justify-content: center; gap: 32px; margin-top: 40px; }
 .next-link, .prev-link { display: inline-flex; align-items: center; justify-content: center; transition: transform 0.15s ease; }
@@ -80,378 +66,39 @@ h1 { font-family: var(--font-display); font-weight: 400; font-size: 1.9rem; marg
   color: var(--ink);
   background: var(--paper);
 }
+
 </style>
 
 <div class="page-columns">
 <div class="panel fx-panel">
-<svg class="spine-svg" viewBox="-583.22 -1.00 1218.44 2602.00" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Fu Xi spine">
-<path d="M -17.00 120.00 C -739.96 120.00, -739.96 2560.00, -17.00 2560.00 L 17.00 2560.00 L 17.44 2559.96 L 17.89 2559.83 L 18.33 2559.62 L 18.76 2559.32 L 19.19 2558.94 L 19.60 2558.48 L 20.01 2557.94 L 20.40 2557.32 L 20.78 2556.63 L 21.14 2555.87 L 21.48 2555.04 L 21.81 2554.14 L 22.11 2553.19 L 22.39 2552.18 L 22.65 2551.11 L 22.89 2550.00 L 23.10 2548.85 L 23.28 2547.65 L 23.44 2546.43 L 23.57 2545.18 L 23.67 2543.90 L 23.74 2542.61 L 23.79 2541.31 L 23.80 2540.00 L 23.79 2538.69 L 23.74 2537.39 L 23.67 2536.10 L 23.57 2534.82 L 23.44 2533.57 L 23.28 2532.35 L 23.10 2531.15 L 22.89 2530.00 L 22.65 2528.89 L 22.39 2527.82 L 22.11 2526.81 L 21.81 2525.86 L 21.48 2524.96 L 21.14 2524.13 L 20.78 2523.37 L 20.40 2522.68 L 20.01 2522.06 L 19.60 2521.52 L 19.19 2521.06 L 18.76 2520.68 L 18.33 2520.38 L 17.89 2520.17 L 17.44 2520.04 L 17.00 2520.00 L -17.00 2520.00 C -716.26 2520.00, -716.26 160.00, -17.00 160.00 L 17.00 160.00 L 17.44 159.96 L 17.89 159.83 L 18.33 159.62 L 18.76 159.32 L 19.19 158.94 L 19.60 158.48 L 20.01 157.94 L 20.40 157.32 L 20.78 156.63 L 21.14 155.87 L 21.48 155.04 L 21.81 154.14 L 22.11 153.19 L 22.39 152.18 L 22.65 151.11 L 22.89 150.00 L 23.10 148.85 L 23.28 147.65 L 23.44 146.43 L 23.57 145.18 L 23.67 143.90 L 23.74 142.61 L 23.79 141.31 L 23.80 140.00 L 23.79 138.69 L 23.74 137.39 L 23.67 136.10 L 23.57 134.82 L 23.44 133.57 L 23.28 132.35 L 23.10 131.15 L 22.89 130.00 L 22.65 128.89 L 22.39 127.82 L 22.11 126.81 L 21.81 125.86 L 21.48 124.96 L 21.14 124.13 L 20.78 123.37 L 20.40 122.68 L 20.01 122.06 L 19.60 121.52 L 19.19 121.06 L 18.76 120.68 L 18.33 120.38 L 17.89 120.17 L 17.44 120.04 L 17.00 120.00 Z" class="ribbon ribbon-3334"/>
-<path d="M 69.00 120.00 C 791.96 120.00, 791.96 2560.00, 69.00 2560.00 L 35.00 2560.00 L 34.56 2559.96 L 34.11 2559.83 L 33.67 2559.62 L 33.24 2559.32 L 32.81 2558.94 L 32.40 2558.48 L 31.99 2557.94 L 31.60 2557.32 L 31.22 2556.63 L 30.86 2555.87 L 30.52 2555.04 L 30.19 2554.14 L 29.89 2553.19 L 29.61 2552.18 L 29.35 2551.11 L 29.11 2550.00 L 28.90 2548.85 L 28.72 2547.65 L 28.56 2546.43 L 28.43 2545.18 L 28.33 2543.90 L 28.26 2542.61 L 28.21 2541.31 L 28.20 2540.00 L 28.21 2538.69 L 28.26 2537.39 L 28.33 2536.10 L 28.43 2534.82 L 28.56 2533.57 L 28.72 2532.35 L 28.90 2531.15 L 29.11 2530.00 L 29.35 2528.89 L 29.61 2527.82 L 29.89 2526.81 L 30.19 2525.86 L 30.52 2524.96 L 30.86 2524.13 L 31.22 2523.37 L 31.60 2522.68 L 31.99 2522.06 L 32.40 2521.52 L 32.81 2521.06 L 33.24 2520.68 L 33.67 2520.38 L 34.11 2520.17 L 34.56 2520.04 L 35.00 2520.00 L 69.00 2520.00 C 768.26 2520.00, 768.26 160.00, 69.00 160.00 L 35.00 160.00 L 34.56 159.96 L 34.11 159.83 L 33.67 159.62 L 33.24 159.32 L 32.81 158.94 L 32.40 158.48 L 31.99 157.94 L 31.60 157.32 L 31.22 156.63 L 30.86 155.87 L 30.52 155.04 L 30.19 154.14 L 29.89 153.19 L 29.61 152.18 L 29.35 151.11 L 29.11 150.00 L 28.90 148.85 L 28.72 147.65 L 28.56 146.43 L 28.43 145.18 L 28.33 143.90 L 28.26 142.61 L 28.21 141.31 L 28.20 140.00 L 28.21 138.69 L 28.26 137.39 L 28.33 136.10 L 28.43 134.82 L 28.56 133.57 L 28.72 132.35 L 28.90 131.15 L 29.11 130.00 L 29.35 128.89 L 29.61 127.82 L 29.89 126.81 L 30.19 125.86 L 30.52 124.96 L 30.86 124.13 L 31.22 123.37 L 31.60 122.68 L 31.99 122.06 L 32.40 121.52 L 32.81 121.06 L 33.24 120.68 L 33.67 120.38 L 34.11 120.17 L 34.56 120.04 L 35.00 120.00 Z" class="ribbon ribbon-3334"/>
-<path d="M -17.00 1080.00 C -171.07 1080.00, -171.07 1600.00, -17.00 1600.00 L 17.00 1600.00 L 17.44 1599.96 L 17.89 1599.83 L 18.33 1599.62 L 18.76 1599.32 L 19.19 1598.94 L 19.60 1598.48 L 20.01 1597.94 L 20.40 1597.32 L 20.78 1596.63 L 21.14 1595.87 L 21.48 1595.04 L 21.81 1594.14 L 22.11 1593.19 L 22.39 1592.18 L 22.65 1591.11 L 22.89 1590.00 L 23.10 1588.85 L 23.28 1587.65 L 23.44 1586.43 L 23.57 1585.18 L 23.67 1583.90 L 23.74 1582.61 L 23.79 1581.31 L 23.80 1580.00 L 23.79 1578.69 L 23.74 1577.39 L 23.67 1576.10 L 23.57 1574.82 L 23.44 1573.57 L 23.28 1572.35 L 23.10 1571.15 L 22.89 1570.00 L 22.65 1568.89 L 22.39 1567.82 L 22.11 1566.81 L 21.81 1565.86 L 21.48 1564.96 L 21.14 1564.13 L 20.78 1563.37 L 20.40 1562.68 L 20.01 1562.06 L 19.60 1561.52 L 19.19 1561.06 L 18.76 1560.68 L 18.33 1560.38 L 17.89 1560.17 L 17.44 1560.04 L 17.00 1560.00 L -17.00 1560.00 C -147.37 1560.00, -147.37 1120.00, -17.00 1120.00 L 17.00 1120.00 L 17.44 1119.96 L 17.89 1119.83 L 18.33 1119.62 L 18.76 1119.32 L 19.19 1118.94 L 19.60 1118.48 L 20.01 1117.94 L 20.40 1117.32 L 20.78 1116.63 L 21.14 1115.87 L 21.48 1115.04 L 21.81 1114.14 L 22.11 1113.19 L 22.39 1112.18 L 22.65 1111.11 L 22.89 1110.00 L 23.10 1108.85 L 23.28 1107.65 L 23.44 1106.43 L 23.57 1105.18 L 23.67 1103.90 L 23.74 1102.61 L 23.79 1101.31 L 23.80 1100.00 L 23.79 1098.69 L 23.74 1097.39 L 23.67 1096.10 L 23.57 1094.82 L 23.44 1093.57 L 23.28 1092.35 L 23.10 1091.15 L 22.89 1090.00 L 22.65 1088.89 L 22.39 1087.82 L 22.11 1086.81 L 21.81 1085.86 L 21.48 1084.96 L 21.14 1084.13 L 20.78 1083.37 L 20.40 1082.68 L 20.01 1082.06 L 19.60 1081.52 L 19.19 1081.06 L 18.76 1080.68 L 18.33 1080.38 L 17.89 1080.17 L 17.44 1080.04 L 17.00 1080.00 Z" class="ribbon ribbon-3334"/>
-<path d="M 69.00 1080.00 C 223.07 1080.00, 223.07 1600.00, 69.00 1600.00 L 35.00 1600.00 L 34.56 1599.96 L 34.11 1599.83 L 33.67 1599.62 L 33.24 1599.32 L 32.81 1598.94 L 32.40 1598.48 L 31.99 1597.94 L 31.60 1597.32 L 31.22 1596.63 L 30.86 1595.87 L 30.52 1595.04 L 30.19 1594.14 L 29.89 1593.19 L 29.61 1592.18 L 29.35 1591.11 L 29.11 1590.00 L 28.90 1588.85 L 28.72 1587.65 L 28.56 1586.43 L 28.43 1585.18 L 28.33 1583.90 L 28.26 1582.61 L 28.21 1581.31 L 28.20 1580.00 L 28.21 1578.69 L 28.26 1577.39 L 28.33 1576.10 L 28.43 1574.82 L 28.56 1573.57 L 28.72 1572.35 L 28.90 1571.15 L 29.11 1570.00 L 29.35 1568.89 L 29.61 1567.82 L 29.89 1566.81 L 30.19 1565.86 L 30.52 1564.96 L 30.86 1564.13 L 31.22 1563.37 L 31.60 1562.68 L 31.99 1562.06 L 32.40 1561.52 L 32.81 1561.06 L 33.24 1560.68 L 33.67 1560.38 L 34.11 1560.17 L 34.56 1560.04 L 35.00 1560.00 L 69.00 1560.00 C 199.37 1560.00, 199.37 1120.00, 69.00 1120.00 L 35.00 1120.00 L 34.56 1119.96 L 34.11 1119.83 L 33.67 1119.62 L 33.24 1119.32 L 32.81 1118.94 L 32.40 1118.48 L 31.99 1117.94 L 31.60 1117.32 L 31.22 1116.63 L 30.86 1115.87 L 30.52 1115.04 L 30.19 1114.14 L 29.89 1113.19 L 29.61 1112.18 L 29.35 1111.11 L 29.11 1110.00 L 28.90 1108.85 L 28.72 1107.65 L 28.56 1106.43 L 28.43 1105.18 L 28.33 1103.90 L 28.26 1102.61 L 28.21 1101.31 L 28.20 1100.00 L 28.21 1098.69 L 28.26 1097.39 L 28.33 1096.10 L 28.43 1094.82 L 28.56 1093.57 L 28.72 1092.35 L 28.90 1091.15 L 29.11 1090.00 L 29.35 1088.89 L 29.61 1087.82 L 29.89 1086.81 L 30.19 1085.86 L 30.52 1084.96 L 30.86 1084.13 L 31.22 1083.37 L 31.60 1082.68 L 31.99 1082.06 L 32.40 1081.52 L 32.81 1081.06 L 33.24 1080.68 L 33.67 1080.38 L 34.11 1080.17 L 34.56 1080.04 L 35.00 1080.00 Z" class="ribbon ribbon-3334"/>
-<path d="M -17.00 440.00 C -455.52 440.00, -455.52 1920.00, -17.00 1920.00 L 17.00 1920.00 L 17.44 1919.96 L 17.89 1919.83 L 18.33 1919.62 L 18.76 1919.32 L 19.19 1918.94 L 19.60 1918.48 L 20.01 1917.94 L 20.40 1917.32 L 20.78 1916.63 L 21.14 1915.87 L 21.48 1915.04 L 21.81 1914.14 L 22.11 1913.19 L 22.39 1912.18 L 22.65 1911.11 L 22.89 1910.00 L 23.10 1908.85 L 23.28 1907.65 L 23.44 1906.43 L 23.57 1905.18 L 23.67 1903.90 L 23.74 1902.61 L 23.79 1901.31 L 23.80 1900.00 L 23.79 1898.69 L 23.74 1897.39 L 23.67 1896.10 L 23.57 1894.82 L 23.44 1893.57 L 23.28 1892.35 L 23.10 1891.15 L 22.89 1890.00 L 22.65 1888.89 L 22.39 1887.82 L 22.11 1886.81 L 21.81 1885.86 L 21.48 1884.96 L 21.14 1884.13 L 20.78 1883.37 L 20.40 1882.68 L 20.01 1882.06 L 19.60 1881.52 L 19.19 1881.06 L 18.76 1880.68 L 18.33 1880.38 L 17.89 1880.17 L 17.44 1880.04 L 17.00 1880.00 L -17.00 1880.00 C -431.81 1880.00, -431.81 480.00, -17.00 480.00 L 17.00 480.00 L 17.44 479.96 L 17.89 479.83 L 18.33 479.62 L 18.76 479.32 L 19.19 478.94 L 19.60 478.48 L 20.01 477.94 L 20.40 477.32 L 20.78 476.63 L 21.14 475.87 L 21.48 475.04 L 21.81 474.14 L 22.11 473.19 L 22.39 472.18 L 22.65 471.11 L 22.89 470.00 L 23.10 468.85 L 23.28 467.65 L 23.44 466.43 L 23.57 465.18 L 23.67 463.90 L 23.74 462.61 L 23.79 461.31 L 23.80 460.00 L 23.79 458.69 L 23.74 457.39 L 23.67 456.10 L 23.57 454.82 L 23.44 453.57 L 23.28 452.35 L 23.10 451.15 L 22.89 450.00 L 22.65 448.89 L 22.39 447.82 L 22.11 446.81 L 21.81 445.86 L 21.48 444.96 L 21.14 444.13 L 20.78 443.37 L 20.40 442.68 L 20.01 442.06 L 19.60 441.52 L 19.19 441.06 L 18.76 440.68 L 18.33 440.38 L 17.89 440.17 L 17.44 440.04 L 17.00 440.00 Z" class="ribbon ribbon-3334"/>
-<path d="M 69.00 440.00 C 507.52 440.00, 507.52 1920.00, 69.00 1920.00 L 35.00 1920.00 L 34.56 1919.96 L 34.11 1919.83 L 33.67 1919.62 L 33.24 1919.32 L 32.81 1918.94 L 32.40 1918.48 L 31.99 1917.94 L 31.60 1917.32 L 31.22 1916.63 L 30.86 1915.87 L 30.52 1915.04 L 30.19 1914.14 L 29.89 1913.19 L 29.61 1912.18 L 29.35 1911.11 L 29.11 1910.00 L 28.90 1908.85 L 28.72 1907.65 L 28.56 1906.43 L 28.43 1905.18 L 28.33 1903.90 L 28.26 1902.61 L 28.21 1901.31 L 28.20 1900.00 L 28.21 1898.69 L 28.26 1897.39 L 28.33 1896.10 L 28.43 1894.82 L 28.56 1893.57 L 28.72 1892.35 L 28.90 1891.15 L 29.11 1890.00 L 29.35 1888.89 L 29.61 1887.82 L 29.89 1886.81 L 30.19 1885.86 L 30.52 1884.96 L 30.86 1884.13 L 31.22 1883.37 L 31.60 1882.68 L 31.99 1882.06 L 32.40 1881.52 L 32.81 1881.06 L 33.24 1880.68 L 33.67 1880.38 L 34.11 1880.17 L 34.56 1880.04 L 35.00 1880.00 L 69.00 1880.00 C 483.81 1880.00, 483.81 480.00, 69.00 480.00 L 35.00 480.00 L 34.56 479.96 L 34.11 479.83 L 33.67 479.62 L 33.24 479.32 L 32.81 478.94 L 32.40 478.48 L 31.99 477.94 L 31.60 477.32 L 31.22 476.63 L 30.86 475.87 L 30.52 475.04 L 30.19 474.14 L 29.89 473.19 L 29.61 472.18 L 29.35 471.11 L 29.11 470.00 L 28.90 468.85 L 28.72 467.65 L 28.56 466.43 L 28.43 465.18 L 28.33 463.90 L 28.26 462.61 L 28.21 461.31 L 28.20 460.00 L 28.21 458.69 L 28.26 457.39 L 28.33 456.10 L 28.43 454.82 L 28.56 453.57 L 28.72 452.35 L 28.90 451.15 L 29.11 450.00 L 29.35 448.89 L 29.61 447.82 L 29.89 446.81 L 30.19 445.86 L 30.52 444.96 L 30.86 444.13 L 31.22 443.37 L 31.60 442.68 L 31.99 442.06 L 32.40 441.52 L 32.81 441.06 L 33.24 440.68 L 33.67 440.38 L 34.11 440.17 L 34.56 440.04 L 35.00 440.00 Z" class="ribbon ribbon-3334"/>
-<path d="M -17.00 760.00 C -455.52 760.00, -455.52 2240.00, -17.00 2240.00 L 17.00 2240.00 L 17.44 2239.96 L 17.89 2239.83 L 18.33 2239.62 L 18.76 2239.32 L 19.19 2238.94 L 19.60 2238.48 L 20.01 2237.94 L 20.40 2237.32 L 20.78 2236.63 L 21.14 2235.87 L 21.48 2235.04 L 21.81 2234.14 L 22.11 2233.19 L 22.39 2232.18 L 22.65 2231.11 L 22.89 2230.00 L 23.10 2228.85 L 23.28 2227.65 L 23.44 2226.43 L 23.57 2225.18 L 23.67 2223.90 L 23.74 2222.61 L 23.79 2221.31 L 23.80 2220.00 L 23.79 2218.69 L 23.74 2217.39 L 23.67 2216.10 L 23.57 2214.82 L 23.44 2213.57 L 23.28 2212.35 L 23.10 2211.15 L 22.89 2210.00 L 22.65 2208.89 L 22.39 2207.82 L 22.11 2206.81 L 21.81 2205.86 L 21.48 2204.96 L 21.14 2204.13 L 20.78 2203.37 L 20.40 2202.68 L 20.01 2202.06 L 19.60 2201.52 L 19.19 2201.06 L 18.76 2200.68 L 18.33 2200.38 L 17.89 2200.17 L 17.44 2200.04 L 17.00 2200.00 L -17.00 2200.00 C -431.81 2200.00, -431.81 800.00, -17.00 800.00 L 17.00 800.00 L 17.44 799.96 L 17.89 799.83 L 18.33 799.62 L 18.76 799.32 L 19.19 798.94 L 19.60 798.48 L 20.01 797.94 L 20.40 797.32 L 20.78 796.63 L 21.14 795.87 L 21.48 795.04 L 21.81 794.14 L 22.11 793.19 L 22.39 792.18 L 22.65 791.11 L 22.89 790.00 L 23.10 788.85 L 23.28 787.65 L 23.44 786.43 L 23.57 785.18 L 23.67 783.90 L 23.74 782.61 L 23.79 781.31 L 23.80 780.00 L 23.79 778.69 L 23.74 777.39 L 23.67 776.10 L 23.57 774.82 L 23.44 773.57 L 23.28 772.35 L 23.10 771.15 L 22.89 770.00 L 22.65 768.89 L 22.39 767.82 L 22.11 766.81 L 21.81 765.86 L 21.48 764.96 L 21.14 764.13 L 20.78 763.37 L 20.40 762.68 L 20.01 762.06 L 19.60 761.52 L 19.19 761.06 L 18.76 760.68 L 18.33 760.38 L 17.89 760.17 L 17.44 760.04 L 17.00 760.00 Z" class="ribbon ribbon-3334"/>
-<path d="M 69.00 760.00 C 507.52 760.00, 507.52 2240.00, 69.00 2240.00 L 35.00 2240.00 L 34.56 2239.96 L 34.11 2239.83 L 33.67 2239.62 L 33.24 2239.32 L 32.81 2238.94 L 32.40 2238.48 L 31.99 2237.94 L 31.60 2237.32 L 31.22 2236.63 L 30.86 2235.87 L 30.52 2235.04 L 30.19 2234.14 L 29.89 2233.19 L 29.61 2232.18 L 29.35 2231.11 L 29.11 2230.00 L 28.90 2228.85 L 28.72 2227.65 L 28.56 2226.43 L 28.43 2225.18 L 28.33 2223.90 L 28.26 2222.61 L 28.21 2221.31 L 28.20 2220.00 L 28.21 2218.69 L 28.26 2217.39 L 28.33 2216.10 L 28.43 2214.82 L 28.56 2213.57 L 28.72 2212.35 L 28.90 2211.15 L 29.11 2210.00 L 29.35 2208.89 L 29.61 2207.82 L 29.89 2206.81 L 30.19 2205.86 L 30.52 2204.96 L 30.86 2204.13 L 31.22 2203.37 L 31.60 2202.68 L 31.99 2202.06 L 32.40 2201.52 L 32.81 2201.06 L 33.24 2200.68 L 33.67 2200.38 L 34.11 2200.17 L 34.56 2200.04 L 35.00 2200.00 L 69.00 2200.00 C 483.81 2200.00, 483.81 800.00, 69.00 800.00 L 35.00 800.00 L 34.56 799.96 L 34.11 799.83 L 33.67 799.62 L 33.24 799.32 L 32.81 798.94 L 32.40 798.48 L 31.99 797.94 L 31.60 797.32 L 31.22 796.63 L 30.86 795.87 L 30.52 795.04 L 30.19 794.14 L 29.89 793.19 L 29.61 792.18 L 29.35 791.11 L 29.11 790.00 L 28.90 788.85 L 28.72 787.65 L 28.56 786.43 L 28.43 785.18 L 28.33 783.90 L 28.26 782.61 L 28.21 781.31 L 28.20 780.00 L 28.21 778.69 L 28.26 777.39 L 28.33 776.10 L 28.43 774.82 L 28.56 773.57 L 28.72 772.35 L 28.90 771.15 L 29.11 770.00 L 29.35 768.89 L 29.61 767.82 L 29.89 766.81 L 30.19 765.86 L 30.52 764.96 L 30.86 764.13 L 31.22 763.37 L 31.60 762.68 L 31.99 762.06 L 32.40 761.52 L 32.81 761.06 L 33.24 760.68 L 33.67 760.38 L 34.11 760.17 L 34.56 760.04 L 35.00 760.00 Z" class="ribbon ribbon-3334"/>
-<path d="M -17.00 280.00 C -313.30 280.00, -313.30 1280.00, -17.00 1280.00 L 17.00 1280.00 L 17.44 1279.96 L 17.89 1279.83 L 18.33 1279.62 L 18.76 1279.32 L 19.19 1278.94 L 19.60 1278.48 L 20.01 1277.94 L 20.40 1277.32 L 20.78 1276.63 L 21.14 1275.87 L 21.48 1275.04 L 21.81 1274.14 L 22.11 1273.19 L 22.39 1272.18 L 22.65 1271.11 L 22.89 1270.00 L 23.10 1268.85 L 23.28 1267.65 L 23.44 1266.43 L 23.57 1265.18 L 23.67 1263.90 L 23.74 1262.61 L 23.79 1261.31 L 23.80 1260.00 L 23.79 1258.69 L 23.74 1257.39 L 23.67 1256.10 L 23.57 1254.82 L 23.44 1253.57 L 23.28 1252.35 L 23.10 1251.15 L 22.89 1250.00 L 22.65 1248.89 L 22.39 1247.82 L 22.11 1246.81 L 21.81 1245.86 L 21.48 1244.96 L 21.14 1244.13 L 20.78 1243.37 L 20.40 1242.68 L 20.01 1242.06 L 19.60 1241.52 L 19.19 1241.06 L 18.76 1240.68 L 18.33 1240.38 L 17.89 1240.17 L 17.44 1240.04 L 17.00 1240.00 L -17.00 1240.00 C -289.59 1240.00, -289.59 320.00, -17.00 320.00 L 17.00 320.00 L 17.44 319.96 L 17.89 319.83 L 18.33 319.62 L 18.76 319.32 L 19.19 318.94 L 19.60 318.48 L 20.01 317.94 L 20.40 317.32 L 20.78 316.63 L 21.14 315.87 L 21.48 315.04 L 21.81 314.14 L 22.11 313.19 L 22.39 312.18 L 22.65 311.11 L 22.89 310.00 L 23.10 308.85 L 23.28 307.65 L 23.44 306.43 L 23.57 305.18 L 23.67 303.90 L 23.74 302.61 L 23.79 301.31 L 23.80 300.00 L 23.79 298.69 L 23.74 297.39 L 23.67 296.10 L 23.57 294.82 L 23.44 293.57 L 23.28 292.35 L 23.10 291.15 L 22.89 290.00 L 22.65 288.89 L 22.39 287.82 L 22.11 286.81 L 21.81 285.86 L 21.48 284.96 L 21.14 284.13 L 20.78 283.37 L 20.40 282.68 L 20.01 282.06 L 19.60 281.52 L 19.19 281.06 L 18.76 280.68 L 18.33 280.38 L 17.89 280.17 L 17.44 280.04 L 17.00 280.00 Z" class="ribbon ribbon-3334"/>
-<path d="M 69.00 280.00 C 365.30 280.00, 365.30 1280.00, 69.00 1280.00 L 35.00 1280.00 L 34.56 1279.96 L 34.11 1279.83 L 33.67 1279.62 L 33.24 1279.32 L 32.81 1278.94 L 32.40 1278.48 L 31.99 1277.94 L 31.60 1277.32 L 31.22 1276.63 L 30.86 1275.87 L 30.52 1275.04 L 30.19 1274.14 L 29.89 1273.19 L 29.61 1272.18 L 29.35 1271.11 L 29.11 1270.00 L 28.90 1268.85 L 28.72 1267.65 L 28.56 1266.43 L 28.43 1265.18 L 28.33 1263.90 L 28.26 1262.61 L 28.21 1261.31 L 28.20 1260.00 L 28.21 1258.69 L 28.26 1257.39 L 28.33 1256.10 L 28.43 1254.82 L 28.56 1253.57 L 28.72 1252.35 L 28.90 1251.15 L 29.11 1250.00 L 29.35 1248.89 L 29.61 1247.82 L 29.89 1246.81 L 30.19 1245.86 L 30.52 1244.96 L 30.86 1244.13 L 31.22 1243.37 L 31.60 1242.68 L 31.99 1242.06 L 32.40 1241.52 L 32.81 1241.06 L 33.24 1240.68 L 33.67 1240.38 L 34.11 1240.17 L 34.56 1240.04 L 35.00 1240.00 L 69.00 1240.00 C 341.59 1240.00, 341.59 320.00, 69.00 320.00 L 35.00 320.00 L 34.56 319.96 L 34.11 319.83 L 33.67 319.62 L 33.24 319.32 L 32.81 318.94 L 32.40 318.48 L 31.99 317.94 L 31.60 317.32 L 31.22 316.63 L 30.86 315.87 L 30.52 315.04 L 30.19 314.14 L 29.89 313.19 L 29.61 312.18 L 29.35 311.11 L 29.11 310.00 L 28.90 308.85 L 28.72 307.65 L 28.56 306.43 L 28.43 305.18 L 28.33 303.90 L 28.26 302.61 L 28.21 301.31 L 28.20 300.00 L 28.21 298.69 L 28.26 297.39 L 28.33 296.10 L 28.43 294.82 L 28.56 293.57 L 28.72 292.35 L 28.90 291.15 L 29.11 290.00 L 29.35 288.89 L 29.61 287.82 L 29.89 286.81 L 30.19 285.86 L 30.52 284.96 L 30.86 284.13 L 31.22 283.37 L 31.60 282.68 L 31.99 282.06 L 32.40 281.52 L 32.81 281.06 L 33.24 280.68 L 33.67 280.38 L 34.11 280.17 L 34.56 280.04 L 35.00 280.00 Z" class="ribbon ribbon-3334"/>
-<path d="M -17.00 1400.00 C -313.30 1400.00, -313.30 2400.00, -17.00 2400.00 L 17.00 2400.00 L 17.44 2399.96 L 17.89 2399.83 L 18.33 2399.62 L 18.76 2399.32 L 19.19 2398.94 L 19.60 2398.48 L 20.01 2397.94 L 20.40 2397.32 L 20.78 2396.63 L 21.14 2395.87 L 21.48 2395.04 L 21.81 2394.14 L 22.11 2393.19 L 22.39 2392.18 L 22.65 2391.11 L 22.89 2390.00 L 23.10 2388.85 L 23.28 2387.65 L 23.44 2386.43 L 23.57 2385.18 L 23.67 2383.90 L 23.74 2382.61 L 23.79 2381.31 L 23.80 2380.00 L 23.79 2378.69 L 23.74 2377.39 L 23.67 2376.10 L 23.57 2374.82 L 23.44 2373.57 L 23.28 2372.35 L 23.10 2371.15 L 22.89 2370.00 L 22.65 2368.89 L 22.39 2367.82 L 22.11 2366.81 L 21.81 2365.86 L 21.48 2364.96 L 21.14 2364.13 L 20.78 2363.37 L 20.40 2362.68 L 20.01 2362.06 L 19.60 2361.52 L 19.19 2361.06 L 18.76 2360.68 L 18.33 2360.38 L 17.89 2360.17 L 17.44 2360.04 L 17.00 2360.00 L -17.00 2360.00 C -289.59 2360.00, -289.59 1440.00, -17.00 1440.00 L 17.00 1440.00 L 17.44 1439.96 L 17.89 1439.83 L 18.33 1439.62 L 18.76 1439.32 L 19.19 1438.94 L 19.60 1438.48 L 20.01 1437.94 L 20.40 1437.32 L 20.78 1436.63 L 21.14 1435.87 L 21.48 1435.04 L 21.81 1434.14 L 22.11 1433.19 L 22.39 1432.18 L 22.65 1431.11 L 22.89 1430.00 L 23.10 1428.85 L 23.28 1427.65 L 23.44 1426.43 L 23.57 1425.18 L 23.67 1423.90 L 23.74 1422.61 L 23.79 1421.31 L 23.80 1420.00 L 23.79 1418.69 L 23.74 1417.39 L 23.67 1416.10 L 23.57 1414.82 L 23.44 1413.57 L 23.28 1412.35 L 23.10 1411.15 L 22.89 1410.00 L 22.65 1408.89 L 22.39 1407.82 L 22.11 1406.81 L 21.81 1405.86 L 21.48 1404.96 L 21.14 1404.13 L 20.78 1403.37 L 20.40 1402.68 L 20.01 1402.06 L 19.60 1401.52 L 19.19 1401.06 L 18.76 1400.68 L 18.33 1400.38 L 17.89 1400.17 L 17.44 1400.04 L 17.00 1400.00 Z" class="ribbon ribbon-3334"/>
-<path d="M 69.00 1400.00 C 365.30 1400.00, 365.30 2400.00, 69.00 2400.00 L 35.00 2400.00 L 34.56 2399.96 L 34.11 2399.83 L 33.67 2399.62 L 33.24 2399.32 L 32.81 2398.94 L 32.40 2398.48 L 31.99 2397.94 L 31.60 2397.32 L 31.22 2396.63 L 30.86 2395.87 L 30.52 2395.04 L 30.19 2394.14 L 29.89 2393.19 L 29.61 2392.18 L 29.35 2391.11 L 29.11 2390.00 L 28.90 2388.85 L 28.72 2387.65 L 28.56 2386.43 L 28.43 2385.18 L 28.33 2383.90 L 28.26 2382.61 L 28.21 2381.31 L 28.20 2380.00 L 28.21 2378.69 L 28.26 2377.39 L 28.33 2376.10 L 28.43 2374.82 L 28.56 2373.57 L 28.72 2372.35 L 28.90 2371.15 L 29.11 2370.00 L 29.35 2368.89 L 29.61 2367.82 L 29.89 2366.81 L 30.19 2365.86 L 30.52 2364.96 L 30.86 2364.13 L 31.22 2363.37 L 31.60 2362.68 L 31.99 2362.06 L 32.40 2361.52 L 32.81 2361.06 L 33.24 2360.68 L 33.67 2360.38 L 34.11 2360.17 L 34.56 2360.04 L 35.00 2360.00 L 69.00 2360.00 C 341.59 2360.00, 341.59 1440.00, 69.00 1440.00 L 35.00 1440.00 L 34.56 1439.96 L 34.11 1439.83 L 33.67 1439.62 L 33.24 1439.32 L 32.81 1438.94 L 32.40 1438.48 L 31.99 1437.94 L 31.60 1437.32 L 31.22 1436.63 L 30.86 1435.87 L 30.52 1435.04 L 30.19 1434.14 L 29.89 1433.19 L 29.61 1432.18 L 29.35 1431.11 L 29.11 1430.00 L 28.90 1428.85 L 28.72 1427.65 L 28.56 1426.43 L 28.43 1425.18 L 28.33 1423.90 L 28.26 1422.61 L 28.21 1421.31 L 28.20 1420.00 L 28.21 1418.69 L 28.26 1417.39 L 28.33 1416.10 L 28.43 1414.82 L 28.56 1413.57 L 28.72 1412.35 L 28.90 1411.15 L 29.11 1410.00 L 29.35 1408.89 L 29.61 1407.82 L 29.89 1406.81 L 30.19 1405.86 L 30.52 1404.96 L 30.86 1404.13 L 31.22 1403.37 L 31.60 1402.68 L 31.99 1402.06 L 32.40 1401.52 L 32.81 1401.06 L 33.24 1400.68 L 33.67 1400.38 L 34.11 1400.17 L 34.56 1400.04 L 35.00 1400.00 Z" class="ribbon ribbon-3334"/>
-<ellipse cx="0.00" cy="620.00" rx="15.00" ry="20.00" class="pair-ellipse-3334"/>
-<ellipse cx="52.00" cy="620.00" rx="15.00" ry="20.00" class="pair-ellipse-3334"/>
-<ellipse cx="0.00" cy="940.00" rx="15.00" ry="20.00" class="pair-ellipse-3334"/>
-<ellipse cx="52.00" cy="940.00" rx="15.00" ry="20.00" class="pair-ellipse-3334"/>
-<ellipse cx="0.00" cy="1740.00" rx="15.00" ry="20.00" class="pair-ellipse-3334"/>
-<ellipse cx="52.00" cy="1740.00" rx="15.00" ry="20.00" class="pair-ellipse-3334"/>
-<ellipse cx="0.00" cy="2060.00" rx="15.00" ry="20.00" class="pair-ellipse-3334"/>
-<ellipse cx="52.00" cy="2060.00" rx="15.00" ry="20.00" class="pair-ellipse-3334"/>
-<circle cx="0.00" cy="40.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="40.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="80.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="80.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="120.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="120.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="160.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="160.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="200.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="200.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="240.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="240.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="280.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="280.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="320.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="320.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="360.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="360.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="400.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="400.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="440.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="440.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="480.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="480.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="520.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="520.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="560.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="560.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="600.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="600.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="640.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="640.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="680.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="680.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="720.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="720.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="760.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="760.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="800.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="800.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="840.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="840.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="880.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="880.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="920.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="920.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="960.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="960.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="1000.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1000.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="1040.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1040.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="1080.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1080.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="1120.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1120.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="1160.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1160.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="1200.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1200.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="1240.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1240.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="1280.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1280.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="1320.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1320.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="1360.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1360.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="1400.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1400.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="1440.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1440.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="1480.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1480.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="1520.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1520.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="1560.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1560.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="1600.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1600.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="1640.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1640.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="1680.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1680.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="1720.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1720.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="1760.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1760.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="1800.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1800.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="1840.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1840.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="1880.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1880.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="1920.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1920.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="1960.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1960.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="2000.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="2000.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="2040.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="2040.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="2080.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="2080.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="2120.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="2120.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="2160.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="2160.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="2200.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="2200.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="2240.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="2240.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="2280.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="2280.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="2320.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="2320.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="2360.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="2360.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="2400.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="2400.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="2440.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="2440.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="2480.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="2480.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="2520.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="2520.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="0.00" cy="2560.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="2560.00" r="17.00" class="num-circle-hidden"/>
+<svg class="spine-svg" viewBox="110 65 348 661" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Fu Xi body schema, line 1 not equal to line 6 groups, no hexagram numbers">
+<g id="g8" inkscape:label="FX{51,52}" style="fill:none;stroke:var(--ink);stroke-opacity:1;stroke-width:1.2285;stroke-dasharray:none"><path d="m 278.908,591.896 c -5.011,0 -5.011,-10.023 0,-10.023 5.012,0 5.012,10.023 0,10.023" stroke="var(--ink)" fill="none" stroke-width="1.23651" stroke-miterlimit="10" stroke-linejoin="round" id="path16" style="fill:none;stroke:var(--ink);stroke-opacity:1;stroke-width:1.2285;stroke-dasharray:none"/><path d="m 288.932,591.896 c 5.011,0 5.011,-10.023 0,-10.023 -5.012,0 -5.012,10.023 0,10.023" stroke="var(--ink)" fill="none" stroke-width="1.23651" stroke-miterlimit="10" stroke-linejoin="round" id="path18" style="fill:none;stroke:var(--ink);stroke-opacity:1;stroke-width:1.2285;stroke-dasharray:none"/></g>
+<g id="g6" inkscape:label="FX{43,44}" style="fill:none;stroke:var(--ink);stroke-opacity:1;stroke-width:1.2285;stroke-dasharray:none"><path d="m 278.908,511.71 c -5.011,0 -5.011,-10.024 0,-10.024 5.012,0 5.012,10.024 0,10.024" stroke="var(--ink)" fill="none" stroke-width="1.23651" stroke-miterlimit="10" stroke-linejoin="round" id="path20" style="fill:none;stroke:var(--ink);stroke-opacity:1;stroke-width:1.2285;stroke-dasharray:none"/><path d="m 288.932,511.71 c 5.011,0 5.011,-10.024 0,-10.024 -5.012,0 -5.012,10.024 0,10.024" stroke="var(--ink)" fill="none" stroke-width="1.23651" stroke-miterlimit="10" stroke-linejoin="round" id="path22" style="fill:none;stroke:var(--ink);stroke-opacity:1;stroke-width:1.2285;stroke-dasharray:none"/></g>
+<g id="g2" inkscape:label="FX{23,24}"><path d="m 278.908,301.22 c -5.011,0 -5.011,10.024 0,10.024 5.012,0 5.012,-10.024 0,-10.024" stroke="var(--ink)" fill="none" stroke-width="1.23651" stroke-miterlimit="10" stroke-linejoin="round" id="path32" style="fill:none;stroke:var(--ink);stroke-opacity:1"/><path d="m 288.932,301.22 c 5.011,0 5.011,10.024 0,10.024 -5.012,0 -5.012,-10.024 0,-10.024" stroke="var(--ink)" fill="none" stroke-width="1.23651" stroke-miterlimit="10" stroke-linejoin="round" id="path34" style="fill:none;stroke:var(--ink);stroke-opacity:1"/></g>
+<g id="FX_15_16" inkscape:label="FX{15,16}" style="fill:none;stroke:var(--ink);stroke-opacity:1;stroke-width:1.2285;stroke-dasharray:none"><path d="m 278.908,221.034 c -5.011,0 -5.011,10.023 0,10.023 5.012,0 5.012,-10.023 0,-10.023" stroke="var(--ink)" fill="none" stroke-width="1.23651" stroke-miterlimit="10" stroke-linejoin="round" id="path36" style="fill:none;stroke:var(--ink);stroke-opacity:1;stroke-width:1.2285;stroke-dasharray:none"/><path d="m 288.932,221.034 c 5.011,0 5.011,10.023 0,10.023 -5.012,0 -5.012,-10.023 0,-10.023" stroke="var(--ink)" fill="none" stroke-width="1.23651" stroke-miterlimit="10" stroke-linejoin="round" id="path38" style="fill:none;stroke:var(--ink);stroke-opacity:1;stroke-width:1.2285;stroke-dasharray:none"/></g>
+<g id="g5" inkscape:label="FX{35,36,59,60}" style="fill:var(--ink);fill-opacity:1;stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none"><path d="m 288.932,421.5 c 80.186,0 80.186,250.582 0,250.582 -5.012,0 -5.012,-10.023 0,-10.023 75.174,0 75.174,-230.536 0,-230.536 -5.012,0 -5.012,-10.023 0,-10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path26" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;fill-opacity:1;stroke-width:1.0;stroke-dasharray:none"/><path d="m 278.908,421.5 c -80.186,0 -80.186,250.582 0,250.582 5.012,0 5.012,-10.023 0,-10.023 -75.174,0 -75.174,-230.536 0,-230.536 5.012,0 5.012,-10.023 0,-10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path62" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;fill-opacity:1;stroke-width:1.0;stroke-dasharray:none"/></g>
+<g id="FX_19_20_55_56" inkscape:label="FX{19,20,55,56}" style="fill:var(--ink);fill-opacity:1;stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none"><path d="m 288.932,261.127 c 120.279,0 120.279,370.862 0,370.862 -5.012,0 -5.012,-10.023 0,-10.023 115.268,0 115.268,-350.816 0,-350.816 -5.012,0 -5.012,-10.023 0,-10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path46" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;fill-opacity:1;stroke-width:1.0;stroke-dasharray:none"/><path d="m 278.908,261.127 c -120.279,0 -120.279,370.862 0,370.862 5.012,0 5.012,-10.023 0,-10.023 -115.268,0 -115.268,-350.816 0,-350.816 5.012,0 5.012,-10.023 0,-10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path66" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;fill-opacity:1;stroke-width:1.0;stroke-dasharray:none"/></g>
+<g id="FX_11_12_47_48" inkscape:label="FX{11,12,47,48}" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none;fill-opacity:0.8"><path d="m 288.932,180.941 c 120.279,0 120.279,370.862 0,370.862 -5.012,0 -5.012,-10.023 0,-10.023 115.268,0 115.268,-350.816 0,-350.816 -5.012,0 -5.012,-10.023 0,-10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path42" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none;fill-opacity:0.8"/><path d="m 278.908,180.941 c -120.279,0 -120.279,370.862 0,370.862 5.012,0 5.012,-10.023 0,-10.023 -115.268,0 -115.268,-350.816 0,-350.816 5.012,0 5.012,-10.023 0,-10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path70" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none;fill-opacity:0.8"/></g>
+<g id="FX_7_8_31_32" inkscape:label="FX{7,8,31,32}" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none;fill-opacity:0.8"><path d="m 288.932,140.848 c 80.186,0 80.186,250.582 0,250.582 -5.012,0 -5.012,-10.023 0,-10.023 75.174,0 75.174,-230.536 0,-230.536 -5.012,0 -5.012,-10.023 0,-10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path50" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none;fill-opacity:0.8"/><path d="m 278.908,140.848 c -80.186,0 -80.186,250.582 0,250.582 5.012,0 5.012,-10.023 0,-10.023 -75.174,0 -75.174,-230.536 0,-230.536 5.012,0 5.012,-10.023 0,-10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path76" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none;fill-opacity:0.8"/></g>
+<g id="FX_3_4_63_64" inkscape:label="FX{3,4,63,64}" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none;fill-opacity:0.8"><path d="m 288.932,712.176 c 210.489,0 210.489,-611.422 0,-611.422 -5.012,0 -5.012,10.024 0,10.024 205.477,0 205.477,591.374 0,591.374 -5.012,0 -5.012,10.024 0,10.024" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path54" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none;fill-opacity:0.8"/><path d="m 278.908,712.176 c -210.4889,0 -210.4889,-611.422 0,-611.422 5.012,0 5.012,10.024 0,10.024 -205.4775,0 -205.4775,591.374 0,591.374 5.012,0 5.012,10.024 0,10.024" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path80" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none;fill-opacity:0.8"/></g>
+<g id="g3" inkscape:label="FX{27,28,39,40}" style="fill:var(--ink);fill-opacity:1;stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none"><path d="m 288.932,471.616 c 46.107,0 46.107,-130.302 0,-130.302 -5.012,0 -5.012,10.023 0,10.023 41.095,0 41.095,110.256 0,110.256 -5.012,0 -5.012,10.023 0,10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path60" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;fill-opacity:1;stroke-width:1.0;stroke-dasharray:none"/><path d="m 278.908,471.616 c -46.107,0 -46.107,-130.302 0,-130.302 5.012,0 5.012,10.023 0,10.023 -41.095,0 -41.095,110.256 0,110.256 5.012,0 5.012,10.023 0,10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path84" style="fill:var(--ink);stroke:var(--ink);stroke-opacity:1;fill-opacity:1;stroke-width:1.0;stroke-dasharray:none"/></g>
 </svg>
 <div class="name-tag">Fu Xi</div>
 <h1>line 1 ≠ line 6</h1>
 </div>
 <div class="divider"></div>
 <div class="panel kw-panel">
-<svg class="spine-svg" viewBox="-583.22 -1.00 1218.44 2602.00" preserveAspectRatio="xMidYMid meet" role="img" aria-label="King Wen spine">
-<path d="M -17.00 2480.00 C -574.04 2480.00, -574.04 600.00, -17.00 600.00 L 17.00 600.00 L 17.44 600.04 L 17.89 600.17 L 18.33 600.38 L 18.76 600.68 L 19.19 601.06 L 19.60 601.52 L 20.01 602.06 L 20.40 602.68 L 20.78 603.37 L 21.14 604.13 L 21.48 604.96 L 21.81 605.86 L 22.11 606.81 L 22.39 607.82 L 22.65 608.89 L 22.89 610.00 L 23.10 611.15 L 23.28 612.35 L 23.44 613.57 L 23.57 614.82 L 23.67 616.10 L 23.74 617.39 L 23.79 618.69 L 23.80 620.00 L 23.79 621.31 L 23.74 622.61 L 23.67 623.90 L 23.57 625.18 L 23.44 626.43 L 23.28 627.65 L 23.10 628.85 L 22.89 630.00 L 22.65 631.11 L 22.39 632.18 L 22.11 633.19 L 21.81 634.14 L 21.48 635.04 L 21.14 635.87 L 20.78 636.63 L 20.40 637.32 L 20.01 637.94 L 19.60 638.48 L 19.19 638.94 L 18.76 639.32 L 18.33 639.62 L 17.89 639.83 L 17.44 639.96 L 17.00 640.00 L -17.00 640.00 C -550.33 640.00, -550.33 2440.00, -17.00 2440.00 L 17.00 2440.00 L 17.44 2440.04 L 17.89 2440.17 L 18.33 2440.38 L 18.76 2440.68 L 19.19 2441.06 L 19.60 2441.52 L 20.01 2442.06 L 20.40 2442.68 L 20.78 2443.37 L 21.14 2444.13 L 21.48 2444.96 L 21.81 2445.86 L 22.11 2446.81 L 22.39 2447.82 L 22.65 2448.89 L 22.89 2450.00 L 23.10 2451.15 L 23.28 2452.35 L 23.44 2453.57 L 23.57 2454.82 L 23.67 2456.10 L 23.74 2457.39 L 23.79 2458.69 L 23.80 2460.00 L 23.79 2461.31 L 23.74 2462.61 L 23.67 2463.90 L 23.57 2465.18 L 23.44 2466.43 L 23.28 2467.65 L 23.10 2468.85 L 22.89 2470.00 L 22.65 2471.11 L 22.39 2472.18 L 22.11 2473.19 L 21.81 2474.14 L 21.48 2475.04 L 21.14 2475.87 L 20.78 2476.63 L 20.40 2477.32 L 20.01 2477.94 L 19.60 2478.48 L 19.19 2478.94 L 18.76 2479.32 L 18.33 2479.62 L 17.89 2479.83 L 17.44 2479.96 L 17.00 2480.00 Z" class="ribbon ribbon-3334"/>
-<path d="M 69.00 2480.00 C 626.04 2480.00, 626.04 600.00, 69.00 600.00 L 35.00 600.00 L 34.56 600.04 L 34.11 600.17 L 33.67 600.38 L 33.24 600.68 L 32.81 601.06 L 32.40 601.52 L 31.99 602.06 L 31.60 602.68 L 31.22 603.37 L 30.86 604.13 L 30.52 604.96 L 30.19 605.86 L 29.89 606.81 L 29.61 607.82 L 29.35 608.89 L 29.11 610.00 L 28.90 611.15 L 28.72 612.35 L 28.56 613.57 L 28.43 614.82 L 28.33 616.10 L 28.26 617.39 L 28.21 618.69 L 28.20 620.00 L 28.21 621.31 L 28.26 622.61 L 28.33 623.90 L 28.43 625.18 L 28.56 626.43 L 28.72 627.65 L 28.90 628.85 L 29.11 630.00 L 29.35 631.11 L 29.61 632.18 L 29.89 633.19 L 30.19 634.14 L 30.52 635.04 L 30.86 635.87 L 31.22 636.63 L 31.60 637.32 L 31.99 637.94 L 32.40 638.48 L 32.81 638.94 L 33.24 639.32 L 33.67 639.62 L 34.11 639.83 L 34.56 639.96 L 35.00 640.00 L 69.00 640.00 C 602.33 640.00, 602.33 2440.00, 69.00 2440.00 L 35.00 2440.00 L 34.56 2440.04 L 34.11 2440.17 L 33.67 2440.38 L 33.24 2440.68 L 32.81 2441.06 L 32.40 2441.52 L 31.99 2442.06 L 31.60 2442.68 L 31.22 2443.37 L 30.86 2444.13 L 30.52 2444.96 L 30.19 2445.86 L 29.89 2446.81 L 29.61 2447.82 L 29.35 2448.89 L 29.11 2450.00 L 28.90 2451.15 L 28.72 2452.35 L 28.56 2453.57 L 28.43 2454.82 L 28.33 2456.10 L 28.26 2457.39 L 28.21 2458.69 L 28.20 2460.00 L 28.21 2461.31 L 28.26 2462.61 L 28.33 2463.90 L 28.43 2465.18 L 28.56 2466.43 L 28.72 2467.65 L 28.90 2468.85 L 29.11 2470.00 L 29.35 2471.11 L 29.61 2472.18 L 29.89 2473.19 L 30.19 2474.14 L 30.52 2475.04 L 30.86 2475.87 L 31.22 2476.63 L 31.60 2477.32 L 31.99 2477.94 L 32.40 2478.48 L 32.81 2478.94 L 33.24 2479.32 L 33.67 2479.62 L 34.11 2479.83 L 34.56 2479.96 L 35.00 2480.00 Z" class="ribbon ribbon-3334"/>
-<path d="M -17.00 2400.00 C -384.41 2400.00, -384.41 1160.00, -17.00 1160.00 L 17.00 1160.00 L 17.44 1160.04 L 17.89 1160.17 L 18.33 1160.38 L 18.76 1160.68 L 19.19 1161.06 L 19.60 1161.52 L 20.01 1162.06 L 20.40 1162.68 L 20.78 1163.37 L 21.14 1164.13 L 21.48 1164.96 L 21.81 1165.86 L 22.11 1166.81 L 22.39 1167.82 L 22.65 1168.89 L 22.89 1170.00 L 23.10 1171.15 L 23.28 1172.35 L 23.44 1173.57 L 23.57 1174.82 L 23.67 1176.10 L 23.74 1177.39 L 23.79 1178.69 L 23.80 1180.00 L 23.79 1181.31 L 23.74 1182.61 L 23.67 1183.90 L 23.57 1185.18 L 23.44 1186.43 L 23.28 1187.65 L 23.10 1188.85 L 22.89 1190.00 L 22.65 1191.11 L 22.39 1192.18 L 22.11 1193.19 L 21.81 1194.14 L 21.48 1195.04 L 21.14 1195.87 L 20.78 1196.63 L 20.40 1197.32 L 20.01 1197.94 L 19.60 1198.48 L 19.19 1198.94 L 18.76 1199.32 L 18.33 1199.62 L 17.89 1199.83 L 17.44 1199.96 L 17.00 1200.00 L -17.00 1200.00 C -360.70 1200.00, -360.70 2360.00, -17.00 2360.00 L 17.00 2360.00 L 17.44 2360.04 L 17.89 2360.17 L 18.33 2360.38 L 18.76 2360.68 L 19.19 2361.06 L 19.60 2361.52 L 20.01 2362.06 L 20.40 2362.68 L 20.78 2363.37 L 21.14 2364.13 L 21.48 2364.96 L 21.81 2365.86 L 22.11 2366.81 L 22.39 2367.82 L 22.65 2368.89 L 22.89 2370.00 L 23.10 2371.15 L 23.28 2372.35 L 23.44 2373.57 L 23.57 2374.82 L 23.67 2376.10 L 23.74 2377.39 L 23.79 2378.69 L 23.80 2380.00 L 23.79 2381.31 L 23.74 2382.61 L 23.67 2383.90 L 23.57 2385.18 L 23.44 2386.43 L 23.28 2387.65 L 23.10 2388.85 L 22.89 2390.00 L 22.65 2391.11 L 22.39 2392.18 L 22.11 2393.19 L 21.81 2394.14 L 21.48 2395.04 L 21.14 2395.87 L 20.78 2396.63 L 20.40 2397.32 L 20.01 2397.94 L 19.60 2398.48 L 19.19 2398.94 L 18.76 2399.32 L 18.33 2399.62 L 17.89 2399.83 L 17.44 2399.96 L 17.00 2400.00 Z" class="ribbon ribbon-3334"/>
-<path d="M 69.00 2400.00 C 436.41 2400.00, 436.41 1160.00, 69.00 1160.00 L 35.00 1160.00 L 34.56 1160.04 L 34.11 1160.17 L 33.67 1160.38 L 33.24 1160.68 L 32.81 1161.06 L 32.40 1161.52 L 31.99 1162.06 L 31.60 1162.68 L 31.22 1163.37 L 30.86 1164.13 L 30.52 1164.96 L 30.19 1165.86 L 29.89 1166.81 L 29.61 1167.82 L 29.35 1168.89 L 29.11 1170.00 L 28.90 1171.15 L 28.72 1172.35 L 28.56 1173.57 L 28.43 1174.82 L 28.33 1176.10 L 28.26 1177.39 L 28.21 1178.69 L 28.20 1180.00 L 28.21 1181.31 L 28.26 1182.61 L 28.33 1183.90 L 28.43 1185.18 L 28.56 1186.43 L 28.72 1187.65 L 28.90 1188.85 L 29.11 1190.00 L 29.35 1191.11 L 29.61 1192.18 L 29.89 1193.19 L 30.19 1194.14 L 30.52 1195.04 L 30.86 1195.87 L 31.22 1196.63 L 31.60 1197.32 L 31.99 1197.94 L 32.40 1198.48 L 32.81 1198.94 L 33.24 1199.32 L 33.67 1199.62 L 34.11 1199.83 L 34.56 1199.96 L 35.00 1200.00 L 69.00 1200.00 C 412.70 1200.00, 412.70 2360.00, 69.00 2360.00 L 35.00 2360.00 L 34.56 2360.04 L 34.11 2360.17 L 33.67 2360.38 L 33.24 2360.68 L 32.81 2361.06 L 32.40 2361.52 L 31.99 2362.06 L 31.60 2362.68 L 31.22 2363.37 L 30.86 2364.13 L 30.52 2364.96 L 30.19 2365.86 L 29.89 2366.81 L 29.61 2367.82 L 29.35 2368.89 L 29.11 2370.00 L 28.90 2371.15 L 28.72 2372.35 L 28.56 2373.57 L 28.43 2374.82 L 28.33 2376.10 L 28.26 2377.39 L 28.21 2378.69 L 28.20 2380.00 L 28.21 2381.31 L 28.26 2382.61 L 28.33 2383.90 L 28.43 2385.18 L 28.56 2386.43 L 28.72 2387.65 L 28.90 2388.85 L 29.11 2390.00 L 29.35 2391.11 L 29.61 2392.18 L 29.89 2393.19 L 30.19 2394.14 L 30.52 2395.04 L 30.86 2395.87 L 31.22 2396.63 L 31.60 2397.32 L 31.99 2397.94 L 32.40 2398.48 L 32.81 2398.94 L 33.24 2399.32 L 33.67 2399.62 L 34.11 2399.83 L 34.56 2399.96 L 35.00 2400.00 Z" class="ribbon ribbon-3334"/>
-<path d="M -17.00 1840.00 C -182.93 1840.00, -182.93 1280.00, -17.00 1280.00 L 17.00 1280.00 L 17.44 1279.96 L 17.89 1279.83 L 18.33 1279.62 L 18.76 1279.32 L 19.19 1278.94 L 19.60 1278.48 L 20.01 1277.94 L 20.40 1277.32 L 20.78 1276.63 L 21.14 1275.87 L 21.48 1275.04 L 21.81 1274.14 L 22.11 1273.19 L 22.39 1272.18 L 22.65 1271.11 L 22.89 1270.00 L 23.10 1268.85 L 23.28 1267.65 L 23.44 1266.43 L 23.57 1265.18 L 23.67 1263.90 L 23.74 1262.61 L 23.79 1261.31 L 23.80 1260.00 L 23.79 1258.69 L 23.74 1257.39 L 23.67 1256.10 L 23.57 1254.82 L 23.44 1253.57 L 23.28 1252.35 L 23.10 1251.15 L 22.89 1250.00 L 22.65 1248.89 L 22.39 1247.82 L 22.11 1246.81 L 21.81 1245.86 L 21.48 1244.96 L 21.14 1244.13 L 20.78 1243.37 L 20.40 1242.68 L 20.01 1242.06 L 19.60 1241.52 L 19.19 1241.06 L 18.76 1240.68 L 18.33 1240.38 L 17.89 1240.17 L 17.44 1240.04 L 17.00 1240.00 L -17.00 1240.00 C -182.93 1240.00, -182.93 1800.00, -17.00 1800.00 L 17.00 1800.00 L 17.44 1800.04 L 17.89 1800.17 L 18.33 1800.38 L 18.76 1800.68 L 19.19 1801.06 L 19.60 1801.52 L 20.01 1802.06 L 20.40 1802.68 L 20.78 1803.37 L 21.14 1804.13 L 21.48 1804.96 L 21.81 1805.86 L 22.11 1806.81 L 22.39 1807.82 L 22.65 1808.89 L 22.89 1810.00 L 23.10 1811.15 L 23.28 1812.35 L 23.44 1813.57 L 23.57 1814.82 L 23.67 1816.10 L 23.74 1817.39 L 23.79 1818.69 L 23.80 1820.00 L 23.79 1821.31 L 23.74 1822.61 L 23.67 1823.90 L 23.57 1825.18 L 23.44 1826.43 L 23.28 1827.65 L 23.10 1828.85 L 22.89 1830.00 L 22.65 1831.11 L 22.39 1832.18 L 22.11 1833.19 L 21.81 1834.14 L 21.48 1835.04 L 21.14 1835.87 L 20.78 1836.63 L 20.40 1837.32 L 20.01 1837.94 L 19.60 1838.48 L 19.19 1838.94 L 18.76 1839.32 L 18.33 1839.62 L 17.89 1839.83 L 17.44 1839.96 L 17.00 1840.00 Z" class="ribbon ribbon-3334"/>
-<path d="M 69.00 1840.00 C 234.93 1840.00, 234.93 1280.00, 69.00 1280.00 L 35.00 1280.00 L 34.56 1279.96 L 34.11 1279.83 L 33.67 1279.62 L 33.24 1279.32 L 32.81 1278.94 L 32.40 1278.48 L 31.99 1277.94 L 31.60 1277.32 L 31.22 1276.63 L 30.86 1275.87 L 30.52 1275.04 L 30.19 1274.14 L 29.89 1273.19 L 29.61 1272.18 L 29.35 1271.11 L 29.11 1270.00 L 28.90 1268.85 L 28.72 1267.65 L 28.56 1266.43 L 28.43 1265.18 L 28.33 1263.90 L 28.26 1262.61 L 28.21 1261.31 L 28.20 1260.00 L 28.21 1258.69 L 28.26 1257.39 L 28.33 1256.10 L 28.43 1254.82 L 28.56 1253.57 L 28.72 1252.35 L 28.90 1251.15 L 29.11 1250.00 L 29.35 1248.89 L 29.61 1247.82 L 29.89 1246.81 L 30.19 1245.86 L 30.52 1244.96 L 30.86 1244.13 L 31.22 1243.37 L 31.60 1242.68 L 31.99 1242.06 L 32.40 1241.52 L 32.81 1241.06 L 33.24 1240.68 L 33.67 1240.38 L 34.11 1240.17 L 34.56 1240.04 L 35.00 1240.00 L 69.00 1240.00 C 234.93 1240.00, 234.93 1800.00, 69.00 1800.00 L 35.00 1800.00 L 34.56 1800.04 L 34.11 1800.17 L 33.67 1800.38 L 33.24 1800.68 L 32.81 1801.06 L 32.40 1801.52 L 31.99 1802.06 L 31.60 1802.68 L 31.22 1803.37 L 30.86 1804.13 L 30.52 1804.96 L 30.19 1805.86 L 29.89 1806.81 L 29.61 1807.82 L 29.35 1808.89 L 29.11 1810.00 L 28.90 1811.15 L 28.72 1812.35 L 28.56 1813.57 L 28.43 1814.82 L 28.33 1816.10 L 28.26 1817.39 L 28.21 1818.69 L 28.20 1820.00 L 28.21 1821.31 L 28.26 1822.61 L 28.33 1823.90 L 28.43 1825.18 L 28.56 1826.43 L 28.72 1827.65 L 28.90 1828.85 L 29.11 1830.00 L 29.35 1831.11 L 29.61 1832.18 L 29.89 1833.19 L 30.19 1834.14 L 30.52 1835.04 L 30.86 1835.87 L 31.22 1836.63 L 31.60 1837.32 L 31.99 1837.94 L 32.40 1838.48 L 32.81 1838.94 L 33.24 1839.32 L 33.67 1839.62 L 34.11 1839.83 L 34.56 1839.96 L 35.00 1840.00 Z" class="ribbon ribbon-3334"/>
-<path d="M -17.00 1680.00 C -254.04 1680.00, -254.04 880.00, -17.00 880.00 L 17.00 880.00 L 17.44 879.96 L 17.89 879.83 L 18.33 879.62 L 18.76 879.32 L 19.19 878.94 L 19.60 878.48 L 20.01 877.94 L 20.40 877.32 L 20.78 876.63 L 21.14 875.87 L 21.48 875.04 L 21.81 874.14 L 22.11 873.19 L 22.39 872.18 L 22.65 871.11 L 22.89 870.00 L 23.10 868.85 L 23.28 867.65 L 23.44 866.43 L 23.57 865.18 L 23.67 863.90 L 23.74 862.61 L 23.79 861.31 L 23.80 860.00 L 23.79 858.69 L 23.74 857.39 L 23.67 856.10 L 23.57 854.82 L 23.44 853.57 L 23.28 852.35 L 23.10 851.15 L 22.89 850.00 L 22.65 848.89 L 22.39 847.82 L 22.11 846.81 L 21.81 845.86 L 21.48 844.96 L 21.14 844.13 L 20.78 843.37 L 20.40 842.68 L 20.01 842.06 L 19.60 841.52 L 19.19 841.06 L 18.76 840.68 L 18.33 840.38 L 17.89 840.17 L 17.44 840.04 L 17.00 840.00 L -17.00 840.00 C -254.04 840.00, -254.04 1640.00, -17.00 1640.00 L 17.00 1640.00 L 17.44 1640.04 L 17.89 1640.17 L 18.33 1640.38 L 18.76 1640.68 L 19.19 1641.06 L 19.60 1641.52 L 20.01 1642.06 L 20.40 1642.68 L 20.78 1643.37 L 21.14 1644.13 L 21.48 1644.96 L 21.81 1645.86 L 22.11 1646.81 L 22.39 1647.82 L 22.65 1648.89 L 22.89 1650.00 L 23.10 1651.15 L 23.28 1652.35 L 23.44 1653.57 L 23.57 1654.82 L 23.67 1656.10 L 23.74 1657.39 L 23.79 1658.69 L 23.80 1660.00 L 23.79 1661.31 L 23.74 1662.61 L 23.67 1663.90 L 23.57 1665.18 L 23.44 1666.43 L 23.28 1667.65 L 23.10 1668.85 L 22.89 1670.00 L 22.65 1671.11 L 22.39 1672.18 L 22.11 1673.19 L 21.81 1674.14 L 21.48 1675.04 L 21.14 1675.87 L 20.78 1676.63 L 20.40 1677.32 L 20.01 1677.94 L 19.60 1678.48 L 19.19 1678.94 L 18.76 1679.32 L 18.33 1679.62 L 17.89 1679.83 L 17.44 1679.96 L 17.00 1680.00 Z" class="ribbon ribbon-3334"/>
-<path d="M 69.00 1680.00 C 306.04 1680.00, 306.04 880.00, 69.00 880.00 L 35.00 880.00 L 34.56 879.96 L 34.11 879.83 L 33.67 879.62 L 33.24 879.32 L 32.81 878.94 L 32.40 878.48 L 31.99 877.94 L 31.60 877.32 L 31.22 876.63 L 30.86 875.87 L 30.52 875.04 L 30.19 874.14 L 29.89 873.19 L 29.61 872.18 L 29.35 871.11 L 29.11 870.00 L 28.90 868.85 L 28.72 867.65 L 28.56 866.43 L 28.43 865.18 L 28.33 863.90 L 28.26 862.61 L 28.21 861.31 L 28.20 860.00 L 28.21 858.69 L 28.26 857.39 L 28.33 856.10 L 28.43 854.82 L 28.56 853.57 L 28.72 852.35 L 28.90 851.15 L 29.11 850.00 L 29.35 848.89 L 29.61 847.82 L 29.89 846.81 L 30.19 845.86 L 30.52 844.96 L 30.86 844.13 L 31.22 843.37 L 31.60 842.68 L 31.99 842.06 L 32.40 841.52 L 32.81 841.06 L 33.24 840.68 L 33.67 840.38 L 34.11 840.17 L 34.56 840.04 L 35.00 840.00 L 69.00 840.00 C 306.04 840.00, 306.04 1640.00, 69.00 1640.00 L 35.00 1640.00 L 34.56 1640.04 L 34.11 1640.17 L 33.67 1640.38 L 33.24 1640.68 L 32.81 1641.06 L 32.40 1641.52 L 31.99 1642.06 L 31.60 1642.68 L 31.22 1643.37 L 30.86 1644.13 L 30.52 1644.96 L 30.19 1645.86 L 29.89 1646.81 L 29.61 1647.82 L 29.35 1648.89 L 29.11 1650.00 L 28.90 1651.15 L 28.72 1652.35 L 28.56 1653.57 L 28.43 1654.82 L 28.33 1656.10 L 28.26 1657.39 L 28.21 1658.69 L 28.20 1660.00 L 28.21 1661.31 L 28.26 1662.61 L 28.33 1663.90 L 28.43 1665.18 L 28.56 1666.43 L 28.72 1667.65 L 28.90 1668.85 L 29.11 1670.00 L 29.35 1671.11 L 29.61 1672.18 L 29.89 1673.19 L 30.19 1674.14 L 30.52 1675.04 L 30.86 1675.87 L 31.22 1676.63 L 31.60 1677.32 L 31.99 1677.94 L 32.40 1678.48 L 32.81 1678.94 L 33.24 1679.32 L 33.67 1679.62 L 34.11 1679.83 L 34.56 1679.96 L 35.00 1680.00 Z" class="ribbon ribbon-3334"/>
-<path d="M -17.00 400.00 C -64.41 400.00, -64.41 240.00, -17.00 240.00 L 17.00 240.00 L 17.44 239.96 L 17.89 239.83 L 18.33 239.62 L 18.76 239.32 L 19.19 238.94 L 19.60 238.48 L 20.01 237.94 L 20.40 237.32 L 20.78 236.63 L 21.14 235.87 L 21.48 235.04 L 21.81 234.14 L 22.11 233.19 L 22.39 232.18 L 22.65 231.11 L 22.89 230.00 L 23.10 228.85 L 23.28 227.65 L 23.44 226.43 L 23.57 225.18 L 23.67 223.90 L 23.74 222.61 L 23.79 221.31 L 23.80 220.00 L 23.79 218.69 L 23.74 217.39 L 23.67 216.10 L 23.57 214.82 L 23.44 213.57 L 23.28 212.35 L 23.10 211.15 L 22.89 210.00 L 22.65 208.89 L 22.39 207.82 L 22.11 206.81 L 21.81 205.86 L 21.48 204.96 L 21.14 204.13 L 20.78 203.37 L 20.40 202.68 L 20.01 202.06 L 19.60 201.52 L 19.19 201.06 L 18.76 200.68 L 18.33 200.38 L 17.89 200.17 L 17.44 200.04 L 17.00 200.00 L -17.00 200.00 C -64.41 200.00, -64.41 360.00, -17.00 360.00 L 17.00 360.00 L 17.44 360.04 L 17.89 360.17 L 18.33 360.38 L 18.76 360.68 L 19.19 361.06 L 19.60 361.52 L 20.01 362.06 L 20.40 362.68 L 20.78 363.37 L 21.14 364.13 L 21.48 364.96 L 21.81 365.86 L 22.11 366.81 L 22.39 367.82 L 22.65 368.89 L 22.89 370.00 L 23.10 371.15 L 23.28 372.35 L 23.44 373.57 L 23.57 374.82 L 23.67 376.10 L 23.74 377.39 L 23.79 378.69 L 23.80 380.00 L 23.79 381.31 L 23.74 382.61 L 23.67 383.90 L 23.57 385.18 L 23.44 386.43 L 23.28 387.65 L 23.10 388.85 L 22.89 390.00 L 22.65 391.11 L 22.39 392.18 L 22.11 393.19 L 21.81 394.14 L 21.48 395.04 L 21.14 395.87 L 20.78 396.63 L 20.40 397.32 L 20.01 397.94 L 19.60 398.48 L 19.19 398.94 L 18.76 399.32 L 18.33 399.62 L 17.89 399.83 L 17.44 399.96 L 17.00 400.00 Z" class="ribbon ribbon-3334"/>
-<path d="M 69.00 400.00 C 116.41 400.00, 116.41 240.00, 69.00 240.00 L 35.00 240.00 L 34.56 239.96 L 34.11 239.83 L 33.67 239.62 L 33.24 239.32 L 32.81 238.94 L 32.40 238.48 L 31.99 237.94 L 31.60 237.32 L 31.22 236.63 L 30.86 235.87 L 30.52 235.04 L 30.19 234.14 L 29.89 233.19 L 29.61 232.18 L 29.35 231.11 L 29.11 230.00 L 28.90 228.85 L 28.72 227.65 L 28.56 226.43 L 28.43 225.18 L 28.33 223.90 L 28.26 222.61 L 28.21 221.31 L 28.20 220.00 L 28.21 218.69 L 28.26 217.39 L 28.33 216.10 L 28.43 214.82 L 28.56 213.57 L 28.72 212.35 L 28.90 211.15 L 29.11 210.00 L 29.35 208.89 L 29.61 207.82 L 29.89 206.81 L 30.19 205.86 L 30.52 204.96 L 30.86 204.13 L 31.22 203.37 L 31.60 202.68 L 31.99 202.06 L 32.40 201.52 L 32.81 201.06 L 33.24 200.68 L 33.67 200.38 L 34.11 200.17 L 34.56 200.04 L 35.00 200.00 L 69.00 200.00 C 116.41 200.00, 116.41 360.00, 69.00 360.00 L 35.00 360.00 L 34.56 360.04 L 34.11 360.17 L 33.67 360.38 L 33.24 360.68 L 32.81 361.06 L 32.40 361.52 L 31.99 362.06 L 31.60 362.68 L 31.22 363.37 L 30.86 364.13 L 30.52 364.96 L 30.19 365.86 L 29.89 366.81 L 29.61 367.82 L 29.35 368.89 L 29.11 370.00 L 28.90 371.15 L 28.72 372.35 L 28.56 373.57 L 28.43 374.82 L 28.33 376.10 L 28.26 377.39 L 28.21 378.69 L 28.20 380.00 L 28.21 381.31 L 28.26 382.61 L 28.33 383.90 L 28.43 385.18 L 28.56 386.43 L 28.72 387.65 L 28.90 388.85 L 29.11 390.00 L 29.35 391.11 L 29.61 392.18 L 29.89 393.19 L 30.19 394.14 L 30.52 395.04 L 30.86 395.87 L 31.22 396.63 L 31.60 397.32 L 31.99 397.94 L 32.40 398.48 L 32.81 398.94 L 33.24 399.32 L 33.67 399.62 L 34.11 399.83 L 34.56 399.96 L 35.00 400.00 Z" class="ribbon ribbon-3334"/>
-<path d="M -17.00 560.00 C -88.11 560.00, -88.11 320.00, -17.00 320.00 L 17.00 320.00 L 17.44 319.96 L 17.89 319.83 L 18.33 319.62 L 18.76 319.32 L 19.19 318.94 L 19.60 318.48 L 20.01 317.94 L 20.40 317.32 L 20.78 316.63 L 21.14 315.87 L 21.48 315.04 L 21.81 314.14 L 22.11 313.19 L 22.39 312.18 L 22.65 311.11 L 22.89 310.00 L 23.10 308.85 L 23.28 307.65 L 23.44 306.43 L 23.57 305.18 L 23.67 303.90 L 23.74 302.61 L 23.79 301.31 L 23.80 300.00 L 23.79 298.69 L 23.74 297.39 L 23.67 296.10 L 23.57 294.82 L 23.44 293.57 L 23.28 292.35 L 23.10 291.15 L 22.89 290.00 L 22.65 288.89 L 22.39 287.82 L 22.11 286.81 L 21.81 285.86 L 21.48 284.96 L 21.14 284.13 L 20.78 283.37 L 20.40 282.68 L 20.01 282.06 L 19.60 281.52 L 19.19 281.06 L 18.76 280.68 L 18.33 280.38 L 17.89 280.17 L 17.44 280.04 L 17.00 280.00 L -17.00 280.00 C -88.11 280.00, -88.11 520.00, -17.00 520.00 L 17.00 520.00 L 17.44 520.04 L 17.89 520.17 L 18.33 520.38 L 18.76 520.68 L 19.19 521.06 L 19.60 521.52 L 20.01 522.06 L 20.40 522.68 L 20.78 523.37 L 21.14 524.13 L 21.48 524.96 L 21.81 525.86 L 22.11 526.81 L 22.39 527.82 L 22.65 528.89 L 22.89 530.00 L 23.10 531.15 L 23.28 532.35 L 23.44 533.57 L 23.57 534.82 L 23.67 536.10 L 23.74 537.39 L 23.79 538.69 L 23.80 540.00 L 23.79 541.31 L 23.74 542.61 L 23.67 543.90 L 23.57 545.18 L 23.44 546.43 L 23.28 547.65 L 23.10 548.85 L 22.89 550.00 L 22.65 551.11 L 22.39 552.18 L 22.11 553.19 L 21.81 554.14 L 21.48 555.04 L 21.14 555.87 L 20.78 556.63 L 20.40 557.32 L 20.01 557.94 L 19.60 558.48 L 19.19 558.94 L 18.76 559.32 L 18.33 559.62 L 17.89 559.83 L 17.44 559.96 L 17.00 560.00 Z" class="ribbon ribbon-3334"/>
-<path d="M 69.00 560.00 C 140.11 560.00, 140.11 320.00, 69.00 320.00 L 35.00 320.00 L 34.56 319.96 L 34.11 319.83 L 33.67 319.62 L 33.24 319.32 L 32.81 318.94 L 32.40 318.48 L 31.99 317.94 L 31.60 317.32 L 31.22 316.63 L 30.86 315.87 L 30.52 315.04 L 30.19 314.14 L 29.89 313.19 L 29.61 312.18 L 29.35 311.11 L 29.11 310.00 L 28.90 308.85 L 28.72 307.65 L 28.56 306.43 L 28.43 305.18 L 28.33 303.90 L 28.26 302.61 L 28.21 301.31 L 28.20 300.00 L 28.21 298.69 L 28.26 297.39 L 28.33 296.10 L 28.43 294.82 L 28.56 293.57 L 28.72 292.35 L 28.90 291.15 L 29.11 290.00 L 29.35 288.89 L 29.61 287.82 L 29.89 286.81 L 30.19 285.86 L 30.52 284.96 L 30.86 284.13 L 31.22 283.37 L 31.60 282.68 L 31.99 282.06 L 32.40 281.52 L 32.81 281.06 L 33.24 280.68 L 33.67 280.38 L 34.11 280.17 L 34.56 280.04 L 35.00 280.00 L 69.00 280.00 C 140.11 280.00, 140.11 520.00, 69.00 520.00 L 35.00 520.00 L 34.56 520.04 L 34.11 520.17 L 33.67 520.38 L 33.24 520.68 L 32.81 521.06 L 32.40 521.52 L 31.99 522.06 L 31.60 522.68 L 31.22 523.37 L 30.86 524.13 L 30.52 524.96 L 30.19 525.86 L 29.89 526.81 L 29.61 527.82 L 29.35 528.89 L 29.11 530.00 L 28.90 531.15 L 28.72 532.35 L 28.56 533.57 L 28.43 534.82 L 28.33 536.10 L 28.26 537.39 L 28.21 538.69 L 28.20 540.00 L 28.21 541.31 L 28.26 542.61 L 28.33 543.90 L 28.43 545.18 L 28.56 546.43 L 28.72 547.65 L 28.90 548.85 L 29.11 550.00 L 29.35 551.11 L 29.61 552.18 L 29.89 553.19 L 30.19 554.14 L 30.52 555.04 L 30.86 555.87 L 31.22 556.63 L 31.60 557.32 L 31.99 557.94 L 32.40 558.48 L 32.81 558.94 L 33.24 559.32 L 33.67 559.62 L 34.11 559.83 L 34.56 559.96 L 35.00 560.00 Z" class="ribbon ribbon-3334"/>
-<ellipse cx="0.00" cy="2140.00" rx="15.00" ry="20.00" class="pair-ellipse-3334"/>
-<ellipse cx="52.00" cy="2140.00" rx="15.00" ry="20.00" class="pair-ellipse-3334"/>
-<ellipse cx="0.00" cy="460.00" rx="15.00" ry="20.00" class="pair-ellipse-3334"/>
-<ellipse cx="52.00" cy="460.00" rx="15.00" ry="20.00" class="pair-ellipse-3334"/>
-<ellipse cx="0.00" cy="60.00" rx="15.00" ry="20.00" class="pair-ellipse-3334"/>
-<ellipse cx="52.00" cy="60.00" rx="15.00" ry="20.00" class="pair-ellipse-3334"/>
-<ellipse cx="0.00" cy="1900.00" rx="15.00" ry="20.00" class="pair-ellipse-3334"/>
-<ellipse cx="52.00" cy="1900.00" rx="15.00" ry="20.00" class="pair-ellipse-3334"/>
-<circle cx="0.00" cy="2560.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="2560.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="2560.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="2520.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="2520.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="2520.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="2480.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="2480.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="2480.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="2440.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="2440.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="2440.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="2400.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="2400.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="2400.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="2360.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="2360.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="2360.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="2320.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="2320.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="2320.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="2280.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="2280.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="2280.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="2240.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="2240.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="2240.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="2200.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="2200.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="2200.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="2160.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="2160.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="2160.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="2120.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="2120.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="2120.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="2080.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="2080.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="2080.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="2040.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="2040.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="2040.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="2000.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="2000.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="2000.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="1960.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1960.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="1960.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="1920.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1920.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="1920.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="1880.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1880.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="1880.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="1840.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1840.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="1840.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="1800.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1800.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="1800.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="1760.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1760.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="1760.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="1720.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1720.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="1720.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="1680.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1680.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="1680.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="1640.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1640.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="1640.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="1600.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1600.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="1600.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="1560.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1560.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="1560.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="1520.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1520.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="1520.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="1480.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1480.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="1480.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="1440.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1440.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="1440.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="1400.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1400.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="1400.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="1360.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1360.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="1360.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="1320.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1320.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="1320.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="1280.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1280.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="1280.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="1240.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1240.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="1240.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="1200.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1200.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="1200.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="1160.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1160.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="1160.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="1120.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1120.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="1120.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="1080.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1080.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="1080.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="1040.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1040.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="1040.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="1000.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="1000.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="1000.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="960.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="960.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="960.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="920.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="920.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="920.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="880.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="880.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="880.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="840.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="840.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="840.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="800.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="800.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="800.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="760.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="760.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="760.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="720.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="720.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="720.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="680.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="680.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="680.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="640.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="640.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="640.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="600.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="600.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="600.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="560.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="560.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="560.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="520.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="520.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="520.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="480.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="480.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="480.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="440.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="440.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="440.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="400.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="400.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="400.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="360.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="360.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="360.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="320.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="320.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="320.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="280.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="280.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="280.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="240.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="240.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="240.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="200.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="200.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="200.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="160.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="160.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="160.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="120.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="120.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="120.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="80.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="80.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="80.00" r="1.6" class="rel-mark"/>
-<circle cx="0.00" cy="40.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="52.00" cy="40.00" r="17.00" class="num-circle-hidden"/>
-<circle cx="26.00" cy="40.00" r="1.6" class="rel-mark"/>
+<svg class="spine-svg" viewBox="163 66 287 660" preserveAspectRatio="xMidYMid meet" role="img" aria-label="King Wen body schema, line 1 not equal to line 6 groups, no hexagram numbers">
+<g id="KW_63_64" style="fill:none;stroke:var(--ink);stroke-opacity:1;stroke-width:1.2285;stroke-dasharray:none" inkscape:label="KW{63,64}"><path d="m 301.588,90.755 c -5.011,0 -5.011,-10.023 0,-10.023 5.012,0 5.012,10.023 0,10.023" stroke="var(--ink)" fill="none" stroke-width="1.23651" stroke-miterlimit="10" stroke-linejoin="round" id="path18" style="fill:none;stroke:var(--ink);stroke-opacity:1;stroke-width:1.2285;stroke-dasharray:none"/><path d="m 311.612,90.755 c 5.011,0 5.011,-10.023 0,-10.023 -5.012,0 -5.012,10.023 0,10.023" fill="none" id="path19" style="fill:none;stroke:var(--ink);stroke-opacity:1;stroke-width:1.2285;stroke-dasharray:none"/></g>
+<g id="KW_53_54" inkscape:label="KW{53,54}" style="fill:none;stroke:var(--ink);stroke-opacity:1;stroke-width:1.2285;stroke-dasharray:none"><path d="m 301.588,190.988 c -5.011,0 -5.011,-10.024 0,-10.024 5.012,0 5.012,10.024 0,10.024" stroke="var(--ink)" fill="none" stroke-width="1.23651" stroke-miterlimit="10" stroke-linejoin="round" id="path26" style="fill:none;stroke:var(--ink);stroke-opacity:1;stroke-width:1.2285;stroke-dasharray:none"/><path d="m 311.612,190.988 c 5.011,0 5.011,-10.024 0,-10.024 -5.012,0 -5.012,10.024 0,10.024" stroke="var(--ink)" fill="none" stroke-width="1.23651" stroke-miterlimit="10" stroke-linejoin="round" id="path28" style="fill:none;stroke:var(--ink);stroke-opacity:1;stroke-width:1.2285;stroke-dasharray:none"/></g>
+<g id="KW_17_18" inkscape:label="KW{17,18}" style="fill:none;stroke:var(--ink);stroke-opacity:1;stroke-width:1.2285;stroke-dasharray:none"><path d="m 301.588,551.827 c -5.011,0 -5.011,-10.023 0,-10.023 5.012,0 5.012,10.023 0,10.023" stroke="var(--ink)" fill="none" stroke-width="1.23651" stroke-miterlimit="10" stroke-linejoin="round" id="path48" style="fill:none;stroke:var(--ink);stroke-opacity:1;stroke-width:1.2285;stroke-dasharray:none"/><path d="m 311.612,551.827 c 5.011,0 5.011,-10.023 0,-10.023 -5.012,0 -5.012,10.023 0,10.023" stroke="var(--ink)" fill="none" stroke-width="1.23651" stroke-miterlimit="10" stroke-linejoin="round" id="path50" style="fill:none;stroke:var(--ink);stroke-opacity:1;stroke-width:1.2285;stroke-dasharray:none"/></g>
+<g id="KW_11_12" inkscape:label="KW{11,12}" style="fill:none;stroke:var(--ink);stroke-opacity:1;stroke-width:1.2285;stroke-dasharray:none"><path d="m 301.588,611.966 c -5.011,0 -5.011,-10.023 0,-10.023 5.012,0 5.012,10.023 0,10.023" stroke="var(--ink)" fill="none" stroke-width="1.23651" stroke-miterlimit="10" stroke-linejoin="round" id="path52" style="fill:none;stroke:var(--ink);stroke-opacity:1;stroke-width:1.2285;stroke-dasharray:none"/><path d="m 311.612,611.966 c 5.011,0 5.011,-10.023 0,-10.023 -5.012,0 -5.012,10.023 0,10.023" stroke="var(--ink)" fill="none" stroke-width="1.23651" stroke-miterlimit="10" stroke-linejoin="round" id="path54" style="fill:none;stroke:var(--ink);stroke-opacity:1;stroke-width:1.2285;stroke-dasharray:none"/></g>
+<g id="KW_55_56_59_60" inkscape:label="KW{55,56,59,60}" style="fill:var(--ink);fill-opacity:1;stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none"><path d="m 301.588,170.941 c -24.056,0 -24.056,-40.093 0,-40.093 5.012,0 5.012,-10.023 0,-10.023 -24.056,0 -24.056,40.093 0,40.093 5.012,0 5.012,10.023 0,10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path24" style="fill:var(--ink);fill-opacity:1;stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none"/><path d="m 311.612,170.941 c 24.056,0 24.056,-40.093 0,-40.093 -5.012,0 -5.012,-10.023 0,-10.023 24.056,0 24.056,40.093 0,40.093 -5.012,0 -5.012,10.023 0,10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path64" style="fill:var(--ink);fill-opacity:1;stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none"/></g>
+<g id="KW_51_52_57_58" inkscape:label="KW{51,52,57,58}" style="fill:var(--ink);fill-opacity:1;stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none"><path d="m 301.588,211.034 c -28.065,0 -28.065,-60.139 0,-60.139 5.012,0 5.012,-10.024 0,-10.024 -28.065,0 -28.065,60.14 0,60.14 5.012,0 5.012,10.023 0,10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path30" style="fill:var(--ink);fill-opacity:1;stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none"/><path d="m 311.612,211.034 c 28.065,0 28.065,-60.139 0,-60.139 -5.012,0 -5.012,-10.024 0,-10.024 28.065,0 28.065,60.14 0,60.14 -5.012,0 -5.012,10.023 0,10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path66" style="fill:var(--ink);fill-opacity:1;stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none"/></g>
+<g id="KW_23_24_43_44" inkscape:label="KW{23,24,43,44}" style="fill:var(--ink);fill-opacity:1;stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none"><path d="m 301.588,491.687 c -75.174,0 -75.174,-200.466 0,-200.466 5.012,0 5.012,-10.023 0,-10.023 -75.174,0 -75.174,200.466 0,200.466 5.012,0 5.012,10.023 0,10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path42" style="fill:var(--ink);fill-opacity:1;stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none"/><path d="m 311.612,491.687 c 75.174,0 75.174,-200.466 0,-200.466 -5.012,0 -5.012,-10.023 0,-10.023 75.174,0 75.174,200.466 0,200.466 -5.012,0 -5.012,10.023 0,10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path74" style="fill:var(--ink);fill-opacity:1;stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none"/></g>
+<g id="KW_19_20_33_34" inkscape:label="KW{19,20,33,34}" style="fill:var(--ink);fill-opacity:1;stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none"><path d="m 301.588,531.78 c -55.128,0 -55.128,-140.326 0,-140.326 5.012,0 5.012,-10.024 0,-10.024 -55.128,0 -55.128,140.327 0,140.327 5.012,0 5.012,10.023 0,10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path46" style="fill:var(--ink);fill-opacity:1;stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none"/><path d="m 311.612,531.78 c 55.128,0 55.128,-140.326 0,-140.326 -5.012,0 -5.012,-10.024 0,-10.024 55.128,0 55.128,140.327 0,140.327 -5.012,0 -5.012,10.023 0,10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path78" style="fill:var(--ink);fill-opacity:1;stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none"/></g>
+<g id="KW_5_6_35_36" inkscape:label="KW{5,6,35,36}" style="fill:var(--ink);fill-opacity:1;stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none"><path d="m 301.588,672.106 c -110.256,0 -110.256,-300.699 0,-300.699 5.012,0 5.012,-10.023 0,-10.023 -110.256,0 -110.256,300.699 0,300.699 5.012,0 5.012,10.023 0,10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path60" style="fill:var(--ink);fill-opacity:1;stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none"/><path d="m 311.612,672.106 c 110.256,0 110.256,-300.699 0,-300.699 -5.012,0 -5.012,-10.023 0,-10.023 110.256,0 110.256,300.699 0,300.699 -5.012,0 -5.012,10.023 0,10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path84" style="fill:var(--ink);fill-opacity:1;stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none"/></g>
+<g id="KW_3_4_49_50" inkscape:label="KW{3,4,49,50}" style="fill:var(--ink);fill-opacity:1;stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none"><path d="m 301.588,692.153 c -170.396,0 -170.396,-471.095 0,-471.095 5.012,0 5.012,10.023 0,10.023 -165.384,0 -165.384,451.049 0,451.049 5.012,0 5.012,10.023 0,10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path62" style="fill:var(--ink);fill-opacity:1;stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none"/><path d="m 311.612,692.153 c 170.396,0 170.396,-471.095 0,-471.095 -5.012,0 -5.012,10.023 0,10.023 165.384,0 165.384,451.049 0,451.049 -5.012,0 -5.012,10.023 0,10.023" stroke="var(--ink)" fill="var(--ink)" stroke-width="0.35228" stroke-miterlimit="10" stroke-linejoin="round" id="path86" style="fill:var(--ink);fill-opacity:1;stroke:var(--ink);stroke-opacity:1;stroke-width:1.0;stroke-dasharray:none"/></g>
 </svg>
 <div class="name-tag">King Wen</div>
 <h1>line 1 ≠ line 6</h1>
@@ -476,3 +123,5 @@ h1 { font-family: var(--font-display); font-weight: 400; font-size: 1.9rem; marg
   </svg>
 </a>
 </div>
+
+</html>
