@@ -84,7 +84,7 @@
   }
   .panel-title {
     font-family: var(--font-mono);
-    font-size: 0.78rem;
+    font-size: 1.56rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--structure);
@@ -93,10 +93,10 @@
     justify-self: center;
   }
   .fx-title { grid-column: 1; grid-row: 1; }
-  .kw-title { grid-column: 3; grid-row: 1; }
+  .kw-title { grid-column: 3; grid-row: 1; transform: translateX(20px); }
   .diagram { justify-self: center; align-self: center; }
-  .fx-diagram { grid-column: 1; grid-row: 2; pointer-events: none; }
-  .kw-diagram { grid-column: 3; grid-row: 2; }
+  .fx-diagram { grid-column: 1; grid-row: 2; pointer-events: none; margin-top: -44.6px; }
+  .kw-diagram { grid-column: 3; grid-row: 2; align-self: start; margin-top: 74.2px; }
   #pair-display-fx { grid-column: 1; grid-row: 3; justify-self: center; }
   #pair-display-kw { grid-column: 3; grid-row: 3; justify-self: center; }
   .pair-distance-svg { display: block; height: 40px; overflow: visible; pointer-events: none; }
@@ -123,6 +123,29 @@
   .unify-link:hover { background: var(--structure); color: var(--paper); }
   .unify-link.active { display: inline-block; }
 
+  .spine-link-group {
+    display: none;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    flex-direction: column;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    border: 3px solid var(--structure);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .spine-link-group.active { display: flex; }
+  .spine-link-group a {
+    color: var(--structure);
+    padding: 8px 14px;
+    text-decoration: none;
+    text-align: center;
+    white-space: nowrap;
+  }
+  .spine-link-group a:not(:last-child) { border-bottom: 3px solid var(--structure); }
+  .spine-link-group a:hover { background: var(--structure); color: var(--paper); }
+
   /* --- FX circle --- */
   .stage { width: min(85vw, 717.6px); aspect-ratio: 1 / 1; }
   .stage svg { width: 100%; height: 100%; display: block; overflow: visible; pointer-events: none; }
@@ -142,6 +165,7 @@
   .diametric-line { stroke: var(--structure); stroke-width: 1.5; opacity: 0.85; }
   .glyph.grouped .bar { stroke: var(--structure); }
   .num-label.grouped text { fill: var(--structure); }
+  .glyph.hex-hover .bar { stroke: var(--structure); }
 
   /* --- KW square --- */
   .square-wrap { max-width: 100%; overflow-x: auto; }
@@ -222,8 +246,8 @@
 </header>
 
 <div class="panels">
-<h2 class="panel-title fx-title">FX Circle</h2>
-<h2 class="panel-title kw-title">KW Square</h2>
+<h2 class="panel-title fx-title">Fuxi circle</h2>
+<h2 class="panel-title kw-title">King Wen square</h2>
 <div class="diagram fx-diagram">
 <div class="stage">
 <svg viewBox="0 0 1000 1000">
@@ -1696,7 +1720,11 @@
 </div>
 <svg id="pair-distance-fx" class="pair-distance-svg pair-distance-fx"></svg>
 <svg id="pair-distance-kw" class="pair-distance-svg pair-distance-kw"></svg>
-<a class="unify-link" id="unify-link" href="group-table.html" target="groups-table">UNIFY</a>
+<a class="unify-link" id="unify-link" href="group-table.html" target="groups-table">TABLE</a>
+<div class="spine-link-group" id="spine-link-group">
+<a id="spine-link-fx" href="FX_KW_spine.html#fx" target="fx-kw-spine">FX SPINE</a>
+<a id="spine-link-kw" href="FX_KW_spine.html#kw" target="fx-kw-spine">KW SPINE</a>
+</div>
 </div>
 <div class="legend">
   <div class="legend-item"><span class="legend-swatch"></span> Yang &mdash; solid</div>
@@ -2040,6 +2068,7 @@ function clearGroup() {
   currentGroupId = null;
   clearPairDisplay();
   document.getElementById('unify-link').classList.remove('active');
+  document.getElementById('spine-link-group').classList.remove('active');
 }
 
 function showGroup(groupId) {
@@ -2058,18 +2087,36 @@ function showGroup(groupId) {
   var unifyLink = document.getElementById('unify-link');
   unifyLink.href = 'group-table.html?fx=' + sortedFx.join(',');
   unifyLink.classList.add('active');
+  document.getElementById('spine-link-group').classList.add('active');
   positionUnifyLink();
 }
 
 function positionUnifyLink() {
   var unifyLink = document.getElementById('unify-link');
+  var spineLinkGroup = document.getElementById('spine-link-group');
   var panelsRect = document.querySelector('.panels').getBoundingClientRect();
-  var fx = document.getElementById('pair-display-fx').getBoundingClientRect();
-  var kw = document.getElementById('pair-display-kw').getBoundingClientRect();
+  var fxDisplay = document.getElementById('pair-display-fx');
+  var kwDisplay = document.getElementById('pair-display-kw');
+  var fx = fxDisplay.getBoundingClientRect();
+  var kw = kwDisplay.getBoundingClientRect();
   var centerX = (fx.right + kw.left) / 2 - panelsRect.left;
-  var centerY = ((fx.top + fx.bottom) / 2 + (kw.top + kw.bottom) / 2) / 2 - panelsRect.top;
+
+  var fxGlyph = fxDisplay.querySelector('.pd-glyph').getBoundingClientRect();
+  var kwGlyph = kwDisplay.querySelector('.pd-glyph').getBoundingClientRect();
+  var glyphCenterY = (((fxGlyph.top + fxGlyph.bottom) / 2) + ((kwGlyph.top + kwGlyph.bottom) / 2)) / 2 - panelsRect.top;
+  spineLinkGroup.style.left = centerX + 'px';
+  spineLinkGroup.style.top = glyphCenterY + 'px';
+
+  function bracketBottom(svgNode) {
+    var bb = svgNode.getBBox();
+    return svgNode.getBoundingClientRect().top + bb.y + bb.height;
+  }
+  var fxDistance = pairDistanceFxSvg.childNodes.length ? bracketBottom(pairDistanceFxSvg) : pairDistanceFxSvg.getBoundingClientRect().bottom;
+  var kwDistance = pairDistanceKwSvg.childNodes.length ? bracketBottom(pairDistanceKwSvg) : pairDistanceKwSvg.getBoundingClientRect().bottom;
+  var distanceBottom = ((fxDistance + kwDistance) / 2) - panelsRect.top;
+  var unifyHeight = unifyLink.getBoundingClientRect().height;
   unifyLink.style.left = centerX + 'px';
-  unifyLink.style.top = centerY + 'px';
+  unifyLink.style.top = (distanceBottom - unifyHeight / 2 - unifyHeight * 0.4) + 'px';
 }
 
 window.addEventListener('resize', function () {
@@ -2101,6 +2148,16 @@ document.querySelectorAll('.glyph').forEach(function (glyphEl) {
   glyphEl.insertBefore(hit, glyphEl.firstChild);
   glyphEl.addEventListener('click', function () {
     toggleGroupFor(n);
+  });
+  var inner = document.getElementById('glyph-' + n);
+  var outer = document.getElementById('glyph-outer-' + n);
+  glyphEl.addEventListener('mouseenter', function () {
+    if (inner) inner.classList.add('hex-hover');
+    if (outer) outer.classList.add('hex-hover');
+  });
+  glyphEl.addEventListener('mouseleave', function () {
+    if (inner) inner.classList.remove('hex-hover');
+    if (outer) outer.classList.remove('hex-hover');
   });
 });
 document.querySelectorAll('.cell[data-hex]').forEach(function (cell) {
