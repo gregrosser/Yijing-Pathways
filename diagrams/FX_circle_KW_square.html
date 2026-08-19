@@ -123,9 +123,10 @@
   .spoke { display: none; }
   .bar { stroke: var(--ink); stroke-width: 3; stroke-linecap: round; }
   .hub { fill: var(--paper); stroke: var(--rule); stroke-width: 1; }
-  .num-label text { font-family: var(--font-mono); font-size: 9px; fill: var(--ink); }
+  .num-label text { font-family: var(--font-mono); font-size: 13.5px; fill: var(--ink); }
   .num-label { cursor: pointer; pointer-events: auto; }
   .num-label.active text { fill: var(--structure); }
+  .glyph { cursor: pointer; }
   .glyph.active .bar { stroke: var(--structure); }
   .distance-link { fill: none; stroke: var(--structure); stroke-width: 1.5; opacity: 0.85; }
   .distance-tick { stroke: var(--structure); stroke-width: 1.5; opacity: 0.85; }
@@ -155,6 +156,15 @@
   .cell:hover .num { color: var(--structure); }
   .cell.hl .hex-glyph rect { fill: var(--structure); }
   .cell.hl .num { color: var(--structure); font-weight: 700; }
+
+  .kw-square-frame { position: relative; padding-left: 40px; }
+  .kw-distance-overlay { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+  .kw-distance-token { fill: var(--structure); opacity: 0.85; }
+  .kw-distance-token-line { stroke: var(--structure); stroke-width: 1.5; opacity: 0.85; }
+  .kw-distance-bracket-line { stroke: var(--structure); stroke-width: 1.5; opacity: 0.85; }
+  .kw-distance-tick { stroke: var(--structure); stroke-width: 1.5; opacity: 0.85; }
+  .kw-distance-label-bg { fill: var(--paper); stroke: var(--structure); stroke-width: 1.5; }
+  .kw-distance-label-text { font-family: var(--font-mono); font-weight: 700; fill: var(--structure); text-anchor: middle; dominant-baseline: central; }
 
   /* --- shared display box --- */
   .pair-display {
@@ -1455,6 +1465,7 @@
 </div>
 </div>
 <div class="diagram kw-diagram">
+<div class="kw-square-frame">
 <div class="square-wrap">
   <div class="square">
   <div class="sq-row"><div class="cell" data-hex="6" data-kw="8">
@@ -1659,6 +1670,8 @@
         </div></div>
   </div>
 </div>
+<svg id="kw-distance-overlay" class="kw-distance-overlay"></svg>
+</div>
 </div>
 <div class="pair-display" id="pair-display-fx">
   <div class="pd-caption" id="pd-caption-fx"></div>
@@ -1789,6 +1802,12 @@ function buildDiametricLine(p, q) {
     x2: p2[0].toFixed(2), y2: p2[1].toFixed(2), class: 'diametric-line'
   }));
 }
+function buildCenterLabel(dist) {
+  overlay.appendChild(svgEl('circle', { cx: CX, cy: CY, r: LABEL_R, class: 'distance-label-bg' }));
+  var textEl = svgEl('text', { x: CX, y: CY, dy: '0.5', class: 'distance-label-text' });
+  textEl.textContent = dist;
+  overlay.appendChild(textEl);
+}
 
 /* --- FX circle hover (independent of click/group state) --- */
 document.querySelectorAll('[data-num]').forEach(function (numEl) {
@@ -1821,11 +1840,94 @@ function renderFxGroup(g) {
     buildDiametricLine(g.members[2], g.members[3]);
   } else if (g.type === 'pair') {
     buildDiametricLine(g.members[0], g.members[1]);
+    buildCenterLabel(1);
   }
 }
 
 function cellForKw(kw) {
   return document.querySelector('.cell[data-kw="' + kw + '"]');
+}
+
+/* --- KW square distance tokens/bracket (consecutive-KW-pair spans within a quartet) --- */
+var kwOverlay = document.getElementById('kw-distance-overlay');
+var kwFrame = document.querySelector('.kw-square-frame');
+var KW_BRACKET_LINE_X = 18, KW_BRACKET_TICK_X = 30;
+var KW_TOKEN_SIZE = 8.37;
+
+function kwTokenEl(x, y) {
+  var s = KW_TOKEN_SIZE;
+  return svgEl('rect', {
+    x: (x - s / 2).toFixed(2), y: (y - s / 2).toFixed(2),
+    width: s, height: s, rx: 1.26, class: 'kw-distance-token'
+  });
+}
+
+var FX_DISTANCE_LABEL_FONT_SIZE_SVGUNITS = 16;
+var FX_DISTANCE_LABEL_RADIUS_SVGUNITS = 15;
+var fxStageSvg = document.querySelector('.stage svg');
+function fxDistanceLabelFontSizePx() {
+  var rect = fxStageSvg.getBoundingClientRect();
+  return FX_DISTANCE_LABEL_FONT_SIZE_SVGUNITS * (rect.width / 1000);
+}
+
+function kwTokenLineEl(x, y) {
+  var half = KW_TOKEN_SIZE * 3 / 2;
+  return svgEl('line', {
+    x1: (x - half).toFixed(2), y1: y.toFixed(2),
+    x2: (x + half).toFixed(2), y2: y.toFixed(2),
+    class: 'kw-distance-token-line'
+  });
+}
+
+function renderKwDistance(g) {
+  var kwSorted = g.members.map(function (fx) { return FX_TO_KW[fx]; }).sort(function (a, b) { return a - b; });
+  var a, b;
+  if (g.type === 'quartet') { a = kwSorted[0]; b = kwSorted[2]; }
+  else if (g.type === 'pair') { a = kwSorted[0]; b = kwSorted[0]; }
+  else { return; }
+  var p1 = (a + 1) / 2, p2 = (b + 1) / 2;
+  var frameRect = kwFrame.getBoundingClientRect();
+  var midpoints = [];
+  for (var k = p1; k <= p2; k++) {
+    var elLo = cellForKw(2 * k - 1), elHi = cellForKw(2 * k);
+    if (!elLo || !elHi) continue;
+    var rLo = elLo.getBoundingClientRect(), rHi = elHi.getBoundingClientRect();
+    var numLo = elLo.querySelector('.num').getBoundingClientRect();
+    var numHi = elHi.querySelector('.num').getBoundingClientRect();
+    var cx = ((rLo.left + rLo.right) / 2 + (rHi.left + rHi.right) / 2) / 2 - frameRect.left;
+    var cy = ((numLo.top + numLo.bottom) / 2 + (numHi.top + numHi.bottom) / 2) / 2 - frameRect.top;
+    midpoints.push({ x: cx, y: cy });
+    kwOverlay.appendChild(kwTokenLineEl(cx, cy));
+    kwOverlay.appendChild(kwTokenEl(cx, cy));
+  }
+  if (midpoints.length < 1) return;
+  var top = midpoints[0], bottom = midpoints[midpoints.length - 1];
+  kwOverlay.appendChild(svgEl('line', {
+    x1: KW_BRACKET_LINE_X, y1: top.y.toFixed(2), x2: KW_BRACKET_LINE_X, y2: bottom.y.toFixed(2),
+    class: 'kw-distance-bracket-line'
+  }));
+  [top, bottom].forEach(function (pt) {
+    kwOverlay.appendChild(svgEl('line', {
+      x1: KW_BRACKET_LINE_X, y1: pt.y.toFixed(2), x2: KW_BRACKET_TICK_X, y2: pt.y.toFixed(2),
+      class: 'kw-distance-tick'
+    }));
+  });
+  var midY = (top.y + bottom.y) / 2;
+  var kwFontSizePx = fxDistanceLabelFontSizePx();
+  var kwLabelHalf = (FX_DISTANCE_LABEL_RADIUS_SVGUNITS / FX_DISTANCE_LABEL_FONT_SIZE_SVGUNITS) * kwFontSizePx;
+  kwOverlay.appendChild(svgEl('rect', {
+    x: (KW_BRACKET_LINE_X - kwLabelHalf).toFixed(2), y: (midY - kwLabelHalf).toFixed(2),
+    width: (kwLabelHalf * 2).toFixed(2), height: (kwLabelHalf * 2).toFixed(2),
+    class: 'kw-distance-label-bg'
+  }));
+  var textEl = svgEl('text', { x: KW_BRACKET_LINE_X, y: midY.toFixed(2), dy: '0.5', class: 'kw-distance-label-text' });
+  textEl.style.fontSize = kwFontSizePx.toFixed(2) + 'px';
+  textEl.textContent = p2 - p1 + 1;
+  kwOverlay.appendChild(textEl);
+}
+
+function clearKwDistance() {
+  kwOverlay.innerHTML = '';
 }
 
 function renderPairDisplay(g) {
@@ -1866,6 +1968,7 @@ function clearGroup() {
   document.querySelectorAll('.grouped').forEach(function (el) { el.classList.remove('grouped'); });
   document.querySelectorAll('.cell.hl').forEach(function (el) { el.classList.remove('hl'); });
   overlay.innerHTML = '';
+  clearKwDistance();
   currentGroupId = null;
   clearPairDisplay();
   document.getElementById('unify-link').classList.remove('active');
@@ -1880,6 +1983,7 @@ function showGroup(groupId) {
     var cell = cellForKw(FX_TO_KW[fx]);
     if (cell) cell.classList.add('hl');
   });
+  renderKwDistance(g);
   renderPairDisplay(g);
   var sortedFx = g.members.slice().sort(function (a, b) { return a - b; });
   var unifyLink = document.getElementById('unify-link');
@@ -1912,6 +2016,22 @@ function toggleGroupFor(fx) {
 document.querySelectorAll('[data-num]').forEach(function (numEl) {
   numEl.addEventListener('click', function () {
     toggleGroupFor(parseInt(numEl.getAttribute('data-num'), 10));
+  });
+});
+document.querySelectorAll('.glyph').forEach(function (glyphEl) {
+  var m = glyphEl.id.match(/^glyph-(?:outer-)?(\d+)$/);
+  if (!m) return;
+  var n = parseInt(m[1], 10);
+  var bbox = glyphEl.getBBox();
+  var pad = 6;
+  var hit = svgEl('rect', {
+    x: (bbox.x - pad).toFixed(2), y: (bbox.y - pad).toFixed(2),
+    width: (bbox.width + pad * 2).toFixed(2), height: (bbox.height + pad * 2).toFixed(2),
+    fill: 'transparent', 'pointer-events': 'all'
+  });
+  glyphEl.insertBefore(hit, glyphEl.firstChild);
+  glyphEl.addEventListener('click', function () {
+    toggleGroupFor(n);
   });
 });
 document.querySelectorAll('.cell[data-hex]').forEach(function (cell) {
