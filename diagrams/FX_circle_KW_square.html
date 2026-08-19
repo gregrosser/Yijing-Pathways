@@ -2087,6 +2087,8 @@ function showGroup(groupId) {
   var unifyLink = document.getElementById('unify-link');
   unifyLink.href = 'group-table.html?fx=' + sortedFx.join(',');
   unifyLink.classList.add('active');
+  document.getElementById('spine-link-fx').href = 'FX_KW_spine.html?fx=' + sortedFx.join(',') + '#fx';
+  document.getElementById('spine-link-kw').href = 'FX_KW_spine.html?fx=' + sortedFx.join(',') + '#kw';
   document.getElementById('spine-link-group').classList.add('active');
   positionUnifyLink();
 }
