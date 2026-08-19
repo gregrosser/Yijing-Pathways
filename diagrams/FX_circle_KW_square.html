@@ -99,6 +99,13 @@
   .kw-diagram { grid-column: 3; grid-row: 2; }
   #pair-display-fx { grid-column: 1; grid-row: 3; justify-self: center; }
   #pair-display-kw { grid-column: 3; grid-row: 3; justify-self: center; }
+  .pair-distance-svg { display: block; height: 40px; overflow: visible; pointer-events: none; }
+  .pair-distance-fx { grid-column: 1; grid-row: 4; justify-self: center; }
+  .pair-distance-kw { grid-column: 3; grid-row: 4; justify-self: center; }
+  .pair-distance-bracket-line { stroke: var(--structure); stroke-width: 1.5; opacity: 0.85; }
+  .pair-distance-tick { stroke: var(--structure); stroke-width: 1.5; opacity: 0.85; }
+  .pair-distance-label-bg { fill: var(--paper); stroke: var(--structure); stroke-width: 1.5; }
+  .pair-distance-label-text { font-family: var(--font-mono); font-weight: 700; fill: var(--structure); text-anchor: middle; dominant-baseline: central; }
   .unify-link {
     display: none;
     position: absolute;
@@ -1687,6 +1694,8 @@
     <div class="pd-pair" id="pd-slot-right-kw"></div>
   </div>
 </div>
+<svg id="pair-distance-fx" class="pair-distance-svg pair-distance-fx"></svg>
+<svg id="pair-distance-kw" class="pair-distance-svg pair-distance-kw"></svg>
 <a class="unify-link" id="unify-link" href="group-table.html" target="groups-table">UNIFY</a>
 </div>
 <div class="legend">
@@ -1879,13 +1888,23 @@ function kwTokenLineEl(x, y) {
   });
 }
 
-function renderKwDistance(g) {
+function kwPairIndexRange(g) {
   var kwSorted = g.members.map(function (fx) { return FX_TO_KW[fx]; }).sort(function (a, b) { return a - b; });
   var a, b;
   if (g.type === 'quartet') { a = kwSorted[0]; b = kwSorted[2]; }
   else if (g.type === 'pair') { a = kwSorted[0]; b = kwSorted[0]; }
-  else { return; }
-  var p1 = (a + 1) / 2, p2 = (b + 1) / 2;
+  else { return null; }
+  return { p1: (a + 1) / 2, p2: (b + 1) / 2 };
+}
+function kwGroupDistance(g) {
+  var range = kwPairIndexRange(g);
+  return range ? (range.p2 - range.p1 + 1) : null;
+}
+
+function renderKwDistance(g) {
+  var range = kwPairIndexRange(g);
+  if (!range) return;
+  var p1 = range.p1, p2 = range.p2;
   var frameRect = kwFrame.getBoundingClientRect();
   var midpoints = [];
   for (var k = p1; k <= p2; k++) {
@@ -1930,6 +1949,54 @@ function clearKwDistance() {
   kwOverlay.innerHTML = '';
 }
 
+var pairDistanceFxSvg = document.getElementById('pair-distance-fx');
+var pairDistanceKwSvg = document.getElementById('pair-distance-kw');
+
+function renderPairDistanceBracket(svgNode, box, distance, shape) {
+  var w = box.getBoundingClientRect().width;
+  svgNode.setAttribute('width', w.toFixed(2));
+  var y = 8, tickTop = 0;
+  var x1 = 2, x2 = w - 2;
+  svgNode.appendChild(svgEl('line', {
+    x1: x1.toFixed(2), y1: y, x2: x2.toFixed(2), y2: y, class: 'pair-distance-bracket-line'
+  }));
+  [x1, x2].forEach(function (x) {
+    svgNode.appendChild(svgEl('line', {
+      x1: x.toFixed(2), y1: y, x2: x.toFixed(2), y2: tickTop, class: 'pair-distance-tick'
+    }));
+  });
+  var midX = w / 2;
+  var fontPx = fxDistanceLabelFontSizePx();
+  var half = (FX_DISTANCE_LABEL_RADIUS_SVGUNITS / FX_DISTANCE_LABEL_FONT_SIZE_SVGUNITS) * fontPx;
+  if (shape === 'circle') {
+    svgNode.appendChild(svgEl('circle', {
+      cx: midX.toFixed(2), cy: y, r: half.toFixed(2), class: 'pair-distance-label-bg'
+    }));
+  } else {
+    svgNode.appendChild(svgEl('rect', {
+      x: (midX - half).toFixed(2), y: (y - half).toFixed(2),
+      width: (half * 2).toFixed(2), height: (half * 2).toFixed(2),
+      class: 'pair-distance-label-bg'
+    }));
+  }
+  var textEl = svgEl('text', { x: midX.toFixed(2), y: y, dy: '0.5', class: 'pair-distance-label-text' });
+  textEl.style.fontSize = fontPx.toFixed(2) + 'px';
+  textEl.textContent = distance;
+  svgNode.appendChild(textEl);
+}
+
+function renderPairDistanceBrackets(g) {
+  var fxDist = g.type === 'quartet' ? g.distance : 1;
+  var kwDist = kwGroupDistance(g);
+  renderPairDistanceBracket(pairDistanceFxSvg, document.getElementById('pair-display-fx'), fxDist, 'circle');
+  renderPairDistanceBracket(pairDistanceKwSvg, document.getElementById('pair-display-kw'), kwDist, 'square');
+}
+
+function clearPairDistanceBrackets() {
+  pairDistanceFxSvg.innerHTML = '';
+  pairDistanceKwSvg.innerHTML = '';
+}
+
 function renderPairDisplay(g) {
   var sortedFx = g.members.slice().sort(function (a, b) { return a - b; });
   var sortedByKw = g.members.slice().sort(function (a, b) { return FX_TO_KW[a] - FX_TO_KW[b]; });
@@ -1969,6 +2036,7 @@ function clearGroup() {
   document.querySelectorAll('.cell.hl').forEach(function (el) { el.classList.remove('hl'); });
   overlay.innerHTML = '';
   clearKwDistance();
+  clearPairDistanceBrackets();
   currentGroupId = null;
   clearPairDisplay();
   document.getElementById('unify-link').classList.remove('active');
@@ -1985,6 +2053,7 @@ function showGroup(groupId) {
   });
   renderKwDistance(g);
   renderPairDisplay(g);
+  renderPairDistanceBrackets(g);
   var sortedFx = g.members.slice().sort(function (a, b) { return a - b; });
   var unifyLink = document.getElementById('unify-link');
   unifyLink.href = 'group-table.html?fx=' + sortedFx.join(',');
