@@ -95,17 +95,6 @@ h1.page-title { font-family: var(--font-display); font-weight: 400; font-size: 2
    percentage scales with each column, preserving the ratio at any size. */
 .fx-spine-frame { padding-left: 20%; }
 .kw-spine-frame { padding-right: 20%; }
-.distance-overlay { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
-/* Filled rects, not stroked lines: Firefox's SVG rasterizer renders thin
-   *strokes* inside this absolutely-positioned overlay unreliably at
-   extreme zoom-out (patchy/invisible), confirmed by the label's solid
-   *fill* staying visible in the same overlay when the stroked line next
-   to it wasn't. Fills are robust, so the bracket line/ticks are drawn as
-   thin filled rectangles instead of stroked lines. */
-.distance-bracket-line { fill: var(--seal); opacity: 0.85; }
-.distance-tick { fill: var(--seal); opacity: 0.85; }
-.distance-label-bg { fill: var(--paper); stroke: var(--seal); stroke-width: 2.5; }
-.distance-label-text { font-family: var(--font-mono); font-weight: 700; fill: var(--seal); text-anchor: middle; dominant-baseline: central; }
 
 .name-tag {
   display: inline-block;
@@ -309,7 +298,6 @@ footer a:hover { background: var(--seal); color: var(--paper); }
 <g id="FX_rightNumCirc_64" inkscape:label="FX_rightNumCirc_64"><path d="m 294.29614,711.54444 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path295"/><path d="m 294.29614,711.54444 c 0,-2.296 -1.861,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.297,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path296"/><text class="f0" x="286.78976" y="713.5722" id="text296" style="stroke-width:1.00028">64</text></g>
 <g id="FX_leftNumCirc_03" inkscape:label="FX_leftNumCirc_03"><path d="m 282.26814,711.54444 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path297"/><path d="m 282.26814,711.54444 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path298"/><text class="f0" x="276.51974" y="713.5722" id="text298" style="stroke-width:1.00028">3</text></g>
 </svg>
-<svg id="fx-distance-overlay" class="distance-overlay"></svg>
 </div>
 <div class="name-tag">Fu Xi</div>
 <h2>The Inversion Spine</h2>
@@ -467,7 +455,6 @@ footer a:hover { background: var(--seal); color: var(--paper); }
 <g id="KW_rightNumCirc_02" inkscape:label="KW_rightNumCirc_02"><path d="m 316.772,712.2236 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path301"/><path d="m 316.772,712.2236 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.296,0 -4.158,1.862 -4.158,4.158 0,2.297 1.862,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path302"/><text class="f0" x="311.00089" y="714.27976" id="text302" style="stroke-width:1.00028">2</text></g>
 <g id="KW_leftNumCirc_01" inkscape:label="KW_leftNumCirc_01"><path d="m 304.744,712.2236 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158" fill="var(--paper)" id="path303"/><text class="f0" x="299.32505" y="714.25138" id="text304" style="stroke-width:1.00028">1</text><path d="m 304.744,712.2236 c 0,-2.296 -1.862,-4.158 -4.158,-4.158 -2.297,0 -4.158,1.862 -4.158,4.158 0,2.297 1.861,4.158 4.158,4.158 2.296,0 4.158,-1.861 4.158,-4.158 z" stroke="#000000" fill="none" stroke-width="0.422735" stroke-miterlimit="10" stroke-linejoin="round" id="path304"/></g>
 </svg>
-<svg id="kw-distance-overlay" class="distance-overlay"></svg>
 </div>
 <div class="name-tag">King Wen</div>
 <h2>The Complement Spine</h2>
@@ -541,16 +528,6 @@ function svgEl(tag, attrs) {
   return el;
 }
 
-// All bracket sizing (label radius/font, tick length, extension margins) is
-// expressed at this reference scale, then multiplied by the diagram's
-// *current* rendered size relative to this reference (see `drawDistanceBracket`)
-// so brackets stay correctly proportioned at any viewport/zoom instead of
-// using fixed px that drift out of proportion as the diagram scales.
-var REFERENCE_SVG_HEIGHT = 1024.40625;
-var DISTANCE_LABEL_FONT_SIZE_REF = 64;
-var DISTANCE_LABEL_RADIUS_REF = 15 / 16 * DISTANCE_LABEL_FONT_SIZE_REF;
-var GUTTER_FRACTION = 0.20;
-
 function findGroup(fxSet) {
   if (!fxSet) return null;
   for (var i = 0; i < GROUPS.length; i++) {
@@ -574,93 +551,6 @@ function kwGroupDistance(g) {
 }
 function fxGroupDistance(g) {
   return g.type === 'quartet' ? g.distance : 1;
-}
-
-function drawDistanceBracket(overlay, frame, svg, prefix, selectedSet, distance, shape, lineXFn, tickXFn) {
-  overlay.innerHTML = '';
-  if (!selectedSet || distance == null) return;
-  var numCircRe = new RegExp('^' + prefix + '_(left|right)NumCirc_\\d+$');
-  var frameRect = frame.getBoundingClientRect();
-  var ys = [];
-  Array.prototype.forEach.call(svg.children, function (el) {
-    var label = el.getAttribute('inkscape:label') || '';
-    if (!numCircRe.test(label)) return;
-    var textEl = el.querySelector('text');
-    var n = textEl ? parseInt(textEl.textContent, 10) : NaN;
-    if (!selectedSet.has(n)) return;
-    var r = el.getBoundingClientRect();
-    ys.push((r.top + r.bottom) / 2 - frameRect.top);
-  });
-  if (!ys.length) return;
-  var topY = Math.min.apply(null, ys);
-  var bottomY = Math.max.apply(null, ys);
-
-  var lineX = lineXFn(frameRect);
-  var tickX = tickXFn(frameRect);
-
-  // Scale all bracket sizing to the diagram's current rendered size (the
-  // two spine SVGs render at matching heights by design — see the
-  // .fx/.kw-spine-frame gutter comment — so either one's height is a valid
-  // proxy for "how big is the whole diagram right now"), so the bracket
-  // stays correctly proportioned at any viewport/zoom rather than the fixed
-  // reference-px sizes drifting out of proportion as the diagram scales.
-  var scale = svg.getBoundingClientRect().height / REFERENCE_SVG_HEIGHT;
-  var half = DISTANCE_LABEL_RADIUS_REF * scale;
-  var fontSize = DISTANCE_LABEL_FONT_SIZE_REF * scale;
-
-  // When the two ticks are close together (a short local span — common for
-  // low-distance groups), a label centered between them would be as big as
-  // or bigger than the gap itself and swallow the ticks. In that case, push
-  // the label out past the bottom tick instead and extend the connecting
-  // line down to meet it, so the ticks stay visible and the label never
-  // overlaps them regardless of how short the span is.
-  var minSpanForCenteredLabel = half * 2 + 80 * scale;
-  var span = bottomY - topY;
-  var labelY, lineBottomY;
-  if (span >= minSpanForCenteredLabel) {
-    labelY = (topY + bottomY) / 2;
-    lineBottomY = bottomY;
-  } else {
-    labelY = bottomY + half + 40 * scale;
-    lineBottomY = labelY;
-  }
-
-  // Drawn as filled rects, not stroked lines — see the .distance-bracket-line
-  // CSS comment for why (Firefox renders thin strokes in this overlay
-  // unreliably at extreme zoom-out; fills are robust).
-  var strokeWidth = 2.5 * scale;
-  var halfStroke = strokeWidth / 2;
-
-  overlay.appendChild(svgEl('rect', {
-    x: (lineX - halfStroke).toFixed(2), y: Math.min(topY, lineBottomY).toFixed(2),
-    width: strokeWidth.toFixed(2), height: Math.abs(lineBottomY - topY).toFixed(2),
-    class: 'distance-bracket-line'
-  }));
-  [topY, bottomY].forEach(function (y) {
-    var tickMinX = Math.min(lineX, tickX), tickMaxX = Math.max(lineX, tickX);
-    overlay.appendChild(svgEl('rect', {
-      x: tickMinX.toFixed(2), y: (y - halfStroke).toFixed(2),
-      width: (tickMaxX - tickMinX).toFixed(2), height: strokeWidth.toFixed(2),
-      class: 'distance-tick'
-    }));
-  });
-  var labelBgEl;
-  if (shape === 'circle') {
-    labelBgEl = svgEl('circle', {
-      cx: lineX.toFixed(2), cy: labelY.toFixed(2), r: half.toFixed(2), class: 'distance-label-bg'
-    });
-  } else {
-    labelBgEl = svgEl('rect', {
-      x: (lineX - half).toFixed(2), y: (labelY - half).toFixed(2),
-      width: (half * 2).toFixed(2), height: (half * 2).toFixed(2), class: 'distance-label-bg'
-    });
-  }
-  labelBgEl.style.strokeWidth = strokeWidth.toFixed(2);
-  overlay.appendChild(labelBgEl);
-  var textEl = svgEl('text', { x: lineX.toFixed(2), y: labelY.toFixed(2), dy: '0.5', class: 'distance-label-text' });
-  textEl.style.fontSize = fontSize.toFixed(2) + 'px';
-  textEl.textContent = distance;
-  overlay.appendChild(textEl);
 }
 
 var HEXLINES = {"1":["yang","yang","yang","yang","yang","yang"],"2":["yin","yin","yin","yin","yin","yin"],"3":["yang","yang","yang","yang","yang","yin"],"4":["yin","yin","yin","yin","yin","yang"],"5":["yang","yang","yang","yang","yin","yang"],"6":["yin","yin","yin","yin","yang","yin"],"7":["yang","yang","yang","yang","yin","yin"],"8":["yin","yin","yin","yin","yang","yang"],"9":["yang","yang","yang","yin","yang","yang"],"10":["yin","yin","yin","yang","yin","yin"],"11":["yang","yang","yang","yin","yang","yin"],"12":["yin","yin","yin","yang","yin","yang"],"13":["yang","yang","yang","yin","yin","yang"],"14":["yin","yin","yin","yang","yang","yin"],"15":["yang","yang","yang","yin","yin","yin"],"16":["yin","yin","yin","yang","yang","yang"],"17":["yang","yang","yin","yang","yang","yang"],"18":["yin","yin","yang","yin","yin","yin"],"19":["yang","yang","yin","yang","yang","yin"],"20":["yin","yin","yang","yin","yin","yang"],"21":["yang","yang","yin","yang","yin","yang"],"22":["yin","yin","yang","yin","yang","yin"],"23":["yang","yang","yin","yang","yin","yin"],"24":["yin","yin","yang","yin","yang","yang"],"25":["yang","yang","yin","yin","yang","yang"],"26":["yin","yin","yang","yang","yin","yin"],"27":["yang","yang","yin","yin","yang","yin"],"28":["yin","yin","yang","yang","yin","yang"],"29":["yang","yang","yin","yin","yin","yang"],"30":["yin","yin","yang","yang","yang","yin"],"31":["yang","yang","yin","yin","yin","yin"],"32":["yin","yin","yang","yang","yang","yang"],"33":["yang","yin","yang","yang","yang","yang"],"34":["yin","yang","yin","yin","yin","yin"],"35":["yang","yin","yang","yang","yang","yin"],"36":["yin","yang","yin","yin","yin","yang"],"37":["yang","yin","yang","yang","yin","yang"],"38":["yin","yang","yin","yin","yang","yin"],"39":["yang","yin","yang","yang","yin","yin"],"40":["yin","yang","yin","yin","yang","yang"],"41":["yang","yin","yang","yin","yang","yang"],"42":["yin","yang","yin","yang","yin","yin"],"43":["yang","yin","yang","yin","yang","yin"],"44":["yin","yang","yin","yang","yin","yang"],"45":["yang","yin","yang","yin","yin","yang"],"46":["yin","yang","yin","yang","yang","yin"],"47":["yang","yin","yang","yin","yin","yin"],"48":["yin","yang","yin","yang","yang","yang"],"49":["yang","yin","yin","yang","yang","yang"],"50":["yin","yang","yang","yin","yin","yin"],"51":["yang","yin","yin","yang","yang","yin"],"52":["yin","yang","yang","yin","yin","yang"],"53":["yang","yin","yin","yang","yin","yang"],"54":["yin","yang","yang","yin","yang","yin"],"55":["yang","yin","yin","yang","yin","yin"],"56":["yin","yang","yang","yin","yang","yang"],"57":["yang","yin","yin","yin","yang","yang"],"58":["yin","yang","yang","yang","yin","yin"],"59":["yang","yin","yin","yin","yang","yin"],"60":["yin","yang","yang","yang","yin","yang"],"61":["yang","yin","yin","yin","yin","yang"],"62":["yin","yang","yang","yang","yang","yin"],"63":["yang","yin","yin","yin","yin","yin"],"64":["yin","yang","yang","yang","yang","yang"]};
@@ -694,7 +584,7 @@ function hdHexHtmlKw(fx) {
 function renderHdDistanceBracket(svgNode, hexesRow, distance, shape) {
   svgNode.innerHTML = '';
   var w = hexesRow.getBoundingClientRect().width;
-  var strokeW = 3, barY = 12, tickTopY = 0, fontPx = 24;
+  var strokeW = 3, barY = 12, tickTopY = 0, fontPx = 36;
   var half = 15 / 16 * fontPx;
   svgNode.setAttribute('width', w.toFixed(2));
   svgNode.setAttribute('height', (barY + half + 4).toFixed(2));
@@ -730,8 +620,6 @@ var fxSvg = document.getElementById('fx-spine-svg');
 var kwSvg = document.getElementById('kw-spine-svg');
 var fxFrame = document.getElementById('fx-spine-frame');
 var kwFrame = document.getElementById('kw-spine-frame');
-var fxOverlay = document.getElementById('fx-distance-overlay');
-var kwOverlay = document.getElementById('kw-distance-overlay');
 var emptyNote = document.getElementById('empty-note');
 var pageColumns = document.querySelector('.page-columns');
 var hexDisplayFx = document.getElementById('hex-display-fx');
@@ -803,12 +691,6 @@ function update() {
   var selectedGroup = findGroup(fxSet);
   styleGroups(fxSvg, 'FX', fxSet);
   styleGroups(kwSvg, 'KW', kwSet);
-  drawDistanceBracket(fxOverlay, fxFrame, fxSvg, 'FX', fxSet, selectedGroup ? fxGroupDistance(selectedGroup) : null, 'circle',
-    function (r) { return r.width * GUTTER_FRACTION * 0.5; },
-    function (r) { return r.width * GUTTER_FRACTION * (100 / 140); });
-  drawDistanceBracket(kwOverlay, kwFrame, kwSvg, 'KW', kwSet, selectedGroup ? kwGroupDistance(selectedGroup) : null, 'square',
-    function (r) { return r.width - r.width * GUTTER_FRACTION * 0.5; },
-    function (r) { return r.width - r.width * GUTTER_FRACTION * (100 / 140); });
   emptyNote.style.display = fxSelected ? 'none' : 'block';
 
   selectedHexFx = null;
