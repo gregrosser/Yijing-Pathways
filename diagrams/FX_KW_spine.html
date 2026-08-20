@@ -40,19 +40,70 @@ h1.page-title { font-family: var(--font-display); font-weight: 400; font-size: 2
 .intro a { color: var(--seal); }
 
 :root { --page-w: min(4056px, 100%); --page-gap: 320px; --page-divider: 1px; }
-.page-columns { display: grid; grid-template-columns: 1fr auto 0.825962fr; gap: var(--page-gap); align-items: start; width: var(--page-w); }
+.page-columns { position: relative; display: grid; grid-template-columns: 1fr auto 0.825962fr; gap: var(--page-gap); align-items: start; width: var(--page-w); }
 .panel { display: flex; flex-direction: column; align-items: center; gap: 20px; min-width: 0; max-width: 100%; }
 .divider { width: var(--page-divider); align-self: stretch; background: var(--rule); }
+
+.hex-display {
+  display: none;
+  position: absolute;
+  transform: translate(-50%, 0);
+  z-index: 2;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  background: var(--paper-panel);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 20px 28px;
+  white-space: nowrap;
+}
+.hex-display.active { display: flex; }
+.hd-caption { font-family: var(--font-mono); font-size: 2.1rem; color: var(--seal); letter-spacing: 0.02em; }
+.hd-hexes { display: flex; gap: 18px; }
+.hd-hex { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 8px; border-radius: 8px; cursor: pointer; }
+.hd-hex:hover { background: var(--paper); }
+.hd-hex .hd-glyph rect { fill: var(--ink); }
+.hd-num { font-family: var(--font-mono); font-size: 1.9rem; color: var(--ink-soft); }
+.hd-hex.selected { background: var(--seal); }
+.hd-hex.selected:hover { background: var(--seal); }
+.hd-hex.selected .hd-glyph rect { fill: var(--paper); }
+.hd-hex.selected .hd-num { color: var(--paper); }
+
+/* A second, more localized distance bracket directly under each display
+   box — mirroring FX_circle_KW_square.html's pair-distance-fx/kw pattern
+   — as a Firefox-safe fallback to the far-scaled spine-side bracket. Built
+   from filled rects (not stroked lines) for the same reason the spine
+   bracket was: fills render robustly at extreme zoom-out, thin strokes
+   don't (confirmed via the spine bracket's Firefox rendering bug). */
+.hd-distance-svg { display: block; overflow: visible; pointer-events: none; margin-top: 6px; }
+.hd-distance-bracket-line { fill: var(--seal); opacity: 0.85; }
+.hd-distance-tick { fill: var(--seal); opacity: 0.85; }
+.hd-distance-label-bg { fill: var(--paper); stroke: var(--seal); stroke-width: 2.5; }
+.hd-distance-label-text { font-family: var(--font-mono); font-weight: 700; fill: var(--seal); text-anchor: middle; dominant-baseline: central; }
 
 .spine-svg { width: 100%; height: auto; display: block; }
 .spine-svg text.f0 { font-family: var(--font-mono); font-size: 5.68px; }
 
 .spine-frame { position: relative; width: 100%; }
-.fx-spine-frame { padding-left: 140px; }
-.kw-spine-frame { padding-right: 140px; }
+/* Percentage (not fixed-px) gutters: since the two spine panels are
+   proportioned (grid-template-columns: 1fr / auto / 0.825962fr) to render
+   at matching heights despite different viewBox aspect ratios, a *fixed*
+   px padding eats into each column's available SVG width unevenly as the
+   page scales (a bigger bite out of the narrower KW column), which grows
+   with narrower viewports and breaks that height match. A shared
+   percentage scales with each column, preserving the ratio at any size. */
+.fx-spine-frame { padding-left: 20%; }
+.kw-spine-frame { padding-right: 20%; }
 .distance-overlay { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
-.distance-bracket-line { stroke: var(--seal); stroke-width: 2.5; opacity: 0.85; }
-.distance-tick { stroke: var(--seal); stroke-width: 2.5; opacity: 0.85; }
+/* Filled rects, not stroked lines: Firefox's SVG rasterizer renders thin
+   *strokes* inside this absolutely-positioned overlay unreliably at
+   extreme zoom-out (patchy/invisible), confirmed by the label's solid
+   *fill* staying visible in the same overlay when the stroked line next
+   to it wasn't. Fills are robust, so the bracket line/ticks are drawn as
+   thin filled rectangles instead of stroked lines. */
+.distance-bracket-line { fill: var(--seal); opacity: 0.85; }
+.distance-tick { fill: var(--seal); opacity: 0.85; }
 .distance-label-bg { fill: var(--paper); stroke: var(--seal); stroke-width: 2.5; }
 .distance-label-text { font-family: var(--font-mono); font-weight: 700; fill: var(--seal); text-anchor: middle; dominant-baseline: central; }
 
@@ -73,8 +124,19 @@ h1.page-title { font-family: var(--font-display); font-weight: 400; font-size: 2
 .empty-note { display: none; color: var(--ink-soft); font-family: var(--font-mono); font-size: 0.9rem; text-align: center; max-width: 520px; line-height: 1.7; }
 .empty-note a { color: var(--seal); }
 
-footer { font-size: 0.82rem; color: var(--ink-soft); }
-footer a { color: var(--seal); }
+footer { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+footer a {
+  font-family: var(--font-mono);
+  font-size: 1.6rem;
+  letter-spacing: 0.02em;
+  color: var(--seal);
+  border: 2px solid var(--seal);
+  border-radius: 10px;
+  padding: 14px 28px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+footer a:hover { background: var(--seal); color: var(--paper); }
 </style>
 
 <header>
@@ -410,12 +472,22 @@ footer a { color: var(--seal); }
 <div class="name-tag">King Wen</div>
 <h2>The Complement Spine</h2>
 </div>
+<div class="hex-display" id="hex-display-fx">
+  <div class="hd-caption" id="hd-caption-fx"></div>
+  <div class="hd-hexes" id="hd-hexes-fx"></div>
+  <svg id="hd-distance-fx" class="hd-distance-svg"></svg>
+</div>
+<div class="hex-display" id="hex-display-kw">
+  <div class="hd-caption" id="hd-caption-kw"></div>
+  <div class="hd-hexes" id="hd-hexes-kw"></div>
+  <svg id="hd-distance-kw" class="hd-distance-svg"></svg>
+</div>
 </div>
 
 <footer>
-  <a href="FX_circle_KW_square.html">&larr; FX Circle &harr; KW Square</a>
-  &nbsp;&middot;&nbsp;
-  <a href="../index.html">Yijing Pathways</a>
+  <a href="../index.html" target="yijing-pathways">Yijing Pathways</a>
+  <a href="FX_circle_KW_square.html" id="footer-link-circle-square" target="fx-circle-kw-square">FX circle / KW square</a>
+  <a href="group-table.html" id="footer-link-group-table" target="groups-table">Groups table</a>
 </footer>
 
 <script>
@@ -469,8 +541,15 @@ function svgEl(tag, attrs) {
   return el;
 }
 
-var DISTANCE_LABEL_FONT_SIZE = 64;
-var DISTANCE_LABEL_RADIUS = 15 / 16 * DISTANCE_LABEL_FONT_SIZE;
+// All bracket sizing (label radius/font, tick length, extension margins) is
+// expressed at this reference scale, then multiplied by the diagram's
+// *current* rendered size relative to this reference (see `drawDistanceBracket`)
+// so brackets stay correctly proportioned at any viewport/zoom instead of
+// using fixed px that drift out of proportion as the diagram scales.
+var REFERENCE_SVG_HEIGHT = 1024.40625;
+var DISTANCE_LABEL_FONT_SIZE_REF = 64;
+var DISTANCE_LABEL_RADIUS_REF = 15 / 16 * DISTANCE_LABEL_FONT_SIZE_REF;
+var GUTTER_FRACTION = 0.20;
 
 function findGroup(fxSet) {
   if (!fxSet) return null;
@@ -519,32 +598,132 @@ function drawDistanceBracket(overlay, frame, svg, prefix, selectedSet, distance,
   var lineX = lineXFn(frameRect);
   var tickX = tickXFn(frameRect);
 
-  overlay.appendChild(svgEl('line', {
-    x1: lineX.toFixed(2), y1: topY.toFixed(2), x2: lineX.toFixed(2), y2: bottomY.toFixed(2),
+  // Scale all bracket sizing to the diagram's current rendered size (the
+  // two spine SVGs render at matching heights by design — see the
+  // .fx/.kw-spine-frame gutter comment — so either one's height is a valid
+  // proxy for "how big is the whole diagram right now"), so the bracket
+  // stays correctly proportioned at any viewport/zoom rather than the fixed
+  // reference-px sizes drifting out of proportion as the diagram scales.
+  var scale = svg.getBoundingClientRect().height / REFERENCE_SVG_HEIGHT;
+  var half = DISTANCE_LABEL_RADIUS_REF * scale;
+  var fontSize = DISTANCE_LABEL_FONT_SIZE_REF * scale;
+
+  // When the two ticks are close together (a short local span — common for
+  // low-distance groups), a label centered between them would be as big as
+  // or bigger than the gap itself and swallow the ticks. In that case, push
+  // the label out past the bottom tick instead and extend the connecting
+  // line down to meet it, so the ticks stay visible and the label never
+  // overlaps them regardless of how short the span is.
+  var minSpanForCenteredLabel = half * 2 + 80 * scale;
+  var span = bottomY - topY;
+  var labelY, lineBottomY;
+  if (span >= minSpanForCenteredLabel) {
+    labelY = (topY + bottomY) / 2;
+    lineBottomY = bottomY;
+  } else {
+    labelY = bottomY + half + 40 * scale;
+    lineBottomY = labelY;
+  }
+
+  // Drawn as filled rects, not stroked lines — see the .distance-bracket-line
+  // CSS comment for why (Firefox renders thin strokes in this overlay
+  // unreliably at extreme zoom-out; fills are robust).
+  var strokeWidth = 2.5 * scale;
+  var halfStroke = strokeWidth / 2;
+
+  overlay.appendChild(svgEl('rect', {
+    x: (lineX - halfStroke).toFixed(2), y: Math.min(topY, lineBottomY).toFixed(2),
+    width: strokeWidth.toFixed(2), height: Math.abs(lineBottomY - topY).toFixed(2),
     class: 'distance-bracket-line'
   }));
   [topY, bottomY].forEach(function (y) {
-    overlay.appendChild(svgEl('line', {
-      x1: lineX.toFixed(2), y1: y.toFixed(2), x2: tickX.toFixed(2), y2: y.toFixed(2),
+    var tickMinX = Math.min(lineX, tickX), tickMaxX = Math.max(lineX, tickX);
+    overlay.appendChild(svgEl('rect', {
+      x: tickMinX.toFixed(2), y: (y - halfStroke).toFixed(2),
+      width: (tickMaxX - tickMinX).toFixed(2), height: strokeWidth.toFixed(2),
       class: 'distance-tick'
     }));
   });
-  var midY = (topY + bottomY) / 2;
-  var half = DISTANCE_LABEL_RADIUS;
+  var labelBgEl;
   if (shape === 'circle') {
-    overlay.appendChild(svgEl('circle', {
-      cx: lineX.toFixed(2), cy: midY.toFixed(2), r: half.toFixed(2), class: 'distance-label-bg'
-    }));
+    labelBgEl = svgEl('circle', {
+      cx: lineX.toFixed(2), cy: labelY.toFixed(2), r: half.toFixed(2), class: 'distance-label-bg'
+    });
   } else {
-    overlay.appendChild(svgEl('rect', {
-      x: (lineX - half).toFixed(2), y: (midY - half).toFixed(2),
+    labelBgEl = svgEl('rect', {
+      x: (lineX - half).toFixed(2), y: (labelY - half).toFixed(2),
       width: (half * 2).toFixed(2), height: (half * 2).toFixed(2), class: 'distance-label-bg'
-    }));
+    });
   }
-  var textEl = svgEl('text', { x: lineX.toFixed(2), y: midY.toFixed(2), dy: '0.5', class: 'distance-label-text' });
-  textEl.style.fontSize = DISTANCE_LABEL_FONT_SIZE + 'px';
+  labelBgEl.style.strokeWidth = strokeWidth.toFixed(2);
+  overlay.appendChild(labelBgEl);
+  var textEl = svgEl('text', { x: lineX.toFixed(2), y: labelY.toFixed(2), dy: '0.5', class: 'distance-label-text' });
+  textEl.style.fontSize = fontSize.toFixed(2) + 'px';
   textEl.textContent = distance;
   overlay.appendChild(textEl);
+}
+
+var HEXLINES = {"1":["yang","yang","yang","yang","yang","yang"],"2":["yin","yin","yin","yin","yin","yin"],"3":["yang","yang","yang","yang","yang","yin"],"4":["yin","yin","yin","yin","yin","yang"],"5":["yang","yang","yang","yang","yin","yang"],"6":["yin","yin","yin","yin","yang","yin"],"7":["yang","yang","yang","yang","yin","yin"],"8":["yin","yin","yin","yin","yang","yang"],"9":["yang","yang","yang","yin","yang","yang"],"10":["yin","yin","yin","yang","yin","yin"],"11":["yang","yang","yang","yin","yang","yin"],"12":["yin","yin","yin","yang","yin","yang"],"13":["yang","yang","yang","yin","yin","yang"],"14":["yin","yin","yin","yang","yang","yin"],"15":["yang","yang","yang","yin","yin","yin"],"16":["yin","yin","yin","yang","yang","yang"],"17":["yang","yang","yin","yang","yang","yang"],"18":["yin","yin","yang","yin","yin","yin"],"19":["yang","yang","yin","yang","yang","yin"],"20":["yin","yin","yang","yin","yin","yang"],"21":["yang","yang","yin","yang","yin","yang"],"22":["yin","yin","yang","yin","yang","yin"],"23":["yang","yang","yin","yang","yin","yin"],"24":["yin","yin","yang","yin","yang","yang"],"25":["yang","yang","yin","yin","yang","yang"],"26":["yin","yin","yang","yang","yin","yin"],"27":["yang","yang","yin","yin","yang","yin"],"28":["yin","yin","yang","yang","yin","yang"],"29":["yang","yang","yin","yin","yin","yang"],"30":["yin","yin","yang","yang","yang","yin"],"31":["yang","yang","yin","yin","yin","yin"],"32":["yin","yin","yang","yang","yang","yang"],"33":["yang","yin","yang","yang","yang","yang"],"34":["yin","yang","yin","yin","yin","yin"],"35":["yang","yin","yang","yang","yang","yin"],"36":["yin","yang","yin","yin","yin","yang"],"37":["yang","yin","yang","yang","yin","yang"],"38":["yin","yang","yin","yin","yang","yin"],"39":["yang","yin","yang","yang","yin","yin"],"40":["yin","yang","yin","yin","yang","yang"],"41":["yang","yin","yang","yin","yang","yang"],"42":["yin","yang","yin","yang","yin","yin"],"43":["yang","yin","yang","yin","yang","yin"],"44":["yin","yang","yin","yang","yin","yang"],"45":["yang","yin","yang","yin","yin","yang"],"46":["yin","yang","yin","yang","yang","yin"],"47":["yang","yin","yang","yin","yin","yin"],"48":["yin","yang","yin","yang","yang","yang"],"49":["yang","yin","yin","yang","yang","yang"],"50":["yin","yang","yang","yin","yin","yin"],"51":["yang","yin","yin","yang","yang","yin"],"52":["yin","yang","yang","yin","yin","yang"],"53":["yang","yin","yin","yang","yin","yang"],"54":["yin","yang","yang","yin","yang","yin"],"55":["yang","yin","yin","yang","yin","yin"],"56":["yin","yang","yang","yin","yang","yang"],"57":["yang","yin","yin","yin","yang","yang"],"58":["yin","yang","yang","yang","yin","yin"],"59":["yang","yin","yin","yin","yang","yin"],"60":["yin","yang","yang","yang","yin","yang"],"61":["yang","yin","yin","yin","yin","yang"],"62":["yin","yang","yang","yang","yang","yin"],"63":["yang","yin","yin","yin","yin","yin"],"64":["yin","yang","yang","yang","yang","yang"]};
+
+function largeHexSvg(n) {
+  var lines = HEXLINES[n];
+  var drawOrder = lines.slice().reverse();
+  var rects = '';
+  drawOrder.forEach(function (val, i) {
+    var y = 4 + i * 10;
+    if (val === 'yang') {
+      rects += '<rect x="12" y="' + y + '" width="36" height="5" rx="1.5"/>';
+    } else {
+      rects += '<rect x="12" y="' + y + '" width="15" height="5" rx="1.5"/>' +
+               '<rect x="33" y="' + y + '" width="15" height="5" rx="1.5"/>';
+    }
+  });
+  return '<svg class="hd-glyph" viewBox="0 0 60 64" width="100" height="107">' + rects + '</svg>';
+}
+function hdHexHtmlFx(n) {
+  return '<div class="hd-hex" data-fx="' + n + '">' + largeHexSvg(n) + '<span class="hd-num">' + n + '</span></div>';
+}
+function hdHexHtmlKw(fx) {
+  return '<div class="hd-hex" data-fx="' + fx + '">' + largeHexSvg(fx) + '<span class="hd-num">' + FX_TO_KW[fx] + '</span></div>';
+}
+
+// A horizontal distance bracket directly under the hexagram row, sized in
+// plain px (not the JS-computed `scale` the spine-side bracket uses) since
+// this box's own font/glyph sizing is already just native CSS rem/px that
+// the browser's zoom scales correctly on its own — no compensation needed.
+function renderHdDistanceBracket(svgNode, hexesRow, distance, shape) {
+  svgNode.innerHTML = '';
+  var w = hexesRow.getBoundingClientRect().width;
+  var strokeW = 3, barY = 12, tickTopY = 0, fontPx = 24;
+  var half = 15 / 16 * fontPx;
+  svgNode.setAttribute('width', w.toFixed(2));
+  svgNode.setAttribute('height', (barY + half + 4).toFixed(2));
+  var x1 = 2, x2 = w - 2;
+  svgNode.appendChild(svgEl('rect', {
+    x: x1.toFixed(2), y: (barY - strokeW / 2).toFixed(2),
+    width: (x2 - x1).toFixed(2), height: strokeW.toFixed(2), class: 'hd-distance-bracket-line'
+  }));
+  [x1, x2].forEach(function (x) {
+    svgNode.appendChild(svgEl('rect', {
+      x: (x - strokeW / 2).toFixed(2), y: tickTopY.toFixed(2),
+      width: strokeW.toFixed(2), height: (barY - tickTopY).toFixed(2), class: 'hd-distance-tick'
+    }));
+  });
+  var midX = w / 2;
+  if (shape === 'circle') {
+    svgNode.appendChild(svgEl('circle', {
+      cx: midX.toFixed(2), cy: barY.toFixed(2), r: half.toFixed(2), class: 'hd-distance-label-bg'
+    }));
+  } else {
+    svgNode.appendChild(svgEl('rect', {
+      x: (midX - half).toFixed(2), y: (barY - half).toFixed(2),
+      width: (half * 2).toFixed(2), height: (half * 2).toFixed(2), class: 'hd-distance-label-bg'
+    }));
+  }
+  var textEl = svgEl('text', { x: midX.toFixed(2), y: barY.toFixed(2), dy: '0.5', class: 'hd-distance-label-text' });
+  textEl.style.fontSize = fontPx + 'px';
+  textEl.textContent = distance;
+  svgNode.appendChild(textEl);
 }
 
 var fxSvg = document.getElementById('fx-spine-svg');
@@ -554,6 +733,68 @@ var kwFrame = document.getElementById('kw-spine-frame');
 var fxOverlay = document.getElementById('fx-distance-overlay');
 var kwOverlay = document.getElementById('kw-distance-overlay');
 var emptyNote = document.getElementById('empty-note');
+var pageColumns = document.querySelector('.page-columns');
+var hexDisplayFx = document.getElementById('hex-display-fx');
+var hexDisplayKw = document.getElementById('hex-display-kw');
+var nameTags = document.querySelectorAll('.name-tag');
+var HEX_DISPLAY_SPLIT_GAP = 24;
+var HEX_DISPLAY_CLEARANCE = 40;
+var NAME_TAG_BASE_MARGIN_TOP = 40;
+
+function resetNameTagPush() {
+  nameTags.forEach(function (el) { el.style.marginTop = ''; });
+}
+
+function positionHexDisplays() {
+  // Reset any previous push-down before measuring natural (un-pushed)
+  // positions, so this stays correct across repeated calls (resize, a
+  // different group selected, etc.) instead of compounding.
+  resetNameTagPush();
+
+  var pcRect = pageColumns.getBoundingClientRect();
+  var fxRect = fxFrame.getBoundingClientRect();
+  var kwRect = kwFrame.getBoundingClientRect();
+  var centerX = (fxRect.right + kwRect.left) / 2 - pcRect.left;
+  // Anchored just below the spine SVGs (not the full panel) so the boxes
+  // sit close to the diagrams instead of pushed far down the page.
+  var svgBottoms = [fxSvg.getBoundingClientRect().bottom, kwSvg.getBoundingClientRect().bottom];
+  var topY = Math.max.apply(null, svgBottoms) - pcRect.top + HEX_DISPLAY_CLEARANCE;
+
+  var fxWidth = hexDisplayFx.offsetWidth;
+  var kwWidth = hexDisplayKw.offsetWidth;
+  var height = Math.max(hexDisplayFx.offsetHeight, hexDisplayKw.offsetHeight);
+  hexDisplayFx.style.left = (centerX - HEX_DISPLAY_SPLIT_GAP / 2 - fxWidth / 2) + 'px';
+  hexDisplayFx.style.top = topY + 'px';
+  hexDisplayKw.style.left = (centerX + HEX_DISPLAY_SPLIT_GAP / 2 + kwWidth / 2) + 'px';
+  hexDisplayKw.style.top = topY + 'px';
+
+  // The boxes are wide enough to reach under each panel's name-tag/heading,
+  // so push those down (instead of reserving fixed dead space) just enough
+  // to clear the box's actual bottom edge.
+  var boxBottom = topY + height + HEX_DISPLAY_CLEARANCE;
+  nameTags.forEach(function (el) {
+    var naturalTop = el.getBoundingClientRect().top - pcRect.top;
+    var extraPush = boxBottom - naturalTop;
+    if (extraPush > 0) el.style.marginTop = (NAME_TAG_BASE_MARGIN_TOP + extraPush) + 'px';
+  });
+}
+
+var selectedHexFx = null;
+function applyHexSelection() {
+  document.querySelectorAll('.hd-hex').forEach(function (el) {
+    var fx = parseInt(el.getAttribute('data-fx'), 10);
+    el.classList.toggle('selected', selectedHexFx !== null && fx === selectedHexFx);
+  });
+}
+function onHexClick(e) {
+  var hexEl = e.target.closest('.hd-hex');
+  if (!hexEl) return;
+  var fx = parseInt(hexEl.getAttribute('data-fx'), 10);
+  selectedHexFx = (selectedHexFx === fx) ? null : fx;
+  applyHexSelection();
+}
+document.getElementById('hd-hexes-fx').addEventListener('click', onHexClick);
+document.getElementById('hd-hexes-kw').addEventListener('click', onHexClick);
 
 function update() {
   var fxSelected = getSelectedFx();
@@ -563,10 +804,43 @@ function update() {
   styleGroups(fxSvg, 'FX', fxSet);
   styleGroups(kwSvg, 'KW', kwSet);
   drawDistanceBracket(fxOverlay, fxFrame, fxSvg, 'FX', fxSet, selectedGroup ? fxGroupDistance(selectedGroup) : null, 'circle',
-    function () { return 70; }, function () { return 100; });
+    function (r) { return r.width * GUTTER_FRACTION * 0.5; },
+    function (r) { return r.width * GUTTER_FRACTION * (100 / 140); });
   drawDistanceBracket(kwOverlay, kwFrame, kwSvg, 'KW', kwSet, selectedGroup ? kwGroupDistance(selectedGroup) : null, 'square',
-    function (r) { return r.width - 70; }, function (r) { return r.width - 100; });
+    function (r) { return r.width - r.width * GUTTER_FRACTION * 0.5; },
+    function (r) { return r.width - r.width * GUTTER_FRACTION * (100 / 140); });
   emptyNote.style.display = fxSelected ? 'none' : 'block';
+
+  selectedHexFx = null;
+  if (selectedGroup) {
+    var sortedFx = selectedGroup.members.slice().sort(function (a, b) { return a - b; });
+    var sortedByKw = selectedGroup.members.slice().sort(function (a, b) { return FX_TO_KW[a] - FX_TO_KW[b]; });
+    var kwNums = sortedByKw.map(function (fx) { return FX_TO_KW[fx]; });
+    document.getElementById('hd-caption-fx').textContent = 'FX{' + sortedFx.join(',') + '}';
+    document.getElementById('hd-hexes-fx').innerHTML = sortedFx.map(hdHexHtmlFx).join('');
+    hexDisplayFx.classList.add('active');
+    document.getElementById('hd-caption-kw').textContent = 'KW{' + kwNums.join(',') + '}';
+    document.getElementById('hd-hexes-kw').innerHTML = sortedByKw.map(hdHexHtmlKw).join('');
+    hexDisplayKw.classList.add('active');
+    renderHdDistanceBracket(document.getElementById('hd-distance-fx'), document.getElementById('hd-hexes-fx'), fxGroupDistance(selectedGroup), 'circle');
+    renderHdDistanceBracket(document.getElementById('hd-distance-kw'), document.getElementById('hd-hexes-kw'), kwGroupDistance(selectedGroup), 'square');
+    positionHexDisplays();
+    var fxParam = '?fx=' + sortedFx.join(',');
+    document.getElementById('footer-link-circle-square').href = 'FX_circle_KW_square.html' + fxParam;
+    document.getElementById('footer-link-group-table').href = 'group-table.html' + fxParam;
+  } else {
+    hexDisplayFx.classList.remove('active');
+    hexDisplayKw.classList.remove('active');
+    document.getElementById('hd-hexes-fx').innerHTML = '';
+    document.getElementById('hd-hexes-kw').innerHTML = '';
+    document.getElementById('hd-caption-fx').textContent = '';
+    document.getElementById('hd-caption-kw').textContent = '';
+    document.getElementById('hd-distance-fx').innerHTML = '';
+    document.getElementById('hd-distance-kw').innerHTML = '';
+    resetNameTagPush();
+    document.getElementById('footer-link-circle-square').href = 'FX_circle_KW_square.html';
+    document.getElementById('footer-link-group-table').href = 'group-table.html';
+  }
 }
 
 update();
@@ -575,4 +849,7 @@ update();
 // stale highlighting/brackets on screen. Re-run on every pageshow (normal
 // loads included, at negligible cost) so the page always reflects its URL.
 window.addEventListener('pageshow', update);
+window.addEventListener('resize', function () {
+  if (hexDisplayFx.classList.contains('active')) positionHexDisplays();
+});
 </script>

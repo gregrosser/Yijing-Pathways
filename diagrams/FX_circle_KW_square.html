@@ -2173,4 +2173,18 @@ document.addEventListener('click', function (e) {
     clearGroup();
   }
 });
+
+// Pre-select a group when arriving via a ?fx=1,2,63,64-style link from
+// another page (e.g. FX_KW_spine.html's footer), mirroring the query-param
+// convention already used to carry a selection *out* to that page and to
+// group-table.html.
+(function () {
+  var params = new URLSearchParams(window.location.search);
+  var raw = params.get('fx');
+  if (!raw) return;
+  var nums = raw.split(',').map(function (s) { return parseInt(s, 10); }).filter(function (n) { return !isNaN(n); });
+  if (!nums.length) return;
+  var groupId = HEX_TO_GROUP[nums[0]];
+  if (groupId !== undefined) showGroup(groupId);
+})();
 </script>
