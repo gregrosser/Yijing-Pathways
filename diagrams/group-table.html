@@ -111,6 +111,8 @@
     font-weight: 700;
     color: var(--ink);
     margin-right: 8px;
+    cursor: pointer;
+    user-select: none;
   }
   .cell.right .dist-badge { margin-right: 0; margin-left: 8px; }
 
@@ -234,7 +236,8 @@
     (KW) set, and drawn as its members&rsquo; actual line patterns, in
     increasing FX order. The circled number is each group&rsquo;s FX-sum
     (&ldquo;dist&rdquo;). Hover or click a hexagram, an FX number, or a KW
-    number to highlight the other two.
+    number to highlight the other two; hover or click a distance badge to
+    select its whole group, including the badge on the other axis.
   </p>
 </header>
 
@@ -623,6 +626,64 @@
   });
   document.querySelectorAll('.num[data-kw]').forEach(function (el) {
     wire(el, KW_TO_FX[+el.dataset.kw]);
+  });
+
+  // Distance badges (both the circular FX badge and the square KW badge in a
+  // cell) select the whole group they annotate rather than a single fx, since
+  // "dist" is a property of the group, not of any one hexagram in it. Reading
+  // the group's fx list straight from the cell's own .set-label spans (rather
+  // than reusing ROWS by index) keeps this correct even if ROWS's row/axis
+  // shape ever changes.
+  function cellFxList(cellEl) {
+    return Array.prototype.map.call(cellEl.querySelectorAll('.set-label .num[data-fx]'), function (n) { return +n.dataset.fx; });
+  }
+
+  function selectGroup(fxs, additive) {
+    if (additive) {
+      var allSelected = fxs.every(function (f) { return selected.has(f); });
+      fxs.forEach(function (f) {
+        if (allSelected) {
+          selected.delete(f);
+          setHighlight(f, false);
+        } else {
+          selected.add(f);
+          setHighlight(f, true);
+        }
+      });
+    } else {
+      var isExactMatch = selected.size === fxs.length && fxs.every(function (f) { return selected.has(f); });
+      selected.forEach(function (f) { setHighlight(f, false); });
+      selected.clear();
+      if (!isExactMatch) {
+        fxs.forEach(function (f) {
+          selected.add(f);
+          setHighlight(f, true);
+        });
+      }
+    }
+  }
+
+  document.querySelectorAll('.dist-badge').forEach(function (el) {
+    var cell = el.closest('.cell');
+    el.addEventListener('mouseenter', function () {
+      cellFxList(cell).forEach(function (f) { setHighlight(f, true); });
+    });
+    el.addEventListener('mouseleave', function () {
+      cellFxList(cell).forEach(function (f) { if (!selected.has(f)) setHighlight(f, false); });
+    });
+    el.addEventListener('click', function (e) {
+      var fxs = cellFxList(cell);
+      if (activeMode) {
+        // Match wire()'s click handling: an active mode (e.g. "Complementary
+        // lines 1 & 6") takes over what a click selects, pairing this badge's
+        // own group with its dual group under that mode's rule -- same as
+        // clicking any hexagon/fx/kw in the group would do.
+        selectByMode(fxs[0], activeMode);
+      } else {
+        clearAxisHighlight();
+        selectGroup(fxs, e.ctrlKey);
+      }
+    });
   });
 
   var fxParam = new URLSearchParams(window.location.search).get('fx');

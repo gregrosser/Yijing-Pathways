@@ -50,6 +50,9 @@ red circle in the artifact.
 4. Perpendicular-pair reflection
 5. Row 2 / row 9 asymmetry
 6. Axis definition via line 1 / line 6
+7. Pure / centered / mixed trigram categories
+8. Center-to-periphery generation
+9. FX-sum decomposition: peripheral rows = center-row pairs
 
 ### 1. Vertical symmetry — row-twins across axes
 
@@ -258,6 +261,128 @@ exceptions either way. This looks like the underlying definition of the
 two axes themselves — the 64-hexagram set splits in half by whether its
 outermost line pair agrees, and that split is exactly the
 FX(31,32)/FX(33,34) partition used throughout this table.
+
+### 7. Pure / centered / mixed trigram categories (2026-08-21)
+
+A third classification of the 8 trigrams, orthogonal to but related to
+Observation 6's self-reversing/mixed split (see Background below):
+
+- **pure** — all three lines identical (3:0 or 0:3 yin:yang split): Qian, Kun.
+- **centered** — two lines match, the odd line sits in the middle (line 2):
+  Kan, Li.
+- **mixed** — two lines match, the odd line sits at an end (line 1 or line
+  3): Zhen, Xun, Gen, Dui. Same four trigrams the Background section below
+  already calls "mixed" — this reuses that category exactly, not a
+  redefinition.
+
+Note: pure ∪ centered = the Background section's "self-reversing" set
+(Qian, Kun, Kan, Li). This split refines self-reversing rather than
+competing with it — every self-reversing trigram's line 1 and line 3
+already match (that's what makes it read the same forwards and backwards);
+pure and centered differ only in whether the middle line also matches.
+
+Checked directly against every hexagram's own rendered line data (not
+derived from FX numbers), on both axis tables. Categorizing each
+hexagram's two trigrams (inner/outer) gives an unordered category-pair;
+every one of the ten rows holds exactly one category-pair, identically on
+both axes:
+
+| row | category-pair |
+|---|---|
+| 4 | pure + pure |
+| 2 | pure + centered |
+| 1, 3 | pure + mixed |
+| 6 | centered + centered |
+| 8, 10 | centered + mixed |
+| 5, 7, 9 | mixed + mixed |
+
+These are all six possible unordered pairs from {pure, centered, mixed} —
+three same-pairs and three cross-pairs — each landing on its own row or
+row-pair. Confirmed exhaustively across all 64 hexagrams, zero exceptions.
+
+### 8. Center-to-periphery generation (2026-08-21)
+
+Reading the table in three levels — rows 1–3 as "top", the pair-block
+rows 4–7 as "center", rows 8–10 as "bottom" — the center rows generate the
+outer rows' categories from Observation 7.
+
+Under Observation 7's categories, each of rows 4–7 is internally
+homogeneous: both trigram slots share the same category, on both axes.
+Row 4 = pure, row 5 = mixed, row 6 = centered, row 7 = mixed. Treating
+each center row as a single "essence" this way, every pairing of two
+center rows — combining their two essences into a category-pair —
+reproduces exactly one of the six peripheral rows' (1, 2, 3, 8, 9, 10)
+category-pairs from Observation 7:
+
+| center pair | combined essence | matches |
+|---|---|---|
+| {4,5} | pure + mixed | rows 1, 3 |
+| {4,7} | pure + mixed | rows 1, 3 |
+| {5,6} | mixed + centered | rows 8, 10 |
+| {6,7} | centered + mixed | rows 8, 10 |
+| {4,6} | pure + centered | row 2 only |
+| {5,7} | mixed + mixed | row 9 only |
+
+All six peripheral rows are accounted for exactly once each. This lines
+up exactly with the "three-flip pattern" (Observation 2's "pair-block as
+index"): the {4,5}/{6,7} split (associated there with quartet dual 1↔10)
+and the {4,7}/{5,6} split (quartet dual 3↔8) generate the *same two*
+outputs — pure+mixed and centered+mixed — via different specific
+row-pairings. The {4,6}/{5,7} split (quartet dual 2↔9) is the only one of
+the three whose two halves generate outputs that appear nowhere else in
+the table: row 2's pure+centered, row 9's mixed+mixed.
+
+This gives a structural reason for Observation 5's "row 2 / row 9
+asymmetry": they are the unique products of the one center-split whose
+outputs don't overlap with the other two splits' outputs — the center
+rows act as the table's generating essences, each pairing of two center
+rows radiating outward to produce the peripheral row(s) above or below.
+
+Confirmed exhaustively: all six center-row pairings checked, each
+matching exactly one peripheral-row category-pair with no leftover or
+unaccounted combinations. Category alone can't distinguish row 1 from
+row 3 (both pure+mixed) or row 8 from row 10 (both centered+mixed) — see
+Observation 9 for the exact numeric version of this law, which resolves
+that ambiguity.
+
+### 9. FX-sum decomposition: peripheral rows = center-row pairs (2026-08-21)
+
+Summing each group's own FX numbers directly (not recalled) and comparing
+against Observation 8's center-row essences shows the relationship there
+is exact, not just categorical: each peripheral row's FX-sum equals the
+sum of exactly two center rows' FX-sums — the same two rows Observation 8
+identified as its category generators — on both axis tables, with zero
+exceptions:
+
+| peripheral row | = | center rows | axis A | axis B |
+|---|---|---|---|---|
+| row 1 | = | row 4 + row 5 | 54 = 3 + 51 | 78 = 31 + 47 |
+| row 2 | = | row 4 + row 6 | 78 = 3 + 75 | 118 = 31 + 87 |
+| row 3 | = | row 4 + row 7 | 126 = 3 + 123 | 134 = 31 + 103 |
+| row 8 | = | row 5 + row 6 | 126 = 51 + 75 | 134 = 47 + 87 |
+| row 9 | = | row 5 + row 7 | 174 = 51 + 123 | 150 = 47 + 103 |
+| row 10 | = | row 6 + row 7 | 198 = 75 + 123 | 190 = 87 + 103 |
+
+The six pairings used are exactly the six unordered pairs of {4, 5, 6, 7}
+— a complete bijection between the C(4,2)=6 center-row pairs and the six
+peripheral rows, none reused, none skipped. This resolves the ambiguity
+Observation 8 leaves open: category alone can't distinguish row 1 from
+row 3 (both pure+mixed) or row 8 from row 10 (both centered+mixed), but
+the exact FX-sums pick out a single specific generating pair for each.
+
+This also *derives* Observation 3's "shared constant across all duals"
+(252 on axis A, 268 on axis B) rather than leaving it an empirical
+coincidence: each of the three quartet duals — 1+10, 2+9, 3+8 — pairs two
+peripheral rows whose generating pairs are complementary halves of
+{4,5,6,7} (e.g. row 1 uses {4,5}, row 10 uses {6,7} — together every
+center row is used exactly once), so all three duals' sums necessarily
+equal the same total: row4 + row5 + row6 + row7. The pairing law itself
+is identical on both axes; only the numbers it produces differ, feeding
+directly into the axis-specific 252/268 split.
+
+Confirmed exactly: all twelve sums (six peripheral rows × two axes)
+recomputed directly from the FX numbers in `../../diagrams/group-table.html`,
+zero exceptions.
 
 ## Background
 
