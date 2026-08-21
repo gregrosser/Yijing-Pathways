@@ -53,6 +53,7 @@ red circle in the artifact.
 7. Pure / centered / mixed trigram categories
 8. Center-to-periphery generation
 9. FX-sum decomposition: peripheral rows = center-row pairs
+10. Group construction as Klein four-group orbits (cuogua/zonggua)
 
 ### 1. Vertical symmetry — row-twins across axes
 
@@ -383,6 +384,99 @@ directly into the axis-specific 252/268 split.
 Confirmed exactly: all twelve sums (six peripheral rows × two axes)
 recomputed directly from the FX numbers in `../../diagrams/group-table.html`,
 zero exceptions.
+
+### 10. Group construction as Klein four-group orbits (cuogua/zonggua) (2026-08-21)
+
+The table's 20 groups (8 pair-rows, 12 quartet-rows, across both axes) are
+not just describable after the fact by Observations 1–9 — they are exactly
+reproduced by a single, minimal generative rule, built from the two
+classical hexagram relations:
+
+- **cuogua (錯卦, "complement")** — flip every line (yang↔yin).
+- **zonggua (綜卦, "reversal")** — read the hexagram upside-down (line 1↔6,
+  2↔5, 3↔4).
+
+Both are involutions (applying either twice returns the original
+hexagram), and together with their composition they form a **Klein
+four-group** V4 = {identity, complement, reversal, complement∘reversal}
+acting on the 64 hexagrams. **Verified directly from each hexagram's own
+line data** (not from the table's row layout): computing every
+hexagram's full V4-orbit and comparing the resulting partition against
+`GROUPS` (`diagrams/FX_circle_KW_square.html`'s own group-membership
+data) gives an **exact match, zero discrepancies** — every single one of
+the 20 orbits equals one of the table's 20 groups, member-for-member.
+
+The orbit-size split explains the pair/quartet distinction directly:
+most hexagrams have 4 distinct images under {id, complement, reversal,
+complement∘reversal}, giving a quartet (12 of the 20 groups); a hexagram
+whose reversal happens to equal its own complement collapses the orbit
+to size 2, giving a pair-row (8 of the 20 groups — exactly rows 4–7 on
+both axes). Reversal equalling complement for a hexagram means both its
+trigrams are self-reversing (pure or centered, Observation 7) — the same
+condition Observation 6/7's background section already identifies as
+the "self-reversing" trigram set.
+
+#### Why this matters for "is this grouping arbitrary?"
+
+cuogua and zonggua are not a pair of operations invented for this
+project — they are the two canonical relations already recognized in
+the classical literature on hexagram pairs. Their generated symmetry
+group is close to the unique natural choice at this level: it is what
+you get from taking the two textbook hexagram operations and simply
+closing them under composition, not one convention selected among many
+equally-arbitrary options.
+
+#### Candidate alternative groupings, checked for comparison
+
+To test whether a comparably rich (or richer) symmetric grouping exists,
+several alternative generating sets/operations were checked directly
+against the same line data:
+
+- **Adding trigram-swap (swap inner/outer trigram) as a third
+  generator** — a genuine third involution, independent of the first two
+  (its output coincides with complement/reversal/their composite on only
+  20 of 64 hexagrams). The larger group it generates does produce a
+  well-defined, richer partition — **4 pairs, 6 quartets, 4 octets**
+  (verified exhaustively) — but every one of the four octets **mixes
+  Observation 6's axis A / axis B split** (line 1 = line 6 vs line 1 ≠
+  line 6), since trigram-swap moves what sits at line 1 to where line 4
+  was. Since Observations 2, 3, 8, and 9 all depend on staying within one
+  axis, this candidate buys a larger group at the direct cost of the
+  invariant the existing scheme's richest results are built on — not a
+  strict improvement, a different trade-off.
+- **Complement alone (cuogua only)** — already a strict subset of the
+  existing scheme (every pair-row 4–7 *is* one); standalone it cannot
+  produce quartets or the center/periphery sum laws (Observations 7–9).
+- **Reversal alone (zonggua only)** — close to the organizing principle
+  behind most of the King Wen sequence's own adjacent pairs. The King
+  Wen control test already run for Observation 9 (peripheral-row = sum
+  of two center rows: 12/12 under FX, 0/12 under KW numbering) is
+  suggestive that reversal-alone grouping lacks comparable arithmetic
+  richness, though that test targeted *numbering* rather than *grouping*
+  directly, so this is circumstantial rather than conclusive.
+- **Trigram-swap alone** — a real, different involution, but has 8 fixed
+  points (the doubled-trigram hexagrams: Qian/Qian, Kun/Kun, Zhen/Zhen,
+  Xun/Xun, Kan/Kan, Li/Li, Gen/Gen, Dui/Dui — verified: exactly FX{1, 2,
+  19, 20, 37, 38, 55, 56}), giving an uneven 28-pairs-plus-8-singletons
+  partition rather than the existing scheme's uniform 2s-and-4s split.
+- **Jing Fang's Eight Palaces (八宮)** — a major historical alternative
+  (8 groups of 8, built by sequential line changes from the 8 pure
+  hexagrams), but *generative/directional* rather than built from
+  symmetric involutions — a different species of grouping, not a
+  same-style rival for exact-sum symmetry.
+- **Yang-line-count bands** (grouping by total number of yang lines,
+  0–6) — a legitimate different-shape alternative, sizes 1, 6, 15, 20,
+  15, 6, 1 (Pascal's triangle), with its own real complement-driven
+  duality (count *k* ↔ count 6−*k*). Structurally a different family
+  (uneven, combinatorial rather than uniform/relational) rather than a
+  directly comparable rival.
+
+**Conclusion:** among symmetric, involution-based groupings that respect
+the axis-A/axis-B split central to the rest of this document, the
+existing cuogua/zonggua Klein-four-group scheme appears to be at or very
+near the natural optimum — every real alternative checked either sits
+strictly inside it, buys size at the cost of axis-purity, or belongs to
+a different combinatorial family entirely.
 
 ## Background
 
