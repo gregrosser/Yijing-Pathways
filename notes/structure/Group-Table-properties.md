@@ -54,6 +54,7 @@ red circle in the artifact.
 8. Center-to-periphery generation
 9. FX-sum decomposition: peripheral rows = center-row pairs
 10. Group construction as Klein four-group orbits (cuogua/zonggua)
+11. Binary-sequence numbering comparison (analytical aside, low priority)
 
 ### 1. Vertical symmetry — row-twins across axes
 
@@ -477,6 +478,98 @@ existing cuogua/zonggua Klein-four-group scheme appears to be at or very
 near the natural optimum — every real alternative checked either sits
 strictly inside it, buys size at the cost of axis-purity, or belongs to
 a different combinatorial family entirely.
+
+### 11. Binary-sequence numbering comparison (analytical aside, low priority) (2026-08-22)
+
+**Framing, stated up front and not to be relaxed without reopening this
+question explicitly:** this observation is an analytical comparison only.
+It is not a proposal, and is in no way a candidate, for an alternative
+numbering scheme for this project. The existing FX numbering stays
+exactly as-is.
+
+The classical alternative compared here is the Shao Yong/Fu Xi
+binary-sequence convention (the one popularly associated with Leibniz):
+read a hexagram's 6 lines as a 6-bit number, bottom line = least
+significant bit, yang = 1, yin = 0, giving a count 0–63 (Kun = 000000 =
+0, Qian = 111111 = 63). This matches this project's own existing
+bottom-line-first bit convention. **Sourced via web search and verified
+against an independently-published KW1–KW64 binary-value table**, cross
+referencing this project's own `HEXLINES`/`data-kw` data — 0/64
+mismatches, which both confirms the classical convention was
+reconstructed correctly and independently validates this project's own
+line data and FX↔KW mapping against an outside source.
+
+#### Direct complement (cuogua) pairs: FX is the unbeatable optimum
+
+FX numbering places every direct-complement pair — FX(2k−1)/FX(2k), full
+line-by-line inversion — at numeric distance 1, for all 32 pairs, by
+construction. Re-ranking the same 64 hexagrams by binary value (rank =
+binary value + 1) and re-measuring the same 32 pairs' distances gives,
+instead, **exactly the 32 odd numbers 1, 3, 5, …, 63, each occurring once**
+— min 1, max 63, mean = median = 32, i.e. half the full possible range.
+Example: FX{1,2} (Qian/Kun, the two "pure" hexagrams, adjacent under FX)
+sit at binary ranks 64 and 1 — the maximum possible distance apart.
+
+This spread is not merely an empirical property of this particular
+mapping — it's a **mathematical necessity of positional binary counting
+itself**. Since complementing a hexagram flips every bit, `binval +
+binval(complement) = 63` always; distance under binary rank reduces to
+`|2·binval − 63|`, which is a bijection from the 32 complement pairs onto
+the 32 odd numbers 1–63 regardless of which hexagram is assigned which
+value. No binary-style positional numbering could ever do better here —
+binary numbering is not merely unoptimized for direct-complement
+locality, it is structurally incapable of achieving it, because its
+ordering principle (place value) has no relationship to the complement
+relation at all.
+
+#### Inverse-complementary (comp∘rev) pairs: the two numberings track each other
+
+The table's 12 quartet-type groups each contain two further pairs
+related by **comp∘rev** (Observation 10's third non-identity Klein
+four-group element) rather than by direct complement — exactly the
+`pairs` field already stored in `GROUPS` (e.g. group 1: `members`
+`{3,4,63,64}`, `pairs` `[[3,63],[4,64]]`, `distance` 31, using this
+project's own `((b−a)/2)+1` distance convention). Re-measuring these same
+24 real pairs (all of them, not a sample — every quartet group's both
+`pairs` entries) by binary rank instead of FX number gives, in every
+single case and with zero exceptions, **binary-rank distance = FX
+distance − 1**. Example: group 1's `(3,63)` pair, FX distance 31, sits at
+binary ranks 32 and 2 — binary-rank distance 30.
+
+Unlike the direct-complement case, this is not a spread — the two
+numberings are nearly rescaled versions of each other for this relation
+(raw FX-number gap is exactly double the raw binary-rank gap, every
+time). Binary numbering shows no disorganization here comparable to the
+direct-complement case. The algebraic reason for the exact "−1" offset
+has been verified exhaustively across all 24 real pairs but not yet
+derived/proven from first principles — worth revisiting if this
+observation is ever picked back up.
+
+#### Scope of the "better fit" claim
+
+The evidence supports a claim scoped specifically to the **direct
+complement (cuogua) relation**: FX numbering achieves the minimum
+possible distance (1) for all 32 complement pairs simultaneously, which
+positional binary numbering cannot do for any assignment. It does **not**
+extend to the inverse-complementary (comp∘rev) relation, where binary
+numbering performs essentially identically to FX numbering (same
+relative spread, offset by a constant), so no comparable "better fit"
+claim holds there.
+
+**Regeneration method, if this needs re-deriving:** parse `HEXLINES` from
+`diagrams/FX_circle_KW_square.html` (`var HEXLINES = (\{.*?\});`), compute
+`binval(hexagram) = Σ bit_i·2^i` for `i` = 0..5 over lines 1–6 (bit = 1 if
+yang), `binary_rank = binval + 1`; direct-complement pairs are FX(2k−1)/
+FX(2k) for `k` = 1..32; inverse-complementary pairs are the `pairs` field
+of every `quartet`-type entry in `GROUPS` (also parsed from the same
+file, `var GROUPS = (\[.*?\]);`).
+
+**Sources consulted:**
+[Yijing Dao — Shao Yong square, Xiantian diagram sequences](https://www.biroco.com/yijing/sequence.htm),
+[Scripting the Shao Yong Diagram](https://www.russellcottrell.com/blog/ShaoYongScript.htm),
+[Hexagram Orderings Explained — King Wen, Mawangdui, Eight Palaces, and Binary](https://iching.rocks/learn/hexagram-orderings)
+(source of the KW1–64 binary-value cross-check table),
+[Leibniz and the I Ching: How the 64 Hexagrams Became Binary Code](https://ichingai.info/en/learn/leibniz-i-ching/).
 
 ## Background
 
