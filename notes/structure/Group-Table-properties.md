@@ -656,6 +656,15 @@ number vs. binary rank.
 (source of the KW1–64 binary-value cross-check table),
 [Leibniz and the I Ching: How the 64 Hexagrams Became Binary Code](https://ichingai.info/en/learn/leibniz-i-ching/).
 
+#### See also: FX-circle-properties.md
+
+The given circle's actual angular geometry (as opposed to this file's
+FX-number-based Group Table) — including a verified diametric-complement
+law, the inner trigram's exact 3-bit reflected Gray cycle, a named match
+to the "(n,t)-antipodal Gray code" literature, and the two-pole
+complementary-unfolding structure — is documented separately in
+`FX-circle-properties.md`.
+
 ## Background
 
 The Xiantian trigram circle referenced above:

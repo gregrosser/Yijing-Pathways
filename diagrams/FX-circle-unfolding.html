@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FX Circle Unfolding &mdash; Yijing Pathways</title>
+<style>
+  :root {
+    --paper: #F2ECDC;
+    --paper-panel: #EAE2CC;
+    --card-border: #DCD3B8;
+    --ink: #201D16;
+    --ink-soft: #6B6355;
+    --rule: #C9BFA2;
+    --gridline: #DED4B8;
+    --structure: #A23B2E;
+    --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    --font-body: Georgia, 'Times New Roman', serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #1B1712;
+      --paper-panel: #242019;
+      --card-border: #3A342A;
+      --ink: #EDE6D6;
+      --ink-soft: #A79C87;
+      --rule: #4A4436;
+      --gridline: #2C2820;
+      --structure: #E3806B;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #1B1712;
+    --paper-panel: #242019;
+    --card-border: #3A342A;
+    --ink: #EDE6D6;
+    --ink-soft: #A79C87;
+    --rule: #4A4436;
+    --gridline: #2C2820;
+    --structure: #E3806B;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 28px 16px 60px;
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--structure);
+  }
+  h1 {
+    font-weight: 400;
+    font-size: 2.1rem;
+    margin: 6px 0 10px;
+    text-align: center;
+  }
+  .intro {
+    color: var(--ink-soft);
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 640px;
+    text-align: center;
+    margin: 0 0 20px;
+  }
+  .intro a { color: var(--structure); }
+
+  .stage {
+    width: min(92vw, 720px);
+    aspect-ratio: 1 / 1;
+    position: relative;
+  }
+  svg { width: 100%; height: 100%; display: block; }
+
+  .spoke { stroke: var(--gridline); stroke-width: 1.5; }
+  .ring { fill: none; stroke: var(--gridline); stroke-width: 1; }
+  .hub { fill: var(--paper); stroke: var(--rule); stroke-width: 1.5; }
+  .bar { stroke: var(--ink); stroke-width: 5; stroke-linecap: round; }
+
+  .markglyph rect { fill: var(--ink-soft); }
+  .markglyph.current rect { fill: var(--structure); }
+
+  .pole-label { font-family: var(--font-mono); font-size: 20px; fill: var(--ink-soft); text-anchor: middle; }
+  .line-label { font-family: var(--font-mono); font-size: 14px; fill: var(--ink-soft); text-anchor: start; }
+
+  .controls {
+    margin-top: 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+  .step-buttons {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .step-buttons button {
+    font-family: var(--font-mono);
+    font-size: 1.3rem;
+    letter-spacing: 0.02em;
+    color: var(--structure);
+    background: var(--paper);
+    border: 2px solid var(--structure);
+    border-radius: 10px;
+    padding: 12px 22px;
+    cursor: pointer;
+  }
+  .step-buttons button:hover:not(:disabled) { background: var(--structure); color: var(--paper); }
+  .step-buttons button:disabled { opacity: 0.35; cursor: default; }
+  .step-buttons button.big { font-size: 1.7rem; padding: 14px 30px; }
+
+  .status {
+    font-family: var(--font-mono);
+    font-size: 1.05rem;
+    color: var(--ink);
+    text-align: center;
+    line-height: 1.7;
+  }
+  .status .dim { color: var(--ink-soft); }
+
+  .jump-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .jump-row button {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    color: var(--ink-soft);
+    background: var(--paper);
+    border: 1.5px solid var(--rule);
+    border-radius: 8px;
+    padding: 8px 14px;
+    cursor: pointer;
+  }
+  .jump-row button:hover { border-color: var(--structure); color: var(--structure); }
+  .jump-row button.active { border-color: var(--structure); color: var(--structure); background: var(--paper-panel); }
+
+  footer { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-top: 40px; }
+  footer a {
+    font-family: var(--font-mono);
+    font-size: 1.3rem;
+    letter-spacing: 0.02em;
+    color: var(--structure);
+    border: 2px solid var(--structure);
+    border-radius: 10px;
+    padding: 12px 22px;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  footer a:hover { background: var(--structure); color: var(--paper); }
+</style>
+
+<div class="eyebrow">Structure &middot; FX Circle</div>
+<h1>FX Circle Unfolding</h1>
+<p class="intro">
+  The FX circle built up step by step, from a central bar (the FX1&harr;FX2
+  axis) outward &mdash; one line at a time, in six full passes, exactly
+  matching the two-pole complementary-unfolding structure verified in
+  <a href="../notes/structure/FX-circle-properties.md">FX-circle-properties.md</a>.
+  Each pass sweeps the same 32 positions again, adding one more ring.
+</p>
+
+<div class="stage">
+  <svg viewBox="0 0 1100 1100">
+    <g id="rings"></g>
+    <g id="spokes"></g>
+    <circle cx="550" cy="550" r="18" class="hub"/>
+    <text class="pole-label" x="550" y="30">FX1</text>
+    <text class="pole-label" x="550" y="1080">FX2</text>
+    <g id="line-labels"></g>
+    <line id="bar" class="bar" x1="550" y1="550" x2="550" y2="550"/>
+    <g id="marks"></g>
+  </svg>
+</div>
+
+<div class="controls">
+  <div class="status" id="status"></div>
+  <div class="step-buttons">
+    <button id="btn-first">&laquo; First</button>
+    <button id="btn-prev" class="big">&larr; Prev</button>
+    <button id="btn-next" class="big">Next &rarr;</button>
+    <button id="btn-last">Last &raquo;</button>
+  </div>
+  <div class="jump-row" id="jump-row"></div>
+</div>
+
+<footer>
+  <a href="FX_KW_spine.html" id="footer-link-spine" target="fx-kw-spine">Yijing Pathways</a>
+  <a href="FX_circle_KW_square.html" id="footer-link-circle-square" target="fx-circle-kw-square">FX circle / KW square</a>
+  <a href="group-table.html" id="footer-link-group-table" target="groups-table">Groups table</a>
+</footer>
+
+<script>
+const SVGNS = 'http://www.w3.org/2000/svg';
+const CX = 550, CY = 550;
+
+// TOP_ARM[k] and BOTTOM_ARM[k] are exact complements at every k, verified
+// directly from the real circle geometry in FX_circle_KW_square.html
+// (see FX-circle-properties.md, Observation 3, for the regeneration method).
+const TOP_ARM    = [15,13,11,9,7,5,3,1,31,29,27,25,23,21,19,17,47,45,43,41,39,37,35,33,63,61,59,57,55,53,51,49];
+const BOTTOM_ARM = [16,14,12,10,8,6,4,2,32,30,28,26,24,22,20,18,48,46,44,42,40,38,36,34,64,62,60,58,56,54,52,50];
+
+const HEXLINES = {"1":["yang","yang","yang","yang","yang","yang"],"2":["yin","yin","yin","yin","yin","yin"],"3":["yang","yang","yang","yang","yang","yin"],"4":["yin","yin","yin","yin","yin","yang"],"5":["yang","yang","yang","yang","yin","yang"],"6":["yin","yin","yin","yin","yang","yin"],"7":["yang","yang","yang","yang","yin","yin"],"8":["yin","yin","yin","yin","yang","yang"],"9":["yang","yang","yang","yin","yang","yang"],"10":["yin","yin","yin","yang","yin","yin"],"11":["yang","yang","yang","yin","yang","yin"],"12":["yin","yin","yin","yang","yin","yang"],"13":["yang","yang","yang","yin","yin","yang"],"14":["yin","yin","yin","yang","yang","yin"],"15":["yang","yang","yang","yin","yin","yin"],"16":["yin","yin","yin","yang","yang","yang"],"17":["yang","yang","yin","yang","yang","yang"],"18":["yin","yin","yang","yin","yin","yin"],"19":["yang","yang","yin","yang","yang","yin"],"20":["yin","yin","yang","yin","yin","yang"],"21":["yang","yang","yin","yang","yin","yang"],"22":["yin","yin","yang","yin","yang","yin"],"23":["yang","yang","yin","yang","yin","yin"],"24":["yin","yin","yang","yin","yang","yang"],"25":["yang","yang","yin","yin","yang","yang"],"26":["yin","yin","yang","yang","yin","yin"],"27":["yang","yang","yin","yin","yang","yin"],"28":["yin","yin","yang","yang","yin","yang"],"29":["yang","yang","yin","yin","yin","yang"],"30":["yin","yin","yang","yang","yang","yin"],"31":["yang","yang","yin","yin","yin","yin"],"32":["yin","yin","yang","yang","yang","yang"],"33":["yang","yin","yang","yang","yang","yang"],"34":["yin","yang","yin","yin","yin","yin"],"35":["yang","yin","yang","yang","yang","yin"],"36":["yin","yang","yin","yin","yin","yang"],"37":["yang","yin","yang","yang","yin","yang"],"38":["yin","yang","yin","yin","yang","yin"],"39":["yang","yin","yang","yang","yin","yin"],"40":["yin","yang","yin","yin","yang","yang"],"41":["yang","yin","yang","yin","yang","yang"],"42":["yin","yang","yin","yang","yin","yin"],"43":["yang","yin","yang","yin","yang","yin"],"44":["yin","yang","yin","yang","yin","yang"],"45":["yang","yin","yang","yin","yin","yang"],"46":["yin","yang","yin","yang","yang","yin"],"47":["yang","yin","yang","yin","yin","yin"],"48":["yin","yang","yin","yang","yang","yang"],"49":["yang","yin","yin","yang","yang","yang"],"50":["yin","yang","yang","yin","yin","yin"],"51":["yang","yin","yin","yang","yang","yin"],"52":["yin","yang","yang","yin","yin","yang"],"53":["yang","yin","yin","yang","yin","yang"],"54":["yin","yang","yang","yin","yang","yin"],"55":["yang","yin","yin","yang","yin","yin"],"56":["yin","yang","yang","yin","yang","yang"],"57":["yang","yin","yin","yin","yang","yang"],"58":["yin","yang","yang","yang","yin","yin"],"59":["yang","yin","yin","yin","yang","yin"],"60":["yin","yang","yang","yang","yin","yang"],"61":["yang","yin","yin","yin","yin","yang"],"62":["yin","yang","yang","yang","yang","yin"],"63":["yang","yin","yin","yin","yin","yin"],"64":["yin","yang","yang","yang","yang","yang"]};
+
+// Radii, line 1 (innermost) to line 6 (outermost).
+const RING_R = [340, 364, 388, 412, 436, 460];
+const TOP_START_ANGLE = 92.8125;   // vertical (90) + the one-time 2.8125 alignment step
+const STEP_DEG = 5.625;            // 360/64
+const TOTAL_STEPS = 1 + 6 * 32;    // 1 static frame + 6 passes x 32 reveals = 193 (indices 0..192)
+
+let step = 0; // 0 = static vertical bar, no marks
+
+function polar(angleDeg, r) {
+  const rad = angleDeg * Math.PI / 180;
+  return [CX + r * Math.cos(rad), CY - r * Math.sin(rad)];
+}
+
+function mkrect(x, y, w, h) {
+  const r = document.createElementNS(SVGNS, 'rect');
+  r.setAttribute('x', x); r.setAttribute('y', y);
+  r.setAttribute('width', w); r.setAttribute('height', h);
+  r.setAttribute('rx', 1.5);
+  return r;
+}
+
+function drawMark(group, angleDeg, r, isYang, isCurrent) {
+  const [px, py] = polar(angleDeg, r);
+  const svgRot = 90 - angleDeg;
+  const g = document.createElementNS(SVGNS, 'g');
+  g.setAttribute('class', 'markglyph' + (isCurrent ? ' current' : ''));
+  g.setAttribute('transform', `translate(${px.toFixed(2)},${py.toFixed(2)}) rotate(${svgRot.toFixed(4)})`);
+  if (isYang) {
+    g.appendChild(mkrect(-11, -3.5, 22, 7));
+  } else {
+    g.appendChild(mkrect(-11, -3.5, 8, 7));
+    g.appendChild(mkrect(3, -3.5, 8, 7));
+  }
+  group.appendChild(g);
+}
+
+function topAngleForK(k) { return TOP_START_ANGLE + STEP_DEG * k; }
+function bottomAngleForK(k) { return topAngleForK(k) + 180; }
+
+function passAndK(s) {
+  // s is 1-indexed reveal step (1..192)
+  const i = s - 1;
+  return { pass: Math.floor(i / 32), k: i % 32 };
+}
+
+function render() {
+  const marksGroup = document.getElementById('marks');
+  marksGroup.innerHTML = '';
+
+  // reveal every step from 1..step, cumulative
+  for (let s = 1; s <= step; s++) {
+    const { pass, k } = passAndK(s);
+    const lineIdx = pass; // 0-based line index (0=line1)
+    const topFx = TOP_ARM[k];
+    const botFx = BOTTOM_ARM[k];
+    const topYang = HEXLINES[topFx][lineIdx] === 'yang';
+    const botYang = HEXLINES[botFx][lineIdx] === 'yang';
+    const isCurrent = (s === step);
+    drawMark(marksGroup, topAngleForK(k), RING_R[lineIdx], topYang, isCurrent);
+    drawMark(marksGroup, bottomAngleForK(k), RING_R[lineIdx], botYang, isCurrent);
+  }
+
+  // bar position
+  const bar = document.getElementById('bar');
+  let barAngle;
+  if (step === 0) {
+    barAngle = 90;
+  } else {
+    const { k } = passAndK(step);
+    barAngle = topAngleForK(k);
+  }
+  const [tx, ty] = polar(barAngle, 485);
+  const [bx, by] = polar(barAngle + 180, 485);
+  bar.setAttribute('x1', tx.toFixed(2)); bar.setAttribute('y1', ty.toFixed(2));
+  bar.setAttribute('x2', bx.toFixed(2)); bar.setAttribute('y2', by.toFixed(2));
+
+  // status text
+  const statusEl = document.getElementById('status');
+  if (step === 0) {
+    statusEl.innerHTML = `Step 1 / ${TOTAL_STEPS} &mdash; <span class="dim">bar vertical, undifferentiated</span>`;
+  } else {
+    const { pass, k } = passAndK(step);
+    const topFx = TOP_ARM[k], botFx = BOTTOM_ARM[k];
+    statusEl.innerHTML =
+      `Step ${step + 1} / ${TOTAL_STEPS} &mdash; Pass ${pass + 1} (Line ${pass + 1}) &mdash; position ${k + 1}/32<br>` +
+      `<span class="dim">FX${topFx} (top) &harr; FX${botFx} (bottom), line ${pass + 1} just revealed</span>`;
+  }
+
+  document.getElementById('btn-prev').disabled = (step === 0);
+  document.getElementById('btn-first').disabled = (step === 0);
+  document.getElementById('btn-next').disabled = (step === TOTAL_STEPS - 1);
+  document.getElementById('btn-last').disabled = (step === TOTAL_STEPS - 1);
+
+  // highlight jump-row active pass
+  const jumpButtons = document.querySelectorAll('.jump-row button');
+  jumpButtons.forEach(b => b.classList.remove('active'));
+  if (step > 0) {
+    const { pass } = passAndK(step);
+    const btn = document.getElementById('jump-line-' + (pass + 1));
+    if (btn) btn.classList.add('active');
+  }
+}
+
+function setStep(s) {
+  step = Math.max(0, Math.min(TOTAL_STEPS - 1, s));
+  render();
+}
+
+document.getElementById('btn-first').addEventListener('click', () => setStep(0));
+document.getElementById('btn-last').addEventListener('click', () => setStep(TOTAL_STEPS - 1));
+document.getElementById('btn-prev').addEventListener('click', () => setStep(step - 1));
+document.getElementById('btn-next').addEventListener('click', () => setStep(step + 1));
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight') setStep(step + 1);
+  if (e.key === 'ArrowLeft') setStep(step - 1);
+});
+
+// jump-to-pass row
+const jumpRow = document.getElementById('jump-row');
+for (let line = 1; line <= 6; line++) {
+  const btn = document.createElement('button');
+  btn.id = 'jump-line-' + line;
+  btn.textContent = 'Line ' + line;
+  btn.addEventListener('click', () => setStep(1 + (line - 1) * 32));
+  jumpRow.appendChild(btn);
+}
+
+// background: 8 spokes at the canonical trigram-circle angles, plus 6 reference rings
+const TRIGRAM_ANGLES = [90, 45, 0, 315, 270, 225, 180, 135];
+const spokesGroup = document.getElementById('spokes');
+TRIGRAM_ANGLES.forEach(a => {
+  const [x1, y1] = polar(a, 60);
+  const [x2, y2] = polar(a, 490);
+  const line = document.createElementNS(SVGNS, 'line');
+  line.setAttribute('x1', x1); line.setAttribute('y1', y1);
+  line.setAttribute('x2', x2); line.setAttribute('y2', y2);
+  line.setAttribute('class', 'spoke');
+  spokesGroup.appendChild(line);
+});
+
+const ringsGroup = document.getElementById('rings');
+RING_R.forEach(r => {
+  const c = document.createElementNS(SVGNS, 'circle');
+  c.setAttribute('cx', CX); c.setAttribute('cy', CY); c.setAttribute('r', r);
+  c.setAttribute('class', 'ring');
+  ringsGroup.appendChild(c);
+});
+
+const lineLabelsGroup = document.getElementById('line-labels');
+RING_R.forEach((r, i) => {
+  const t = document.createElementNS(SVGNS, 'text');
+  t.setAttribute('x', CX + 6);
+  t.setAttribute('y', CY - r - 4);
+  t.setAttribute('class', 'line-label');
+  t.textContent = 'L' + (i + 1);
+  lineLabelsGroup.appendChild(t);
+});
+
+render();
+</script>
