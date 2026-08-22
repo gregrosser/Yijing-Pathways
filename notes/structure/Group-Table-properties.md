@@ -545,6 +545,84 @@ has been verified exhaustively across all 24 real pairs but not yet
 derived/proven from first principles — worth revisiting if this
 observation is ever picked back up.
 
+#### Trigram-pair perspective: each numbering optimizes a different trigram slot (2026-08-22)
+
+A further comparison, prompted by the question "is binary numbering a
+better fit once the sequence is read primarily through its trigram
+pairs, rather than through direct hexagram-to-hexagram relations?"
+
+**The structural anchor fact:** since lines 1–3 are bits 0–2 and lines
+4–6 are bits 3–5 of the 6-bit encoding, binary rank decomposes exactly
+as `binary_rank = inner_trigram_value + 8 × outer_trigram_value + 1`
+(inner = lines 1–3, outer = lines 4–6, each trigram's own 0–7 binary
+value under the same bottom-line-first convention used throughout this
+project). This is a trivial consequence of positional place-value, not
+something that needed checking — but its consequences for trigram
+clustering are worth measuring directly, which is what this section
+does.
+
+**Method:** grouped all 64 hexagrams into the 8 hexagrams sharing each
+possible **outer** trigram, and separately into the 8 sharing each
+possible **inner** trigram (16 octets total, parsed fresh from
+`HEXLINES`). For each octet, measured under both FX number and binary
+rank: the range (max − min) and the total pairwise distance among its 8
+members — the same "how tightly clustered" measure, applied
+exhaustively to every octet, not sampled.
+
+| relation | FX total range | FX total pairwise | binary total range | binary total pairwise |
+|---|---|---|---|---|
+| 8 outer-trigram octets | 448 | 5376 | **56** | **672** |
+| 8 inner-trigram octets | **112** | **1344** | 448 | 5376 |
+| combined (16 octets) | 560 | 6720 | 504 | 6048 |
+
+(Bold = the tighter numbering for that relation. For reference, the
+absolute theoretical floor for any 8-of-64 grouping is range 7 /
+pairwise 84, achieved only by a fully contiguous block.)
+
+**Binary rank is exactly optimal for the outer trigram, and weak for
+the inner trigram.** Fixing the outer trigram forces binary rank into
+one contiguous run of 8 (e.g. all eight Qian-outer hexagrams sit at
+ranks 57–64) — range 7, hitting the theoretical floor exactly, for
+every one of the 8 outer values. Fixing the inner trigram instead scatters
+binary rank into a step-8 arithmetic progression spanning the entire
+1–64 range (range 56 every time) — its weakest possible showing.
+
+**FX numbering is near-optimal for the inner trigram, and weak (but not
+random) for the outer trigram.** Fixing the inner trigram packs FX
+numbers into an exact step-2 arithmetic progression inside one
+contiguous 16-number block (e.g. all eight inner=Qian hexagrams sit at
+FX 1, 3, 5, …, 15) — range 14 for every one of the 8 inner values,
+exactly double the theoretical floor. Fixing the outer trigram instead
+spreads FX numbers across the full 1–64 range (range 49–63 across the 8
+groups) — but this spread is fully deterministic, not scattered: each
+outer-trigram value occupies a fixed, symmetric position-pair `{p,
+17−p}` (positions summing to 17) repeated identically in all four
+16-number blocks — e.g. outer=Qian always sits at block-positions
+{1,16}, outer with binary value 6 always sits at {8,9}. Confirmed
+exhaustively across all 8 outer values and all 4 blocks, zero
+exceptions.
+
+**Why the combined total still favors binary:** both numberings'
+*off-axis* relation lands on the identical total (448, both range and
+scaled pairwise-448/5376) — a clean coincidence, not an error (checked
+directly). The difference in the combined row comes entirely from the
+*on-axis* comparison: binary's on-axis case (outer trigram) hits the
+true floor (56 total, i.e. 7 per octet), while FX's on-axis case (inner
+trigram) only reaches double the floor (112 total, i.e. 14 per octet).
+Binary is not "more trigram-aware" in general — it is simply *exactly*
+optimal on its one axis, where FX is only *nearly* optimal on its own,
+different axis.
+
+**Verdict:** there is no single "better fit for trigram pairs" — each
+numbering is deterministically locality-optimized for one trigram slot
+and comparably weak on the other, and the two slots are opposite
+between the numberings. Binary rank is the structurally better fit if
+"the trigram perspective" means the **outer** (upper) trigram; FX
+numbering is the better (if not quite optimal) fit if it means the
+**inner** (lower) trigram. Unlike the direct-complement case above,
+this is not a one-sided result — the answer depends entirely on which
+trigram slot the reader treats as primary.
+
 #### Scope of the "better fit" claim
 
 The evidence supports a claim scoped specifically to the **direct
@@ -554,7 +632,10 @@ positional binary numbering cannot do for any assignment. It does **not**
 extend to the inverse-complementary (comp∘rev) relation, where binary
 numbering performs essentially identically to FX numbering (same
 relative spread, offset by a constant), so no comparable "better fit"
-claim holds there.
+claim holds there. It also does not extend uniformly to the
+trigram-pair relation above: that comparison splits by trigram slot
+rather than favoring either numbering outright (see that section's own
+verdict).
 
 **Regeneration method, if this needs re-deriving:** parse `HEXLINES` from
 `diagrams/FX_circle_KW_square.html` (`var HEXLINES = (\{.*?\});`), compute
@@ -562,7 +643,11 @@ claim holds there.
 yang), `binary_rank = binval + 1`; direct-complement pairs are FX(2k−1)/
 FX(2k) for `k` = 1..32; inverse-complementary pairs are the `pairs` field
 of every `quartet`-type entry in `GROUPS` (also parsed from the same
-file, `var GROUPS = (\[.*?\]);`).
+file, `var GROUPS = (\[.*?\]);`). For the trigram-pair comparison:
+inner trigram = bits 0–2 (lines 1–3), outer trigram = bits 3–5 (lines
+4–6); group all 64 hexagrams by each trigram slot's own 0–7 value (16
+octets total) and compare per-octet range/pairwise-distance under FX
+number vs. binary rank.
 
 **Sources consulted:**
 [Yijing Dao — Shao Yong square, Xiantian diagram sequences](https://www.biroco.com/yijing/sequence.htm),
